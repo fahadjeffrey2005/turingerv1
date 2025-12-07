@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turinger '26 · Portal Prelude</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="concepts/uno.css">
+</head>
+<body class="scroll-shell concepts-body concept-uno">
+    <!-- Solid white background layer -->
+    <div id="whiteBackground"></div>
+    
+    <!-- 3D Canvas Background -->
+    <canvas id="fluidCanvas"></canvas>
+
+    <!-- Landing title overlay -->
+    <div id="centerTitle" class="special-gothic-expanded-one-regular">TURINGER '26</div>
+
+    <main class="page-stack">
+        <section class="landing-section" id="top" aria-label="Portal intro">
+        </section>
+
+        <section class="uno-section" id="concept-uno" aria-labelledby="conceptTitle">
+            <div class="concept-overlay" aria-live="polite">
+                <section class="concept-console">
+                        <p class="console-heading">CONCEPT UNO · SYNCHRO FEED</p>
+                        <div class="console-status">
+                            <span class="console-badge" id="conceptBadge">ORIGIN SIGNAL</span>
+                            <span class="console-index" id="conceptIndex">01</span>
+                        </div>
+                        <h2 class="console-title" id="conceptTitle">What Is It</h2>
+                        <p class="console-subtitle" id="conceptSubtitle">Origin Transmission</p>
+                        <div class="console-learn" id="conceptLearnRegion">
+                            <p class="console-body" id="conceptBlurb">Drop into a cinematic intro stream that frames the fest as a living neural network, not a schedule.</p>
+                            <button class="concept-learn-more" type="button" id="conceptLearnMoreButton" aria-describedby="conceptBlurb" aria-controls="conceptDetailStage" aria-expanded="false">Learn more</button>
+                        </div>
+                        <div class="console-progress">
+                            <span class="console-progress-label">IMMERSION INDEX</span>
+                            <div class="console-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="24" id="conceptProgressBar">
+                                <div class="console-progress-fill" id="conceptProgressFill"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                <section class="concept-stack" aria-label="Portal sections">
+                        <button class="concept-card active" type="button" aria-pressed="true"
+                            data-index="01"
+                            data-title="What Is It"
+                            data-subtitle="Origin Transmission"
+                            data-badge="ORIGIN SIGNAL"
+                            data-progress="24"
+                            data-accent="#4ab8ff"
+                            data-blurb="Drop into a cinematic intro stream that frames the fest as a living neural network, not a schedule."
+                            data-detail-label="Origin Signal"
+                            data-detail-title="Portal Prelude Transmission"
+                            data-detail-body="Cinematic loading stream pulses with neural wave visuals and sets the festival narrative before the user scrolls."
+                            data-detail-points="Live countdown envelope|Ambient neural audio bed|Signal synced lighting cues"
+                            data-detail-link="#"
+                            data-detail-link-text="Preview stream"
+                            data-media-gradient="linear-gradient(135deg, rgba(6,22,34,0.9) 0%, rgba(31,112,83,0.8) 60%, rgba(60,255,173,0.65) 100%)"
+                            data-demo-cards="Signal Primer::30s neural warmup film|Pulse Glyphs::Animated badges for stage overlays|Ambient Score::Looping intro audio bed">
+                            <span class="card-index">01</span>
+                            <div class="card-main">
+                                <span class="card-title">What Is It</span>
+                                <span class="card-subtitle">Origin Transmission</span>
+                            </div>
+                            <span class="card-icon">⟶</span>
+                        </button>
+
+                        <button class="concept-card" type="button" aria-pressed="false"
+                            data-index="02"
+                            data-title="Schedule"
+                            data-subtitle="Chronomap Flow"
+                            data-badge="CHRONO STRIPE"
+                            data-progress="52"
+                            data-accent="#4ab8ff"
+                            data-blurb="Scrub through a magnetic timeline that ripples with live energy and shows how each moment resonates across stages."
+                            data-detail-label="Chrono Stripe"
+                            data-detail-title="Reactive Schedule Map"
+                            data-detail-body="Scrub across an animated ribbon that reveals stages, acts, and cross resonance moments as glowing peaks."
+                            data-detail-points="Magnetic time scrubber|Stage energy resonance view|Shareable micro itinerary"
+                            data-detail-link="#"
+                            data-detail-link-text="View prototype"
+                            data-media-gradient="linear-gradient(135deg, rgba(5,24,40,0.9) 0%, rgba(34,104,120,0.8) 52%, rgba(91,231,255,0.7) 100%)"
+                            data-demo-cards="Chrono Bands::Elastic timeline segments|Resonance Peaks::Live crowd energy heatmap|Sync Blocks::Shareable mini itinerary">
+                            <span class="card-index">02</span>
+                            <div class="card-main">
+                                <span class="card-title">Schedule</span>
+                                <span class="card-subtitle">Chronomap Flow</span>
+                            </div>
+                            <span class="card-icon">⟶</span>
+                        </button>
+
+                        <button class="concept-card" type="button" aria-pressed="false"
+                            data-index="03"
+                            data-title="Registration"
+                            data-subtitle="Portal Intake"
+                            data-badge="ACCESS PROTOCOL"
+                            data-progress="78"
+                            data-accent="#4ab8ff"
+                            data-blurb="Transform signup into a portal sequence that adapts to your vibe choices and locks in with a crystalline credential."
+                            data-detail-label="Access Protocol"
+                            data-detail-title="Adaptive Registration Portal"
+                            data-detail-body="Guide attendees through a responsive intake where identity shards lock in with glowing credentials."
+                            data-detail-points="Dynamic profile capture|Adaptive badge visuals|Instant confirmation node"
+                            data-detail-link="#"
+                            data-detail-link-text="Open portal"
+                            data-media-gradient="linear-gradient(135deg, rgba(34,20,6,0.88) 0%, rgba(112,72,18,0.78) 48%, rgba(255,185,74,0.7) 100%)"
+                            data-demo-cards="Identity Shards::Adaptive avatar builder|Credential Vault::Instant QR badge preview|Confirmation Pulse::Live status notifier">
+                            <span class="card-index">03</span>
+                            <div class="card-main">
+                                <span class="card-title">Registration</span>
+                                <span class="card-subtitle">Portal Intake</span>
+                            </div>
+                            <span class="card-icon">⟶</span>
+                        </button>
+
+                        <button class="concept-card" type="button" aria-pressed="false"
+                            data-index="04"
+                            data-title="Login"
+                            data-subtitle="Frequency Sync"
+                            data-badge="BIO-LINK"
+                            data-progress="86"
+                            data-accent="#4ab8ff"
+                            data-blurb="Authenticate by tuning a waveform to the globe's pulse. Sync it and the secure portal blossoms open."
+                            data-detail-label="Bio Link"
+                            data-detail-title="Frequency Sync Login"
+                            data-detail-body="Authenticate by tuning a waveform to the globe pulse and see security bloom as the resonance matches."
+                            data-detail-points="Waveform tuner control|Real time security feedback|Adaptive glow credentials"
+                            data-detail-link="#"
+                            data-detail-link-text="Tune waveform"
+                            data-media-gradient="linear-gradient(135deg, rgba(38,6,30,0.9) 0%, rgba(120,32,92,0.8) 50%, rgba(255,107,214,0.7) 100%)"
+                            data-demo-cards="Waveform Tuner::Drag-to-sync frequency control|Security Bloom::Real-time trust gauge|Multi-factor Seeds::Backup phrase animation">
+                            <span class="card-index">04</span>
+                            <div class="card-main">
+                                <span class="card-title">Login</span>
+                                <span class="card-subtitle">Frequency Sync</span>
+                            </div>
+                            <span class="card-icon">⟶</span>
+                        </button>
+
+                        <button class="concept-card" type="button" aria-pressed="false"
+                            data-index="05"
+                            data-title="Community"
+                            data-subtitle="Backchannel Nexus"
+                            data-badge="LIVE MESH"
+                            data-progress="94"
+                            data-accent="#4ab8ff"
+                            data-blurb="Open the persistent backchannel where attendee avatars leave luminous trails and room drops spark impromptu meetups."
+                            data-detail-label="Live Mesh"
+                            data-detail-title="Community Backchannel Nexus"
+                            data-detail-body="Keep the pulse alive with a persistent channel where avatars leave trails and spontaneous drops emerge."
+                            data-detail-points="Real time avatar trails|Drop triggered rooms|Signal based moderation cues"
+                            data-detail-link="#"
+                            data-detail-link-text="Enter nexus"
+                            data-media-gradient="linear-gradient(135deg, rgba(8,26,32,0.9) 0%, rgba(16,96,112,0.78) 48%, rgba(124,255,239,0.7) 100%)"
+                            data-demo-cards="Mesh Trails::Avatar path visualization|Drop Capsules::Timed content drops|Signal Rooms::Auto-matched hangouts">
+                            <span class="card-index">05</span>
+                            <div class="card-main">
+                                <span class="card-title">Community</span>
+                                <span class="card-subtitle">Backchannel Nexus</span>
+                            </div>
+                            <span class="card-icon">⟶</span>
+                        </button>
+                </section>
+
+                <section class="concept-detail-stage" id="conceptDetailStage" aria-label="Concept detail stage" aria-live="polite">
+                    <div class="detail-feed" id="conceptDetailFeed"></div>
+                </section>
+            </div>
+        </section>
+
+        <section class="black-section" id="black-v" aria-label="Vector immersion sequence">
+            <div class="events-hub" aria-live="polite">
+                <p class="events-hub-label">Event vector</p>
+                <h2 class="events-heading special-gothic-expanded-one-regular">Events</h2>
+                <div class="events-layout">
+                    <div class="events-detail" aria-live="polite">
+                        <span class="events-detail-title">Hackathon</span>
+                        <p class="events-detail-body">36-hour build with noctilucent mentors.</p>
+                        <button class="events-link" type="button">Full lineup →</button>
+                    </div>
+                    <div class="events-globe-slot" aria-hidden="true"></div>
+                    <div class="events-stack" role="list">
+                        <button class="events-pill" type="button" role="listitem" data-title="Hackathon" data-description="36-hour build with noctilucent mentors.">
+                            <span class="events-pill-label">Hackathon</span>
+                        </button>
+                        <button class="events-pill" type="button" role="listitem" data-title="Design Sprint" data-description="Rapid prototyping circuit tuned to motion graphics.">
+                            <span class="events-pill-label">Design Sprint</span>
+                        </button>
+                        <button class="events-pill" type="button" role="listitem" data-title="Signal Keynote" data-description="Main stage broadcast with live neural visuals.">
+                            <span class="events-pill-label">Signal Keynote</span>
+                        </button>
+                        <button class="events-pill" type="button" role="listitem" data-title="Night Run" data-description="Glow-traced circuit that sweeps through campus.">
+                            <span class="events-pill-label">Night Run</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-section" id="social" aria-label="Stay connected">
+                <div class="social-line" role="navigation" aria-label="Social links">
+                    <span class="social-line-label">Stay linked:</span>
+                    <a class="social-line-link" href="#" target="_blank" rel="noopener" data-network="instagram">
+                        <span class="social-line-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false"><path d="M12 4.5c2.4 0 2.7 0 3.6.05.9.04 1.4.2 1.7.33.4.16.7.35 1 .68.33.33.52.63.68 1 .13.27.29.77.33 1.66.05.9.05 1.2.05 3.58s0 2.68-.05 3.58c-.04.89-.2 1.4-.33 1.66-.16.37-.35.67-.68 1-.33.33-.63.52-1 .68-.27.13-.77.29-1.66.33-.9.05-1.2.05-3.58.05s-2.68 0-3.58-.05c-.89-.04-1.4-.2-1.66-.33-.37-.16-.67-.35-1-.68-.33-.33-.52-.63-.68-1-.13-.27-.29-.77-.33-1.66-.05-.9-.05-1.2-.05-3.58s0-2.68.05-3.58c.04-.89.2-1.4.33-1.66.16-.37.35-.67.68-1 .33-.33.63-.52 1-.68.27-.13.77-.29 1.66-.33.9-.05 1.2-.05 3.58-.05Zm0-1.5c-2.44 0-2.75 0-3.71.05-1.01.05-1.7.22-2.31.47-.63.24-1.16.57-1.68 1.08-.52.52-.84 1.05-1.08 1.68-.25.61-.42 1.3-.47 2.31C2.5 9.25 2.5 9.56 2.5 12s0 2.75.05 3.71c.05 1.01.22 1.7.47 2.31.24.63.57 1.16 1.08 1.68.52.52 1.05.84 1.68 1.08.61.25 1.3.42 2.31.47.96.05 1.27.05 3.71.05s2.75 0 3.71-.05c1.01-.05 1.7-.22 2.31-.47.63-.24 1.16-.57 1.68-1.08.52-.52.84-1.05 1.08-1.68.25-.61.42-1.3.47-2.31.05-.96.05-1.27.05-3.71s0-2.75-.05-3.71c-.05-1.01-.22-1.7-.47-2.31-.24-.63-.57-1.16-1.08-1.68-.52-.52-1.05-.84-1.68-1.08-.61-.25-1.3-.42-2.31-.47C14.75 3 14.44 3 12 3Z"/><path d="M12 7.5A4.5 4.5 0 1 0 12 16.5 4.5 4.5 0 0 0 12 7.5Zm0 7.5A3 3 0 1 1 12 9a3 3 0 0 1 0 6Z"/><circle cx="17.5" cy="6.5" r="1.2"/></svg>
+                        </span>
+                        Instagram
+                    </a>
+                    <a class="social-line-link" href="#" target="_blank" rel="noopener" data-network="x">
+                        <span class="social-line-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false"><path d="M4.5 4h3.63l4.42 5.94L17.68 4H20l-6.22 7.54L20.5 20h-3.63l-4.68-6.28L8.32 20H6L12.47 12.1 4.5 4Z"/></svg>
+                        </span>
+                        X
+                    </a>
+                    <a class="social-line-link" href="#" target="_blank" rel="noopener" data-network="youtube">
+                        <span class="social-line-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false"><path d="M21.6 7.2s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16 4 12 4 12 4h-.1s-4 0-6.7.3c-.4 0-1.2 0-2 .8C2.6 5.8 2.4 7.2 2.4 7.2S2.2 8.8 2 10.4v1.9c.2 1.6.4 3.2.4 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.9 1.6.2 6.6.3 6.6.3s4 0 6.7-.3c.4 0 1.2 0 2-.8.6-.6.8-2 .8-2s.2-1.6.4-3.2v-1.9c-.2-1.6-.3-3.2-.3-3.2Zm-11 7.4V8.2l5.2 3.2-5.2 3.2Z"/></svg>
+                        </span>
+                        YouTube
+                    </a>
+                    <a class="social-line-link" href="#" target="_blank" rel="noopener" data-network="discord">
+                        <span class="social-line-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false"><path d="M20.32 4.37C18.42 3.48 16.4 3 14.32 3h-.16l-.09.12c-.2.26-.37.53-.54.8A18.6 18.6 0 0 0 9.7 4.46c-.19-.27-.38-.54-.58-.78l-.09-.12h-.15c-2.07 0-4.1.48-6 1.38A.58.58 0 0 0 3 5.07c-1.53 2.73-2.34 5.78-2.34 8.9 0 .15.08.3.22.39 1.84 1.35 3.86 2.38 6.01 3.05.15.04.32 0 .43-.11.46-.48.88-1 .26-1.15 1.55.51 3.17.78 4.8.78 1.63 0 3.25-.27 4.8-.78-.62.59.21.67.26 1.15.1.11.27.16.42.1a20.44 20.44 0 0 0 6-3.05.48.48 0 0 0 .22-.39c0-3.12-.8-6.17-2.34-8.9a.53.53 0 0 0-.31-.3ZM8.7 14.37c-.94 0-1.7-.87-1.7-1.95 0-1.07.75-1.94 1.7-1.94.94 0 1.7.87 1.7 1.94 0 1.08-.76 1.95-1.7 1.95Zm6.6 0c-.94 0-1.7-.87-1.7-1.95 0-1.07.76-1.94 1.7-1.94.95 0 1.7.87 1.7 1.94 0 1.08-.75 1.95-1.7 1.95Z"/></svg>
+                        </span>
+                        Discord
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+    <script src="concepts/uno.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const unoSection = document.getElementById('concept-uno');
+            const overlay = unoSection?.querySelector('.concept-overlay');
+            const detailStage = document.getElementById('conceptDetailStage');
+            const centerTitle = document.getElementById('centerTitle');
+            const blackSection = document.getElementById('black-v');
+
+            if (unoSection && overlay) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        const visible = entry.isIntersecting;
+                        overlay.classList.toggle('is-visible', visible);
+                        if (detailStage) {
+                            const stageReady = detailStage.classList.contains('is-ready');
+                            detailStage.classList.toggle('is-visible', visible && stageReady);
+                        }
+                        if (!centerTitle) {
+                            return;
+                        }
+                        if (visible) {
+                            centerTitle.classList.remove('is-hidden');
+                            centerTitle.classList.add('is-faded');
+                            return;
+                        }
+                        const sectionAboveViewport = entry.boundingClientRect.top > 0;
+                        if (sectionAboveViewport) {
+                            centerTitle.classList.remove('is-faded');
+                            centerTitle.classList.remove('is-hidden');
+                        } else {
+                            centerTitle.classList.add('is-hidden');
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                observer.observe(unoSection);
+            }
+
+                if (blackSection) {
+                let blackActive = false;
+                const applyBlackTheme = (active) => {
+                    if (blackActive === active) {
+                        return;
+                    }
+                    blackActive = active;
+                    document.body.classList.toggle('theme-black', active);
+                    if (centerTitle) {
+                        centerTitle.classList.toggle('theme-black-title', active);
+                        if (active) {
+                            centerTitle.classList.remove('is-faded');
+                        }
+                    }
+                    if (typeof window.setSceneTheme === 'function') {
+                        window.setSceneTheme(active ? 'black' : 'white');
+                    }
+                };
+
+                const blackObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.target !== blackSection) {
+                            return;
+                        }
+                        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+                        const rect = blackSection.getBoundingClientRect();
+                        const topPassedMidpoint = rect.top <= viewportHeight * 0.5;
+                        applyBlackTheme(entry.isIntersecting && topPassedMidpoint);
+                    });
+                }, { threshold: [0.25, 0.45, 0.75] });
+
+                blackObserver.observe(blackSection);
+            }
+
+            const eventPills = Array.from(document.querySelectorAll('.events-pill'));
+            const detailTitle = document.querySelector('.events-detail-title');
+            const detailBody = document.querySelector('.events-detail-body');
+
+            if (eventPills.length > 0 && detailTitle && detailBody) {
+                const activateEvent = (pill) => {
+                    eventPills.forEach((node) => node.classList.remove('is-active'));
+                    pill.classList.add('is-active');
+                    const { title, description } = pill.dataset;
+                    detailTitle.textContent = title || pill.textContent.trim();
+                    detailBody.textContent = description || '';
+                };
+
+                eventPills.forEach((pill, index) => {
+                    const handleActivate = () => activateEvent(pill);
+                    pill.addEventListener('click', handleActivate);
+                    pill.addEventListener('keydown', (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            handleActivate();
+                        }
+                    });
+                    if (index === 0) {
+                        activateEvent(pill);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

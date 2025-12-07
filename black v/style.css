@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #000;
+}
+
+/* Canvas Background */
+#fluidCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Custom font class provided by user */
+.special-gothic-expanded-one-regular {
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Centered overlay title */
+#centerTitle {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* above canvas */
+    color: #00ff44;
+    font-size: clamp(36px, 8vw, 120px);
+    letter-spacing: 0.12em;
+    text-align: center;
+    pointer-events: none; /* let mouse interactions pass to canvas */
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 0 0 20px rgba(0,255,68,0.18), 0 0 6px rgba(0,255,68,0.08);
+    mix-blend-mode: screen;
+}
+
+/* Small screens tweak */
+@media (max-width: 480px) {
+    #centerTitle { font-size: 34px; letter-spacing: 0.08em; }
+}

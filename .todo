@@ -1,0 +1,6 @@
+- [x] Scaffold `concepts/` playground
+- [x] Disable the static background line segments
+- [x] Disable the dynamic cursor web lines
+- [x] Integrate base landing visuals into concept
+- [x] Overlay orbital nav concept for seamless transition
+- [x] Tag concept as UNO and resize console
