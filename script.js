@@ -29,16 +29,16 @@ const SCENE_THEMES = {
         fogColor: 0xffffff,
         fogDensity: 0.0004,
         backgroundPlaneColor: 0xffffff,
-        globeColor: 0x007a2d,
+        globeColor: 0x0018F9,
         globeOpacity: 1,
-        globeEdgeColor: 0x00521a,
+        globeEdgeColor: 0x0018F9,
         globeEdgeOpacity: 1,
         particleBlending: THREE.NormalBlending,
         particleSize: 6.5,
         particleOpacity: 1,
         particleTransparent: false,
         particlePalette: {
-            hue: [0.28, 0.4],
+            hue: [0.55, 0.62],
             saturation: 1,
             lightness: [0.25, 0.45]
         }
@@ -57,7 +57,7 @@ const SCENE_THEMES = {
         particleOpacity: 0.9,
         particleTransparent: true,
         particlePalette: {
-            hue: [0.32, 0.38],
+            hue: [0.55, 0.62],
             saturation: 0.95,
             lightness: [0.55, 0.8]
         }
@@ -193,11 +193,11 @@ function createParticles() {
         velocities[idx + 1] = (Math.random() - 0.5) * 0.01;
         velocities[idx + 2] = (Math.random() - 0.5) * 0.005;
 
-        // All particles are green with varying brightness
+        // All particles are blue with varying brightness
         const color = new THREE.Color();
         const brightness = 0.25 + Math.random() * 0.2; // Darker for white background
-        const greenShade = 0.28 + Math.random() * 0.12; // Richer emerald range
-        color.setHSL(greenShade, 1.0, brightness);
+        const blueShade = 0.58 + Math.random() * 0.05; // Blue hue range (#0080FE)
+        color.setHSL(blueShade, 1.0, brightness);
         
         colors[idx] = color.r;
         colors[idx + 1] = color.g;
@@ -268,7 +268,7 @@ function createFluidMesh() {
     const edgeGeometry = new THREE.EdgesGeometry(geometry, 15);
     const edgeMaterial = new THREE.LineBasicMaterial({
         color: 0x00521a,
-        linewidth: 1.65,
+        linewidth: 1.90,
         transparent: true,
         opacity: 1
     });

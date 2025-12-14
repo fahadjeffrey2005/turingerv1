@@ -110,11 +110,11 @@ function createParticles() {
         velocities[idx + 1] = (Math.random() - 0.5) * 0.3;
         velocities[idx + 2] = (Math.random() - 0.5) * 0.2;
 
-        // All particles are green with varying brightness
+        // All particles are blue with varying brightness
         const color = new THREE.Color();
         const brightness = 0.4 + Math.random() * 0.4; // Vary brightness
-        const greenShade = 0.25 + Math.random() * 0.15; // Green hue range
-        color.setHSL(greenShade, 0.9, brightness);
+        const blueShade = 0.58 + Math.random() * 0.05; // Blue hue range (#0080FE)
+        color.setHSL(blueShade, 0.9, brightness);
         
         colors[idx] = color.r;
         colors[idx + 1] = color.g;
@@ -165,10 +165,10 @@ function createFluidMesh() {
     // Store reference for animation
     scene.userData.fluidMesh = fluidMesh;
 
-    // Create subtle connection lines - dark green
+    // Create subtle connection lines - blue
     const lineGeometry = new THREE.BufferGeometry();
     const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0x00cc44, // Dark green
+        color: 0x0080FE, // Blue
         transparent: true,
         opacity: 0.05,
         blending: THREE.AdditiveBlending
