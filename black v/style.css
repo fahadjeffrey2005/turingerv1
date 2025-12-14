@@ -33,13 +33,13 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999; /* above canvas */
-    color: #00ff44;
+    color: #0080FE;
     font-size: clamp(36px, 8vw, 120px);
     letter-spacing: 0.12em;
     text-align: center;
     pointer-events: none; /* let mouse interactions pass to canvas */
     -webkit-font-smoothing: antialiased;
-    text-shadow: 0 0 20px rgba(0,255,68,0.18), 0 0 6px rgba(0,255,68,0.08);
+    text-shadow: 0 0 20px rgba(0,128,254,0.18), 0 0 6px rgba(0,128,254,0.08);
     mix-blend-mode: screen;
 }
 

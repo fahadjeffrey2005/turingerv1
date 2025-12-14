@@ -149,10 +149,10 @@ function createParticles() {
 
 // Create connection lines between nearby files (optional data streams)
 function createFluidMesh() {
-    // Create the rotating globe/mesh - light green
+    // Create the rotating globe/mesh - light blue
     const geometry = new THREE.IcosahedronGeometry(100, 4);
     const material = new THREE.MeshBasicMaterial({
-        color: 0x00ff88, // Light green
+        color: 0x0080FE, // Light blue
         wireframe: true,
         transparent: true,
         opacity: 0.15
@@ -199,7 +199,7 @@ function createDynamicWebLines() {
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     
     const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0x00ff44,
+        color: 0x0080FE,
         transparent: true,
         opacity: 0.35,
         linewidth: 1
