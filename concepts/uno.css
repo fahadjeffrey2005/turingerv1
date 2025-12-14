@@ -3,29 +3,20 @@
 }
 
 .concept-overlay {
-    width: min(1300px, 100%);
-    margin-left: clamp(12px, 2.5vw, 28px);
-    margin-right: clamp(12px, 2.5vw, 28px);
-    margin-top: 30px;
+    width: 100%;
+    margin: 60px 0 80px;
     display: grid;
-    grid-template-columns: minmax(240px, 300px) minmax(360px, 1fr);
-    column-gap: clamp(80px, 28vw, 360px);
-    row-gap: clamp(36px, 9vw, 96px);
-    padding: 0 clamp(18px, 4vw, 52px);
-    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
     color: #e4fff1;
     opacity: 0;
     transform: translateY(70px);
     transition: opacity 0.85s ease, transform 0.85s ease;
 }
 
-body.theme-black .concept-overlay {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.concept-overlay::before {
-    display: none;
+.concept-overlay > * {
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .concept-console,
@@ -36,25 +27,43 @@ body.theme-black .concept-overlay {
 }
 
 .concept-console {
-    --console-size: clamp(270px, 25vw, 310px);
+    justify-self: start;
+    margin-left: clamp(20px, 5vw, 80px);
+    transform: translateX(-80px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
-    gap: clamp(10px, 1.6vw, 18px);
-    padding: clamp(14px, 2.2vw, 24px);
-    width: var(--console-size);
-    height: var(--console-size);
-    overflow: auto;
-    margin-left: -100px;
+    gap: clamp(12px, 1.8vw, 20px);
+    padding: clamp(16px, 2.4vw, 28px);
+    width: clamp(280px, 30vw, 350px);
+    max-height: 240px;
+    overflow: hidden;
     border-radius: 26px;
     background: rgba(6, 22, 34, 0.9);
     border: 1px solid rgba(120, 220, 255, 0.26);
     box-shadow: 0 44px 120px rgba(8, 18, 32, 0.46);
 }
 
+.concept-stack {
+    justify-self: end;
+    margin-right: clamp(80px, 8vw, 150px);
+    display: grid;
+    align-content: start;
+    gap: clamp(12px, 1.8vw, 24px);
+    width: clamp(280px, 30vw, 350px);
+    max-height: 240px;
+    overflow: hidden;
+    transform: translateX(130px);
+}
+
+body.theme-black .concept-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .console-heading {
-    font-size: 0.48rem;
+    font-size: 0.42rem;
     letter-spacing: 0.21em;
     text-transform: uppercase;
     color: rgba(210, 255, 235, 0.56);
@@ -64,7 +73,7 @@ body.theme-black .concept-overlay {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.48rem;
+    font-size: 0.42rem;
     letter-spacing: 0.13em;
     color: rgba(220, 255, 244, 0.65);
 }
@@ -79,24 +88,27 @@ body.theme-black .concept-overlay {
     background: rgba(0, 0, 0, 0.3);
     color: var(--concept-accent);
     text-transform: uppercase;
-    font-size: 0.42rem;
+    font-size: 0.38rem;
 }
 
 .console-index {
     font-variant-numeric: tabular-nums;
-    font-size: 0.5rem;
+    font-size: 0.44rem;
     color: rgba(200, 255, 235, 0.45);
 }
 
 .console-title {
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 1.6vw, 1.4rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #f4fff8;
+    font-family: "BBH Bartle", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .console-subtitle {
-    font-size: 0.56rem;
+    font-size: 0.48rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(200, 255, 240, 0.65);
@@ -109,8 +121,8 @@ body.theme-black .concept-overlay {
 }
 
 .console-body {
-    font-size: 0.6rem;
-    line-height: 1.7;
+    font-size: 0.52rem;
+    line-height: 1.6;
     color: rgba(220, 255, 244, 0.82);
 }
 
@@ -143,7 +155,7 @@ body.theme-black .concept-overlay {
 }
 
 .console-progress-label {
-    font-size: 0.45rem;
+    font-size: 0.4rem;
     letter-spacing: 0.19em;
     color: rgba(200, 255, 235, 0.42);
 }
@@ -165,19 +177,12 @@ body.theme-black .concept-overlay {
     transition: width 0.45s ease;
 }
 
-.concept-stack {
-    display: grid;
-    align-content: start;
-    gap: clamp(14px, 2vw, 28px);
-    margin-left: clamp(350px, 14vw, 220px);
-}
-
 .concept-card {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 0.8rem;
-    padding: clamp(12px, 2vw, 18px) clamp(18px, 2.6vw, 26px);
+    gap: 1rem;
+    padding: clamp(14px, 2.2vw, 20px) clamp(20px, 3vw, 30px);
     border-radius: 999px;
     border: 1px solid rgba(120, 210, 255, 0.2);
     background: rgba(4, 16, 28, 0.5);
@@ -188,6 +193,7 @@ body.theme-black .concept-overlay {
     transition: transform 0.35s ease, border 0.35s ease, background 0.35s ease, color 0.35s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    min-height: 70px;
 }
 
 .concept-card:hover,
@@ -205,15 +211,25 @@ body.theme-black .concept-overlay {
     box-shadow: 0 26px 60px rgba(74, 184, 255, 0.28);
 }
 
+.concept-card.active .card-index {
+    color: var(--concept-accent);
+}
+
+.concept-card.active .card-subtitle {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.concept-card:hover .card-icon,
+.concept-card:focus-visible .card-icon,
+.concept-card.active .card-icon {
+    color: var(--concept-accent);
+}
+
 .card-index {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.18em;
     color: rgba(180, 255, 230, 0.38);
-}
-
-.concept-card.active .card-index {
-    color: var(--concept-accent);
 }
 
 .card-main {
@@ -222,35 +238,25 @@ body.theme-black .concept-overlay {
 }
 
 .card-title {
-    font-size: 0.64rem;
+    font-size: 0.56rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+    font-family: "BBH Bartle", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .card-subtitle {
-    font-size: 0.5rem;
+    font-size: 0.44rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: rgba(190, 255, 230, 0.5);
 }
 
-.concept-card.active .card-subtitle {
-    color: rgba(255, 255, 255, 0.78);
-}
-
 .card-icon {
     font-size: 0.9rem;
     color: rgba(220, 255, 240, 0.45);
-    transition: transform 0.35s ease;
-}
-
-.concept-card:hover .card-icon,
-.concept-card:focus-visible .card-icon {
-    color: var(--concept-accent);
-}
-
-.concept-card.active .card-icon {
-    color: var(--concept-accent);
+    transition: color 0.35s ease;
 }
 
 .concept-overlay.is-visible {

@@ -533,8 +533,8 @@ function animate() {
     targetY = mouseY * 0.000375; // 75% reduction from 0.0015
 
     // Very subtle camera movement - only for 3D effect
-    camera.position.x += (mouseX * 0.08 - camera.position.x) * 0.01 * activityLevel;
-    camera.position.y += (-mouseY * 0.08 - camera.position.y) * 0.01 * activityLevel;
+    camera.position.x += (mouseX * 0.092 - camera.position.x) * 0.0115 * activityLevel;
+    camera.position.y += (-mouseY * 0.092 - camera.position.y) * 0.0115 * activityLevel;
     
     // Keep camera at consistent distance
     camera.position.z = 400;
@@ -631,8 +631,8 @@ function animate() {
     // Rotate the globe mesh - subtle sensitivity
     if (scene.userData.fluidMesh) {
         const baseRotation = 0.3 + activityLevel * 0.7;
-        scene.userData.fluidMesh.rotation.x += 0.004 * baseRotation + targetY * 0.06 * activityLevel; // Reduced from 0.005 and 0.075 (20% reduction)
-        scene.userData.fluidMesh.rotation.y += 0.0056 * baseRotation + targetX * 0.06 * activityLevel; // Reduced from 0.007 and 0.075 (20% reduction)
+        scene.userData.fluidMesh.rotation.x += 0.005 * baseRotation + targetY * 0.06 * activityLevel;
+        scene.userData.fluidMesh.rotation.y += 0.007 * baseRotation + targetX * 0.06 * activityLevel;
         
         // Subtle scale with mouse distance
         const scaleMultiplier = 0.02 + activityLevel * 0.045; // 75% reduction from 0.18
