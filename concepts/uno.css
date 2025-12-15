@@ -34,10 +34,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: clamp(12px, 1.8vw, 20px);
-    padding: clamp(16px, 2.4vw, 28px);
+    gap: clamp(8px, 1.2vw, 12px);
+    padding: clamp(12px, 1.8vw, 18px);
     width: clamp(280px, 30vw, 350px);
-    max-height: 240px;
+    max-height: 80px;
     overflow: hidden;
     border-radius: 26px;
     background: rgba(6, 22, 34, 0.9);
@@ -50,9 +50,9 @@
     margin-right: clamp(80px, 8vw, 150px);
     display: grid;
     align-content: start;
-    gap: clamp(12px, 1.8vw, 24px);
+    gap: clamp(8px, 1.2vw, 12px);
     width: clamp(280px, 30vw, 350px);
-    max-height: 240px;
+    max-height: 80px;
     overflow: hidden;
     transform: translateX(130px);
 }
