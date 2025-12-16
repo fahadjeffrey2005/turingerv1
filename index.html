@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turinger '26 · Portal Prelude</title>
-    <link rel="stylesheet" href="style.css?v=21">
-    <link rel="stylesheet" href="concepts/uno.css?v=21">
+    <link rel="stylesheet" href="style.css?v=60">
+    <link rel="stylesheet" href="concepts/uno.css?v=60">
+    <link rel="stylesheet" href="dots/dots.css?v=60">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
@@ -238,44 +239,133 @@
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="social-section" id="social" aria-label="Stay connected">
-                <div class="social-line" role="navigation" aria-label="Social links">
-                    <span class="social-line-label">Stay linked:</span>
-                    <a class="social-line-link" href="#" target="_blank" rel="noopener" data-network="instagram">
-                        <span class="social-line-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false"><path d="M12 4.5c2.4 0 2.7 0 3.6.05.9.04 1.4.2 1.7.33.4.16.7.35 1 .68.33.33.52.63.68 1 .13.27.29.77.33 1.66.05.9.05 1.2.05 3.58s0 2.68-.05 3.58c-.04.89-.2 1.4-.33 1.66-.16.37-.35.67-.68 1-.33.33-.63.52-1 .68-.27.13-.77.29-1.66.33-.9.05-1.2.05-3.58.05s-2.68 0-3.58-.05c-.89-.04-1.4-.2-1.66-.33-.37-.16-.67-.35-1-.68-.33-.33-.52-.63-.68-1-.13-.27-.29-.77-.33-1.66-.05-.9-.05-1.2-.05-3.58s0-2.68.05-3.58c.04-.89.2-1.4.33-1.66.16-.37.35-.67.68-1 .33-.33.63-.52 1-.68.27-.13.77-.29 1.66-.33.9-.05 1.2-.05 3.58-.05Zm0-1.5c-2.44 0-2.75 0-3.71.05-1.01.05-1.7.22-2.31.47-.63.24-1.16.57-1.68 1.08-.52.52-.84 1.05-1.08 1.68-.25.61-.42 1.3-.47 2.31C2.5 9.25 2.5 9.56 2.5 12s0 2.75.05 3.71c.05 1.01.22 1.7.47 2.31.24.63.57 1.16 1.08 1.68.52.52 1.05.84 1.68 1.08.61.25 1.3.42 2.31.47.96.05 1.27.05 3.71.05s2.75 0 3.71-.05c1.01-.05 1.7-.22 2.31-.47.63-.24 1.16-.57 1.68-1.08.52-.52.84-1.05 1.08-1.68.25-.61.42-1.3.47-2.31.05-.96.05-1.27.05-3.71s0-2.75-.05-3.71c-.05-1.01-.22-1.7-.47-2.31-.24-.63-.57-1.16-1.08-1.68-.52-.52-1.05-.84-1.68-1.08-.61-.25-1.3-.42-2.31-.47C14.75 3 14.44 3 12 3Z"/><path d="M12 7.5A4.5 4.5 0 1 0 12 16.5 4.5 4.5 0 0 0 12 7.5Zm0 7.5A3 3 0 1 1 12 9a3 3 0 0 1 0 6Z"/><circle cx="17.5" cy="6.5" r="1.2"/></svg>
-                        </span>
-                        Instagram
-                    </a>
-                    <a class="social-line-link" href="#" target="_blank" rel="noopener" data-network="x">
-                        <span class="social-line-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false"><path d="M4.5 4h3.63l4.42 5.94L17.68 4H20l-6.22 7.54L20.5 20h-3.63l-4.68-6.28L8.32 20H6L12.47 12.1 4.5 4Z"/></svg>
-                        </span>
-                        X
-                    </a>
-                    <a class="social-line-link" href="#" target="_blank" rel="noopener" data-network="youtube">
-                        <span class="social-line-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false"><path d="M21.6 7.2s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16 4 12 4 12 4h-.1s-4 0-6.7.3c-.4 0-1.2 0-2 .8C2.6 5.8 2.4 7.2 2.4 7.2S2.2 8.8 2 10.4v1.9c.2 1.6.4 3.2.4 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.9 1.6.2 6.6.3 6.6.3s4 0 6.7-.3c.4 0 1.2 0 2-.8.6-.6.8-2 .8-2s.2-1.6.4-3.2v-1.9c-.2-1.6-.3-3.2-.3-3.2Zm-11 7.4V8.2l5.2 3.2-5.2 3.2Z"/></svg>
-                        </span>
-                        YouTube
-                    </a>
-                    <a class="social-line-link" href="#" target="_blank" rel="noopener" data-network="discord">
-                        <span class="social-line-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false"><path d="M20.32 4.37C18.42 3.48 16.4 3 14.32 3h-.16l-.09.12c-.2.26-.37.53-.54.8A18.6 18.6 0 0 0 9.7 4.46c-.19-.27-.38-.54-.58-.78l-.09-.12h-.15c-2.07 0-4.1.48-6 1.38A.58.58 0 0 0 3 5.07c-1.53 2.73-2.34 5.78-2.34 8.9 0 .15.08.3.22.39 1.84 1.35 3.86 2.38 6.01 3.05.15.04.32 0 .43-.11.46-.48.88-1 .26-1.15 1.55.51 3.17.78 4.8.78 1.63 0 3.25-.27 4.8-.78-.62.59.21.67.26 1.15.1.11.27.16.42.1a20.44 20.44 0 0 0 6-3.05.48.48 0 0 0 .22-.39c0-3.12-.8-6.17-2.34-8.9a.53.53 0 0 0-.31-.3ZM8.7 14.37c-.94 0-1.7-.87-1.7-1.95 0-1.07.75-1.94 1.7-1.94.94 0 1.7.87 1.7 1.94 0 1.08-.76 1.95-1.7 1.95Zm6.6 0c-.94 0-1.7-.87-1.7-1.95 0-1.07.76-1.94 1.7-1.94.95 0 1.7.87 1.7 1.94 0 1.08-.75 1.95-1.7 1.95Z"/></svg>
-                        </span>
-                        Discord
-                    </a>
+        <!-- Contact Section - Appears on scrolling below -->
+        <section class="contact-section" id="contact">
+            <h2 class="contact-title">Get in Touch</h2>
+            
+            <div class="contact-content">
+                <div class="contact-wrapper">
+                    <div class="contact-grid">
+                    <!-- Card 1 -->
+                    <div class="contact-card card1">
+                        <img src="https://via.placeholder.com/80" alt="John Doe" class="contact-card-image">
+                        <div class="contact-card-content">
+                            <h3 class="contact-name">John Doe</h3>
+                            <p class="contact-designation">Lead Coordinator</p>
+                            <p class="contact-info">
+                                <span class="contact-label">Phone:</span>
+                                <span class="contact-value">+1 (234) 567-890</span>
+                            </p>
+                            <p class="contact-info">
+                                <span class="contact-label">Email:</span>
+                                <span class="contact-value">john@turinger.com</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="contact-card card2">
+                        <img src="https://via.placeholder.com/80" alt="Sarah Smith" class="contact-card-image">
+                        <div class="contact-card-content">
+                            <h3 class="contact-name">Sarah Smith</h3>
+                            <p class="contact-designation">Event Manager</p>
+                            <p class="contact-info">
+                                <span class="contact-label">Phone:</span>
+                                <span class="contact-value">+1 (234) 567-891</span>
+                            </p>
+                            <p class="contact-info">
+                                <span class="contact-label">Email:</span>
+                                <span class="contact-value">sarah@turinger.com</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="contact-card card3">
+                        <img src="https://via.placeholder.com/80" alt="Michael Chen" class="contact-card-image">
+                        <div class="contact-card-content">
+                            <h3 class="contact-name">Michael Chen</h3>
+                            <p class="contact-designation">Operations Lead</p>
+                            <p class="contact-info">
+                                <span class="contact-label">Phone:</span>
+                                <span class="contact-value">+1 (234) 567-892</span>
+                            </p>
+                            <p class="contact-info">
+                                <span class="contact-label">Email:</span>
+                                <span class="contact-value">michael@turinger.com</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="contact-card card4">
+                        <img src="https://via.placeholder.com/80" alt="Emma Wilson" class="contact-card-image">
+                        <div class="contact-card-content">
+                            <h3 class="contact-name">Emma Wilson</h3>
+                            <p class="contact-designation">Community Manager</p>
+                            <p class="contact-info">
+                                <span class="contact-label">Phone:</span>
+                                <span class="contact-value">+1 (234) 567-893</span>
+                            </p>
+                            <p class="contact-info">
+                                <span class="contact-label">Email:</span>
+                                <span class="contact-value">emma@turinger.com</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
+            </div>
+
+            <!-- Stay Linked Section - Below Contact with extended dots background -->
+            <section class="social-section" id="social" aria-label="Stay connected">
+                <div class="social-container">
+                    <div class="social-label">
+                        <span class="social-letter">S</span>
+                        <span class="social-letter">O</span>
+                        <span class="social-letter">C</span>
+                        <span class="social-letter">I</span>
+                        <span class="social-letter">A</span>
+                        <span class="social-letter">L</span>
+                        <span class="social-letter">S</span>
+                    </div>
+                    <nav class="social-icons" aria-label="Social links">
+                        <a class="social-icon-link social-trigger" href="#" data-network="instagram" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" focusable="false"><path d="M12 4.5c2.4 0 2.7 0 3.6.05.9.04 1.4.2 1.7.33.4.16.7.35 1 .68.33.33.52.63.68 1 .13.27.29.77.33 1.66.05.9.05 1.2.05 3.58s0 2.68-.05 3.58c-.04.89-.2 1.4-.33 1.66-.16.37-.35.67-.68 1-.33.33-.63.52-1 .68-.27.13-.77.29-1.66.33-.9.05-1.2.05-3.58.05s-2.68 0-3.58-.05c-.89-.04-1.4-.2-1.66-.33-.37-.16-.67-.35-1-.68-.33-.33-.52-.63-.68-1-.13-.27-.29-.77-.33-1.66-.05-.9-.05-1.2-.05-3.58s0-2.68.05-3.58c.04-.89.2-1.4.33-1.66.16-.37.35-.67.68-1 .33-.33.63-.52 1-.68.27-.13.77-.29 1.66-.33.9-.05 1.2-.05 3.58-.05Zm0-1.5c-2.44 0-2.75 0-3.71.05-1.01.05-1.7.22-2.31.47-.63.24-1.16.57-1.68 1.08-.52.52-.84 1.05-1.08 1.68-.25.61-.42 1.3-.47 2.31C2.5 9.25 2.5 9.56 2.5 12s0 2.75.05 3.71c.05 1.01.22 1.7.47 2.31.24.63.57 1.16 1.08 1.68.52.52 1.05.84 1.68 1.08.61.25 1.3.42 2.31.47.96.05 1.27.05 3.71.05s2.75 0 3.71-.05c1.01-.05 1.7-.22 2.31-.47.63-.24 1.16-.57 1.68-1.08.52-.52.84-1.05 1.08-1.68.25-.61.42-1.3.47-2.31.05-.96.05-1.27.05-3.71s0-2.75-.05-3.71c-.05-1.01-.22-1.7-.47-2.31-.24-.63-.57-1.16-1.08-1.68-.52-.52-1.05-.84-1.68-1.08-.61-.25-1.3-.42-2.31-.47C14.75 3 14.44 3 12 3Z"/><path d="M12 7.5A4.5 4.5 0 1 0 12 16.5 4.5 4.5 0 0 0 12 7.5Zm0 7.5A3 3 0 1 1 12 9a3 3 0 0 1 0 6Z"/><circle cx="17.5" cy="6.5" r="1.2"/></svg>
+                        </a>
+                        <a class="social-icon-link social-trigger" href="#" data-network="x" aria-label="X">
+                            <svg viewBox="0 0 24 24" focusable="false"><path d="M4.5 4h3.63l4.42 5.94L17.68 4H20l-6.22 7.54L20.5 20h-3.63l-4.68-6.28L8.32 20H6L12.47 12.1 4.5 4Z"/></svg>
+                        </a>
+                        <a class="social-icon-link social-trigger" href="#" data-network="youtube" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" focusable="false"><path d="M21.6 7.2s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16 4 12 4 12 4h-.1s-4 0-6.7.3c-.4 0-1.2 0-2 .8C2.6 5.8 2.4 7.2 2.4 7.2S2.2 8.8 2 10.4v1.9c.2 1.6.4 3.2.4 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.9 1.6.2 6.6.3 6.6.3s4 0 6.7-.3c.4 0 1.2 0 2-.8.6-.6.8-2 .8-2s.2-1.6.4-3.2v-1.9c-.2-1.6-.3-3.2-.3-3.2Zm-11 7.4V8.2l5.2 3.2-5.2 3.2Z"/></svg>
+                        </a>
+                        <a class="social-icon-link social-trigger" href="#" data-network="linkedin" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" focusable="false"><path d="M20.5 2h-17C2.1 2 1 3.1 1 4.5v15C1 20.9 2.1 22 3.5 22h17c1.4 0 2.5-1.1 2.5-2.5v-15C23 3.1 21.9 2 20.5 2zM8 19H5v-9h3v9zm-1.5-10.3c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zM19 19h-3v-4.4c0-1-.3-2.5-1.5-2.5-1 0-1.2.7-1.3 1.1v4.8h-3v-9h3v1.2c.3-.5 1.1-1.2 2.7-1.2 2.7 0 3.2 1.8 3.2 4v5z"/></svg>
+                        </a>
+                    </nav>
+                    <!-- Social Content Popup -->
+                    <div class="social-content-popup" id="socialContentPopup">
+                        <div class="popup-header" id="popupHeader">INSTAGRAM</div>
+                        <div class="popup-content" id="popupContent">
+                            <!-- Content will be dynamically populated -->
+                        </div>
+                    </div>
+                </div>
+            </section>
         </section>
     </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="dots/dots.js"></script>
     <script src="script.js"></script>
     <script src="concepts/uno.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize dots background first
+            initDots();
+
             const unoSection = document.getElementById('concept-uno');
             const overlay = unoSection?.querySelector('.concept-overlay');
             const detailStage = document.getElementById('conceptDetailStage');
@@ -326,24 +416,44 @@
                             centerTitle.classList.remove('is-faded');
                         }
                     }
-                    if (typeof window.setSceneTheme === 'function') {
+                    // Call dots theme system directly
+                    if (typeof window.setDotsTheme === 'function') {
+                        window.setDotsTheme(active ? 'black' : 'white');
+                    }
+                    // Fallback to script wrapper
+                    else if (typeof window.setSceneTheme === 'function') {
                         window.setSceneTheme(active ? 'black' : 'white');
                     }
                 };
 
+                const contactSection = document.getElementById('contact');
+                const socialSection = document.getElementById('social');
                 const blackObserver = new IntersectionObserver((entries) => {
                     entries.forEach((entry) => {
-                        if (entry.target !== blackSection) {
-                            return;
+                        if (entry.target === blackSection) {
+                            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+                            const rect = blackSection.getBoundingClientRect();
+                            const topPassedMidpoint = rect.top <= viewportHeight * 0.5;
+                            applyBlackTheme(entry.isIntersecting && topPassedMidpoint);
                         }
-                        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-                        const rect = blackSection.getBoundingClientRect();
-                        const topPassedMidpoint = rect.top <= viewportHeight * 0.5;
-                        applyBlackTheme(entry.isIntersecting && topPassedMidpoint);
+                        // Keep black theme active while contact section is visible
+                        if (entry.target === contactSection && entry.isIntersecting) {
+                            applyBlackTheme(true);
+                        }
+                        // Keep black theme active while social section is visible
+                        if (entry.target === socialSection && entry.isIntersecting) {
+                            applyBlackTheme(true);
+                        }
                     });
                 }, { threshold: [0.25, 0.45, 0.75] });
 
                 blackObserver.observe(blackSection);
+                if (contactSection) {
+                    blackObserver.observe(contactSection);
+                }
+                if (socialSection) {
+                    blackObserver.observe(socialSection);
+                }
             }
 
             const eventPills = Array.from(document.querySelectorAll('.events-pill'));

@@ -6,6 +6,7 @@
     <title>Turinger '26 Concept UNO – Portal Console</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="uno.css">
+    <link rel="stylesheet" href="../dots/dots.css">
 </head>
 <body class="concepts-body concept-uno">
     <!-- 3D Canvas Background -->
@@ -129,7 +130,12 @@
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../dots/dots.js"></script>
     <script src="../script.js"></script>
     <script src="uno.js"></script>
+    <script>
+        // Initialize dots background for concept pages
+        document.addEventListener('DOMContentLoaded', initDots);
+    </script>
 </body>
 </html>

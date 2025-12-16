@@ -111,21 +111,14 @@ section {
     transition: background 0.9s ease;
 }
 
-/* Canvas Background */
-#fluidCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    z-index: -1;
-}
+
+/* Canvas styling now handled by dots/dots.css */
 
 .black-section {
     position: relative;
-    min-height: 120vh;
+    min-height: auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: clamp(60px, 12vw, 160px);
@@ -350,66 +343,166 @@ body.theme-black .events-hub {
 }
 
 .social-section {
-    position: absolute;
-    left: 50%;
-    bottom: clamp(24px, 8vh, 120px);
-    transform: translateX(calc(-50% ));
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 0;
+    background: transparent;
+    min-height: auto;
+    color: #ffffff;
+    z-index: 1;
+    flex-shrink: 0;
+    border-top: none;
+    margin-left: auto;
+    margin-top: -390px;
+    margin-right: 205px;
+}
+
+.social-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(20px, 3vw, 40px);
+    height: auto;
+}
+
+.social-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2px, 0.8vw, 4px);
+    letter-spacing: 0.15em;
+}
+
+.social-letter {
+    font-size: clamp(16px, 3vw, 32px);
+    font-family: "BBH Bartle", sans-serif;
+    font-weight: 400;
+    color: rgba(0, 128, 254, 0.7);
+    line-height: 1;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(20px, 3vw, 32px);
+}
+
+.social-icon-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-}
-
-.social-line {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: clamp(8px, 2vw, 14px);
-    padding: clamp(8px, 2vw, 12px) clamp(14px, 3vw, 18px);
-    border-radius: 999px;
-    background: rgba(2, 20, 60, 0.4);
-    border: 1px solid rgba(0, 128, 254, 0.32);
-    box-shadow: 0 18px 40px rgba(10, 46, 30, 0.4);
-}
-
-.social-line-label {
-    font-size: clamp(0.48rem, 0.9vw, 0.62rem);
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: rgba(0, 128, 254, 0.78);
-}
-
-.social-line-link {
-    display: inline-flex;
-    align-items: center;
-    gap: clamp(6px, 1.4vw, 10px);
-    padding: clamp(4px, 1.4vw, 8px) clamp(10px, 2.6vw, 14px);
-    border-radius: 999px;
-    border: 1px solid rgba(0, 128, 254, 0.32);
-    background: rgba(2, 20, 60, 0.45);
-    color: rgba(160, 210, 255, 0.9);
-    font-size: clamp(0.48rem, 0.95vw, 0.62rem);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    width: clamp(28px, 5vw, 40px);
+    height: clamp(28px, 5vw, 40px);
+    color: rgba(0, 128, 254, 0.7);
+    transition: color 0.3s ease, transform 0.3s ease;
     text-decoration: none;
-    transition: border 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
-.social-line-link:hover,
-.social-line-link:focus-visible {
+.social-icon-link svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+.social-icon-link:hover,
+.social-icon-link:focus-visible {
     outline: none;
-    border-color: rgba(0, 128, 254, 0.62);
-    background: rgba(8, 40, 90, 0.55);
-    color: #f4fffb;
-    transform: translateY(-1px);
+    color: rgba(0, 128, 254, 1);
+    transform: scale(1.15);
+}
+
+/* Instagram hover menu */
+.social-icon-link[data-network="instagram"] {
+    position: relative;
+}
+
+/* Social Content Popup - Always Visible */
+.social-content-popup {
+    position: absolute;
+    right: -220px;
+    top: 50%;
+    transform: translateY(-50%) translateX(20px);
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: auto;
+    z-index: 100;
+    padding: 28px;
+    background: rgba(0, 20, 60, 0.3);
+    border: 1px solid rgba(0, 128, 254, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    width: 220px;
+    height: auto;
+    overflow: hidden;
+}
+
+.popup-header {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: rgba(0, 128, 254, 0.6);
+    margin-bottom: 20px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.popup-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.popup-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-width: 0;
+    min-height: 0;
+}
+
+.popup-logo {
+    width: 100%;
+    max-width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid rgba(0, 128, 254, 0.3);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.popup-name {
+    font-size: 11px;
+    color: rgba(0, 128, 254, 0.8);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    text-align: center;
+    word-break: break-word;
+}
+
+.popup-item:hover .popup-logo {
+    border-color: rgba(0, 128, 254, 0.8);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 128, 254, 0.5);
+}
+
+.popup-item:hover .popup-name {
+    color: rgba(0, 128, 254, 1);
 }
 
 .social-line-icon {
-    width: clamp(16px, 2vw, 20px);
-    height: clamp(16px, 2vw, 20px);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
 }
 
 .social-line-icon svg {
@@ -701,6 +794,137 @@ body.theme-black .events-detail {
     .sponsor-button {
         flex-direction: column;
         gap: clamp(6px, 1.5vw, 12px);
+    }
+}
+
+/* Contact Section - Inside black-section for continuous background */
+.contact-section {
+    width: 100%;
+    padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-title {
+    font-family: "BBH Bartle", sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: #ffffff;
+    margin-bottom: clamp(60px, 8vw, 100px);
+    text-align: center;
+    width: 100%;
+}
+
+.contact-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(40px, 5vw, 80px);
+    width: 100%;
+    max-width: 1400px;
+}
+
+.contact-wrapper {
+    text-align: center;
+    width: auto;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    margin-right: -40px;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(28px, 3.5vw, 40px);
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    justify-items: center;
+}
+
+.contact-card {
+    padding: clamp(36px, 5vw, 56px);
+    border-radius: 20px;
+    background: rgba(0, 128, 254, 0.05);
+    border: 1.5px solid rgba(0, 128, 254, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(24px, 3.5vw, 36px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #ffffff;
+}
+
+.contact-card-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.contact-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1.5vw, 12px);
+    flex: 1;
+}
+
+.contact-name {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    font-family: "BBH Bartle", sans-serif;
+    margin: 0;
+}
+
+.contact-designation {
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: rgba(0, 128, 254, 0.8);
+    margin: 0;
+    font-weight: 500;
+}
+
+.contact-info {
+    font-size: clamp(11px, 1.2vw, 13px);
+    color: rgba(200, 230, 255, 0.75);
+    margin: 0;
+    line-height: 1.4;
+    display: flex;
+    gap: 8px;
+}
+
+.contact-label {
+    color: rgba(0, 128, 254, 0.6);
+    font-weight: 500;
+}
+
+.contact-value {
+    color: rgba(200, 230, 255, 0.9);
+}
+
+.contact-card:hover {
+    background: rgba(0, 128, 254, 0.12);
+    border-color: rgba(0, 128, 254, 0.6);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 128, 254, 0.15);
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-section {
+        min-height: auto;
+        padding: clamp(60px, 8vw, 100px) clamp(16px, 4vw, 40px);
     }
 }
 
