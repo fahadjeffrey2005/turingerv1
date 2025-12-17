@@ -392,6 +392,75 @@ if (learnMoreButton) {
 
 initCards();
 
+// Scroll-triggered dimming and blur effect
+const conceptOverlay = document.querySelector('.concept-overlay');
+let landingSection = null;
+
+// Find the landing section (the main page section before concept overlay)
+const findLandingSection = () => {
+    const mainElement = document.querySelector('main.concept-overlay');
+    if (mainElement) {
+        // For concept pages, the landing is above this overlay
+        const scrollContainer = document.body.parentElement;
+        return scrollContainer;
+    }
+    return null;
+};
+
+const updateScrollEffect = () => {
+    if (!conceptOverlay) return;
+
+    // Get scroll position
+    const scrollY = window.scrollY || window.pageYOffset;
+    
+    // Get the uno-section to determine when to stop the effect
+    const unoSection = document.getElementById('concept-uno');
+    let fadeOutStart = 2000; // Default fallback
+    
+    if (unoSection) {
+        const sectionTop = unoSection.offsetTop;
+        const sectionHeight = unoSection.offsetHeight;
+        fadeOutStart = sectionTop + sectionHeight - window.innerHeight;
+    }
+    
+    // Calculate blur and dim based on scroll distance
+    // Start effect after ~300px scroll, reach max at ~2000px, fade out at end of section
+    const scrollStart = 300;
+    const scrollEnd = 2000;
+    const fadeOutEnd = fadeOutStart + 800; // Fade out over 800px (longer for smoother fade)
+    
+    let scrollProgress = 0;
+    
+    if (scrollY < scrollStart) {
+        scrollProgress = 0;
+    } else if (scrollY < scrollEnd) {
+        scrollProgress = (scrollY - scrollStart) / (scrollEnd - scrollStart);
+    } else if (scrollY < fadeOutEnd) {
+        // Fade out phase
+        scrollProgress = 1 - ((scrollY - scrollEnd) / (fadeOutEnd - scrollEnd));
+    } else {
+        scrollProgress = 0;
+    }
+    
+    scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+
+    // Smooth cubic easing for ultra-smooth transitions
+    // easeInOutCubic: smoother than easeInQuad
+    const easeProgress = scrollProgress < 0.5 
+        ? 4 * scrollProgress * scrollProgress * scrollProgress 
+        : 1 - Math.pow(-2 * scrollProgress + 2, 3) / 2;
+    
+    const blurAmount = easeProgress * 8;
+    const dimAmount = easeProgress * 0.35;
+
+    // Update CSS variables
+    root.style.setProperty('--background-blur', `${blurAmount.toFixed(2)}px`);
+    root.style.setProperty('--background-dim', dimAmount.toFixed(2));
+};
+
+// Add scroll listener
+window.addEventListener('scroll', updateScrollEffect, { passive: true });
+
 window.conceptsUno = Object.assign({}, window.conceptsUno, {
     refresh: () => {
         if (refreshCardCollection() && cards.length) {

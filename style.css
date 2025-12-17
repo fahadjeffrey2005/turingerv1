@@ -7,11 +7,13 @@
 html {
     height: 100%;
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
 }
 
 body {
     min-height: 100%;
     overflow-x: hidden;
+    overflow-y: visible;
     background: #ffffff;
     font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: #0b1814;
@@ -562,6 +564,8 @@ body.theme-black .events-detail {
     z-index: 12;
     justify-content: flex-start;
     align-items: center;
+    min-height: 300vh;
+    overflow: visible;
 }
 
 /* Collaborators Section */
@@ -847,7 +851,7 @@ body.theme-black .events-detail {
 }
 
 .contact-card {
-    padding: clamp(36px, 5vw, 56px);
+    padding: clamp(20px, 3vw, 32px);
     border-radius: 20px;
     background: rgba(0, 128, 254, 0.05);
     border: 1.5px solid rgba(0, 128, 254, 0.3);
@@ -856,14 +860,14 @@ body.theme-black .events-detail {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: clamp(24px, 3.5vw, 36px);
+    gap: clamp(16px, 2.5vw, 24px);
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     color: #ffffff;
 }
 
 .contact-card-image {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     border-radius: 12px;
     object-fit: cover;
     flex-shrink: 0;

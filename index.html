@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turinger '26 · Portal Prelude</title>
-    <link rel="stylesheet" href="style.css?v=60">
-    <link rel="stylesheet" href="concepts/uno.css?v=60">
-    <link rel="stylesheet" href="dots/dots.css?v=60">
+    <link rel="stylesheet" href="style.css?v=91">
+    <link rel="stylesheet" href="concepts/uno.css?v=91">
+    <link rel="stylesheet" href="dots/dots.css?v=91">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
@@ -17,6 +17,9 @@
     
     <!-- 3D Canvas Background -->
     <canvas id="fluidCanvas"></canvas>
+
+    <!-- Concept Blur Overlay -->
+    <div id="conceptBlurOverlay" class="concept-blur-overlay"></div>
 
     <!-- Landing title overlay -->
     <div id="centerTitle" class="bbh-bartle-regular">TURINGER '26</div>
@@ -250,24 +253,24 @@
                     <div class="contact-grid">
                     <!-- Card 1 -->
                     <div class="contact-card card1">
-                        <img src="https://via.placeholder.com/80" alt="John Doe" class="contact-card-image">
+                        <img src="logos/acm.jpg" alt="Shivansh Gautam" class="contact-card-image">
                         <div class="contact-card-content">
-                            <h3 class="contact-name">John Doe</h3>
-                            <p class="contact-designation">Lead Coordinator</p>
+                            <h3 class="contact-name">Shivansh Gautam</h3>
+                            <p class="contact-designation">ACM Chair</p>
                             <p class="contact-info">
                                 <span class="contact-label">Phone:</span>
-                                <span class="contact-value">+1 (234) 567-890</span>
+                                <span class="contact-value">9701303895</span>
                             </p>
                             <p class="contact-info">
                                 <span class="contact-label">Email:</span>
-                                <span class="contact-value">john@turinger.com</span>
+                                <span class="contact-value">shivansh@turinger.com</span>
                             </p>
                         </div>
                     </div>
 
                     <!-- Card 2 -->
                     <div class="contact-card card2">
-                        <img src="https://via.placeholder.com/80" alt="Sarah Smith" class="contact-card-image">
+                        <img src="https://via.placeholder.com/120" alt="Sarah Smith" class="contact-card-image">
                         <div class="contact-card-content">
                             <h3 class="contact-name">Sarah Smith</h3>
                             <p class="contact-designation">Event Manager</p>
@@ -284,7 +287,7 @@
 
                     <!-- Card 3 -->
                     <div class="contact-card card3">
-                        <img src="https://via.placeholder.com/80" alt="Michael Chen" class="contact-card-image">
+                        <img src="https://via.placeholder.com/120" alt="Michael Chen" class="contact-card-image">
                         <div class="contact-card-content">
                             <h3 class="contact-name">Michael Chen</h3>
                             <p class="contact-designation">Operations Lead</p>
@@ -301,7 +304,7 @@
 
                     <!-- Card 4 -->
                     <div class="contact-card card4">
-                        <img src="https://via.placeholder.com/80" alt="Emma Wilson" class="contact-card-image">
+                        <img src="https://via.placeholder.com/120" alt="Emma Wilson" class="contact-card-image">
                         <div class="contact-card-content">
                             <h3 class="contact-name">Emma Wilson</h3>
                             <p class="contact-designation">Community Manager</p>
@@ -359,8 +362,8 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="dots/dots.js"></script>
-    <script src="script.js"></script>
-    <script src="concepts/uno.js"></script>
+    <script src="script.js?v=91"></script>
+    <script src="concepts/uno.js?v=91"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize dots background first
