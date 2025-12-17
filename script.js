@@ -16,6 +16,64 @@ function setSceneTheme(themeKey) {
 window.setSceneTheme = setSceneTheme;
 
 // ============================================================
+// GLASS TRANSITION EFFECT - Scroll-based Blur & Dim
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const root = document.documentElement;
+    const blurOverlay = document.getElementById('conceptBlurOverlay');
+    const unoSection = document.getElementById('concept-uno');
+
+    if (!blurOverlay || !unoSection) return;
+
+    const updateGlassEffect = () => {
+        const scrollY = window.scrollY || window.pageYOffset;
+        
+        // Get section position
+        const sectionTop = unoSection.offsetTop;
+        const sectionHeight = unoSection.offsetHeight;
+        const fadeOutStart = sectionTop + sectionHeight - window.innerHeight;
+        
+        // Calculate effect progression
+        const scrollStart = 300;           // Start effect after 300px
+        const scrollEnd = 2000;            // Reach max at 2000px
+        const fadeOutEnd = fadeOutStart + 1700; // Fade out over 1700px
+        
+        let progress = 0;
+        
+        if (scrollY < scrollStart) {
+            progress = 0;
+        } else if (scrollY < scrollEnd) {
+            progress = (scrollY - scrollStart) / (scrollEnd - scrollStart);
+        } else if (scrollY < fadeOutEnd) {
+            progress = 1 - ((scrollY - scrollEnd) / (fadeOutEnd - scrollEnd));
+        } else {
+            progress = 0;
+        }
+        
+        progress = Math.max(0, Math.min(1, progress));
+        
+        // Smooth cubic easing
+        const easeProgress = progress < 0.5 
+            ? 4 * progress * progress * progress 
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        
+        const blurAmount = easeProgress * 8;
+        const dimAmount = easeProgress * 0.50;
+        
+        // Update CSS variables
+        root.style.setProperty('--background-blur', `${blurAmount.toFixed(2)}px`);
+        root.style.setProperty('--background-dim', dimAmount.toFixed(2));
+    };
+
+    // Listen to scroll
+    window.addEventListener('scroll', updateGlassEffect, { passive: true });
+    
+    // Initialize on page load
+    updateGlassEffect();
+});
+
+// ============================================================
 // SOCIAL CONTENT POPUP - Dynamic Links Only
 // ============================================================
 

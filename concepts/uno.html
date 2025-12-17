@@ -4,15 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turinger '26 Concept UNO – Portal Console</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="uno.css">
-    <link rel="stylesheet" href="../dots/dots.css">
+    <link rel="stylesheet" href="../style.css?v=53">
+    <link rel="stylesheet" href="uno.css?v=53">
+    <link rel="stylesheet" href="../dots/dots.css?v=53">
 </head>
 <body class="concepts-body concept-uno">
     <!-- 3D Canvas Background -->
     <canvas id="fluidCanvas"></canvas>
 
+    <!-- Glass Blur Overlay -->
+    <div class="concept-blur-overlay"></div>
+
     <main class="concept-overlay" aria-labelledby="conceptTitle">
+        <div class="concept-top-stack" role="tablist">
+            <button class="concept-top-option active" type="button" role="tab" aria-selected="true" data-index="01">01 Flagship</button>
+            <button class="concept-top-option" type="button" role="tab" aria-selected="false" data-index="02">02 Schedule</button>
+            <button class="concept-top-option" type="button" role="tab" aria-selected="false" data-index="03">03 Events</button>
+            <button class="concept-top-option" type="button" role="tab" aria-selected="false" data-index="04">04 Register</button>
+            <button class="concept-top-option" type="button" role="tab" aria-selected="false" data-index="05">05 Login</button>
+            <button class="concept-top-option" type="button" role="tab" aria-selected="false" data-index="06">06 Community</button>
+        </div>
+
         <section class="concept-console" aria-live="polite">
             <p class="console-heading">CONCEPT UNO · SYNCHRO FEED</p>
             <div class="console-status">
@@ -130,9 +142,9 @@
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="../dots/dots.js"></script>
-    <script src="../script.js"></script>
-    <script src="uno.js"></script>
+    <script src="../dots/dots.js?v=53"></script>
+    <script src="../script.js?v=107"></script>
+    <script src="uno.js?v=53"></script>
     <script>
         // Initialize dots background for concept pages
         document.addEventListener('DOMContentLoaded', initDots);

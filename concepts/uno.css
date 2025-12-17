@@ -26,7 +26,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    color: #e4fff1;
+    color: #ffffff;
     opacity: 0;
     transition: opacity 0.85s ease;
     position: sticky;
@@ -39,6 +39,47 @@
     right: 0;
     transform: translateY(70px);
     bottom: 0;
+}
+
+/* Top-level concept menu bar (the red-box region) */
+.concept-top-stack {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: clamp(24px, 3.5vw, 38px);
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    width: min(1100px, calc(100% - 80px));
+    pointer-events: auto;
+    z-index: 22;
+    background: rgba(0,0,0,0.08);
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: none;
+}
+
+.concept-top-option {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: rgba(230, 255, 245, 0.9);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: clamp(0.42rem, 0.9vw, 0.6rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: color 0.24s ease;
+}
+
+.concept-top-option:hover,
+.concept-top-option:focus,
+.concept-top-option.active {
+    color: #5CB3FF;
 }
 
 .concept-console,
@@ -90,6 +131,7 @@ body.theme-black .concept-overlay {
     letter-spacing: 0.21em;
     text-transform: uppercase;
     color: rgba(210, 255, 235, 0.56);
+    display: none;
 }
 
 .console-status {
@@ -123,7 +165,7 @@ body.theme-black .concept-overlay {
 }
 
 .console-title {
-    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #f4fff8;
@@ -133,7 +175,7 @@ body.theme-black .concept-overlay {
 }
 
 .console-subtitle {
-    font-size: clamp(0.48rem, 1.1vw, 0.62rem);
+    font-size: clamp(0.65rem, 1.6vw, 0.95rem);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(200, 255, 240, 0.65);
@@ -146,8 +188,8 @@ body.theme-black .concept-overlay {
 }
 
 .console-body {
-    font-size: 0.52rem;
-    line-height: 1.6;
+    font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+    line-height: 1.8;
     color: rgba(220, 255, 244, 0.82);
 }
 
@@ -163,6 +205,7 @@ body.theme-black .concept-overlay {
     font-size: clamp(0.5rem, 1.1vw, 0.65rem);
     cursor: pointer;
     transition: border 0.3s ease, background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    display: none;
 }
 
 .concept-learn-more:hover,
@@ -177,6 +220,12 @@ body.theme-black .concept-overlay {
 .console-progress {
     display: grid;
     gap: 0.24rem;
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 900px;
 }
 
 .console-progress-label {
@@ -275,7 +324,6 @@ body.theme-black .concept-overlay {
     font-weight: 400;
     font-style: normal;
 }
-}
 
 .card-subtitle {
     font-size: clamp(0.36rem, 0.75vw, 0.48rem);
@@ -329,19 +377,66 @@ body.theme-black .concept-overlay {
 
 .detail-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(1200px, 92%);
+    border-radius: 32px;
+    background: rgba(0, 8, 20, 0.95);
+    border: 1px solid rgba(0, 128, 254, 0.35);
+    box-shadow: 0 44px 120px rgba(0, 20, 50, 0.6), inset 0 0 60px rgba(0, 128, 254, 0.1);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.detail-stack {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(16px, 2.5vw, 28px);
+    width: 100%;
+    padding: clamp(32px, 5vw, 48px) clamp(32px, 5vw, 56px) clamp(16px, 3vw, 28px) clamp(32px, 5vw, 56px);
+    border-bottom: 1px solid rgba(120, 220, 255, 0.12);
+}
+
+.detail-stack-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.26em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid rgba(120, 200, 255, 0.4);
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--concept-accent);
+    text-transform: uppercase;
+    font-size: clamp(0.38rem, 0.85vw, 0.48rem);
+    letter-spacing: 0.13em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.detail-stack-option:hover {
+    background: rgba(0, 128, 254, 0.15);
+    border-color: rgba(120, 200, 255, 0.7);
+    color: #f4fff8;
+    transform: scale(1.05);
+}
+
+.detail-stack-option.active {
+    background: rgba(0, 128, 254, 0.25);
+    border-color: rgba(0, 128, 254, 0.8);
+    color: #f4fff8;
+}
+
+.detail-card-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(32px, 6vw, 56px);
-    width: min(1200px, 92%);
     padding: clamp(32px, 5vw, 56px);
-    border-radius: 32px;
-    background: rgba(6, 22, 34, 0.95);
-    border: 1px solid rgba(120, 220, 255, 0.22);
-    box-shadow: 0 44px 120px rgba(8, 18, 32, 0.48);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    overflow: hidden;
-    margin: 0 auto;
 }
 
 .detail-card.is-animating {
@@ -354,7 +449,7 @@ body.theme-black .concept-overlay {
 }
 
 .detail-visual {
-    --detail-visual-background: linear-gradient(135deg, rgba(6, 22, 34, 0.9) 0%, rgba(10, 60, 120, 0.8) 60%, rgba(0, 128, 254, 0.65) 100%);
+    --detail-visual-background: linear-gradient(135deg, rgba(2, 10, 20, 0.95) 0%, rgba(5, 30, 70, 0.9) 60%, rgba(0, 100, 200, 0.8) 100%);
     position: relative;
     border-radius: 24px;
     background: var(--detail-visual-background);
@@ -380,27 +475,27 @@ body.theme-black .concept-overlay {
     display: flex;
     flex-direction: column;
     gap: clamp(12px, 2.4vw, 20px);
-    color: rgba(228, 255, 246, 0.94);
+    color: rgba(255, 255, 255, 1);
 }
 
 .detail-label {
     font-size: clamp(0.48rem, 1.2vw, 0.62rem);
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: rgba(150, 255, 215, 0.62);
+    color: rgba(100, 200, 255, 1);
 }
 
 .detail-title {
     font-size: clamp(1.2rem, 3vw, 1.9rem);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #f4fff8;
+    color: #ffffff;
 }
 
 .detail-body {
     font-size: clamp(0.78rem, 1.6vw, 0.96rem);
     line-height: 1.9;
-    color: rgba(215, 255, 240, 0.88);
+    color: rgba(230, 245, 255, 0.98);
 }
 
 .detail-demos {
@@ -590,4 +685,117 @@ body.theme-black .concept-overlay {
     .detail-demos {
         grid-template-columns: 1fr;
     }
+}
+
+/* ===== SCHEDULE DAY TABS - MODEL 5: Dots with Glow Ring ===== */
+.schedule-tabs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+
+.schedule-tab-btn {
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.schedule-tab-btn::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(92, 179, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.schedule-tab-btn:hover::before {
+    background: rgba(92, 179, 255, 0.5);
+}
+
+.schedule-tab-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid rgba(92, 179, 255, 0);
+    transition: all 0.3s ease;
+}
+
+.schedule-tab-btn:hover::after {
+    border-color: rgba(92, 179, 255, 0.3);
+    width: 20px;
+    height: 20px;
+}
+
+.schedule-tab-btn.active::before {
+    width: 24px;
+    background: #5CB3FF;
+    border-radius: 4px;
+}
+
+.schedule-tab-btn.active::after {
+    border-color: #5CB3FF;
+    width: 28px;
+    height: 28px;
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0%, 100% { border-color: #5CB3FF; opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.schedule-label {
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(200, 255, 235, 0.5);
+    margin-top: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.schedule-content {
+    display: none;
+}
+
+.schedule-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.schedule-activity {
+    padding: 12px 0;
+    border-left: 2px solid rgba(92, 179, 255, 0.4);
+    padding-left: 16px;
+    margin-bottom: 12px;
+}
+
+.schedule-activity-title {
+    font-weight: 600;
+    color: #f4fff8;
+    margin-bottom: 4px;
+    font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+}
+
+.schedule-activity-time {
+    font-size: 0.85rem;
+    color: rgba(200, 255, 235, 0.6);
 }
