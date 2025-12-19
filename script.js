@@ -193,5 +193,11 @@ function switchLineupDay(index) {
     if (label) {
         label.textContent = `Day ${index + 1}`;
     }
+
+    // Reset all card flips when switching days
+    const cards = document.querySelectorAll('.event-flip-inner');
+    cards.forEach(card => {
+        card.style.transform = 'rotateY(0deg)';
+    });
 }
 

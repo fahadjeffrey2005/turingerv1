@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - Unique Designs - Turinger '26</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #000000;
+            color: #d5ffe9;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .demo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-family: "BBH Bartle", sans-serif;
+            font-size: 3rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            color: #5CB3FF;
+        }
+
+        .header p {
+            color: rgba(200, 255, 235, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .variation {
+            padding: 50px;
+            background: linear-gradient(135deg, rgba(92, 179, 255, 0.05), rgba(0, 128, 254, 0.02));
+            border-radius: 12px;
+            border: 1px solid rgba(92, 179, 255, 0.1);
+            margin-bottom: 80px;
+        }
+
+        .variation-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #5CB3FF;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        .variation-desc {
+            text-align: center;
+            color: rgba(200, 255, 235, 0.6);
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+        }
+
+        .schedule-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .schedule-tabs {
+            display: flex;
+            gap: 20px;
+        }
+
+        .schedule-btn {
+            appearance: none;
+            border: none;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            font-size: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+
+        .schedule-btn::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(92, 179, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .schedule-btn.active::before {
+            width: 28px;
+            background: #5CB3FF;
+            border-radius: 4px;
+            box-shadow: 0 0 16px #5CB3FF;
+        }
+
+        .schedule-day-label {
+            font-size: 1rem;
+            color: rgba(200, 255, 235, 0.85);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .activity-list {
+            display: none;
+        }
+
+        .activity-list.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== VARIATION 1: HEXAGONAL GRID ===== */
+        .hex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hex-card {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            background: linear-gradient(135deg, rgba(92, 179, 255, 0.15), rgba(92, 179, 255, 0.05));
+            border: 2px solid rgba(92, 179, 255, 0.4);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            min-height: 200px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hex-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(92, 179, 255, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .hex-card:hover {
+            transform: scale(1.1) rotateY(5deg);
+            border-color: rgba(92, 179, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(92, 179, 255, 0.3);
+        }
+
+        .hex-card:hover::before {
+            opacity: 1;
+        }
+
+        .hex-title {
+            font-weight: 800;
+            color: #5CB3FF;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            z-index: 1;
+        }
+
+        .hex-time {
+            font-size: 0.8rem;
+            color: rgba(200, 255, 235, 0.6);
+            z-index: 1;
+        }
+
+        /* ===== VARIATION 2: NEON TIMELINE ===== */
+        .neon-timeline {
+            position: relative;
+            padding: 40px 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .neon-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #5CB3FF 0%, rgba(92, 179, 255, 0.2) 100%);
+            transform: translateX(-50%);
+        }
+
+        .neon-event {
+            margin-bottom: 50px;
+            position: relative;
+            padding: 20px;
+        }
+
+        .neon-event:nth-child(odd) {
+            padding-right: calc(50% + 40px);
+            text-align: right;
+        }
+
+        .neon-event:nth-child(even) {
+            padding-left: calc(50% + 40px);
+            text-align: left;
+        }
+
+        .neon-event::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 16px;
+            height: 16px;
+            background: #5CB3FF;
+            border: 3px solid #000;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px #5CB3FF, inset 0 0 10px #5CB3FF;
+        }
+
+        .neon-card {
+            background: rgba(92, 179, 255, 0.05);
+            border: 2px solid #5CB3FF;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(92, 179, 255, 0.4), inset 0 0 10px rgba(92, 179, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .neon-card:hover {
+            box-shadow: 0 0 30px rgba(92, 179, 255, 0.8), inset 0 0 15px rgba(92, 179, 255, 0.2);
+            background: rgba(92, 179, 255, 0.1);
+        }
+
+        .neon-title {
+            font-weight: 800;
+            color: #5CB3FF;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .neon-time {
+            font-size: 0.85rem;
+            color: rgba(200, 255, 235, 0.7);
+        }
+
+        /* ===== VARIATION 3: FLOATING CARDS ===== */
+        .float-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            perspective: 1200px;
+        }
+
+        .float-card {
+            background: linear-gradient(135deg, rgba(92, 179, 255, 0.12), rgba(0, 128, 254, 0.06));
+            border: 1.5px solid rgba(92, 179, 255, 0.35);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 240px;
+            backdrop-filter: blur(10px);
+        }
+
+        .float-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(90deg, #5CB3FF, rgba(92, 179, 255, 0.2), #5CB3FF);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .float-card:hover {
+            transform: translateY(-20px) rotateX(5deg) rotateY(-5deg);
+            box-shadow: 0 30px 60px rgba(92, 179, 255, 0.25);
+            border-color: rgba(92, 179, 255, 0.6);
+        }
+
+        .float-card:hover::before {
+            opacity: 1;
+        }
+
+        .float-title {
+            font-weight: 800;
+            color: #5CB3FF;
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .float-time {
+            font-size: 0.9rem;
+            color: rgba(200, 255, 235, 0.75);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== VARIATION 4: TECH MATRIX ===== */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2px;
+            background: linear-gradient(90deg, rgba(92, 179, 255, 0.3), transparent);
+            padding: 2px;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 2px solid rgba(92, 179, 255, 0.4);
+        }
+
+        .matrix-cell {
+            background: linear-gradient(135deg, rgba(0, 20, 60, 0.8), rgba(10, 30, 80, 0.8));
+            border: 1px solid rgba(92, 179, 255, 0.3);
+            padding: 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .matrix-cell::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(92, 179, 255, 0.1) 50%, transparent 70%);
+            opacity: 0;
+            animation: scan 3s infinite;
+        }
+
+        .matrix-cell:hover {
+            background: linear-gradient(135deg, rgba(0, 40, 120, 1), rgba(20, 60, 140, 1));
+            border-color: rgba(92, 179, 255, 0.8);
+            box-shadow: 0 0 30px rgba(92, 179, 255, 0.4), inset 0 0 20px rgba(92, 179, 255, 0.1);
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .matrix-title {
+            font-weight: 800;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px #00ff00;
+            position: relative;
+            z-index: 1;
+        }
+
+        .matrix-time {
+            font-size: 0.85rem;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== VARIATION 5: HOLOGRAPHIC REVEAL ===== */
+        .hologram-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .hologram-card {
+            position: relative;
+            height: 220px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .hologram-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .hologram-card:hover .hologram-inner {
+            transform: rotateY(180deg);
+        }
+
+        .hologram-front,
+        .hologram-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 2px solid rgba(92, 179, 255, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hologram-front {
+            background: linear-gradient(135deg, rgba(92, 179, 255, 0.1), rgba(0, 128, 254, 0.05));
+            color: #5CB3FF;
+        }
+
+        .hologram-back {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(92, 179, 255, 0.08));
+            color: #8bd3ff;
+            transform: rotateY(180deg);
+        }
+
+        .hologram-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .hologram-time {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .hologram-info {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px;
+            color: rgba(200, 255, 235, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="header">
+            <h1>UNIQUE SCHEDULE DESIGNS</h1>
+            <p>Innovative & Distinctive Options</p>
+        </div>
+
+        <!-- VARIATION 1: HEXAGONAL GRID -->
+        <div class="variation">
+            <div class="variation-title">1. Hexagonal Grid</div>
+            <div class="variation-desc">Unique geometric hexagon shapes with 3D rotation effects</div>
+            
+            <div class="schedule-controls">
+                <div class="schedule-tabs">
+                    <button class="schedule-btn active" onclick="switchDay(0, 'hex')" aria-label="Day 1"></button>
+                    <button class="schedule-btn" onclick="switchDay(1, 'hex')" aria-label="Day 2"></button>
+                    <button class="schedule-btn" onclick="switchDay(2, 'hex')" aria-label="Day 3"></button>
+                </div>
+                <div class="schedule-day-label" id="day-label-hex">Day 1</div>
+            </div>
+
+            <div class="activity-list active" id="hex-day-0">
+                <div class="hex-grid">
+                    <div class="hex-card"><div class="hex-title">Inauguration</div></div>
+                    <div class="hex-card"><div class="hex-title">Panel Discussion</div><div class="hex-time">9:00 - 12:00</div></div>
+                    <div class="hex-card"><div class="hex-title">Talk by DSP</div><div class="hex-time">9:00 - 12:00</div></div>
+                    <div class="hex-card"><div class="hex-title">Blind Coding</div><div class="hex-time">2:00 - 5:00</div></div>
+                    <div class="hex-card"><div class="hex-title">Squid Game</div><div class="hex-time">2:00 - 5:00</div></div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="hex-day-1">
+                <div class="hex-grid">
+                    <div class="hex-card"><div class="hex-title">Hackathon</div><div class="hex-time">11:00 AM</div></div>
+                    <div class="hex-card"><div class="hex-title">Murder Mystery</div><div class="hex-time">10:00 - 1:00</div></div>
+                    <div class="hex-card"><div class="hex-title">SIG AI</div><div class="hex-time">2:00 - 5:00</div></div>
+                    <div class="hex-card"><div class="hex-title">Fabric Workshop</div><div class="hex-time">9:00 - 4:00</div></div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="hex-day-2">
+                <div class="hex-grid">
+                    <div class="hex-card"><div class="hex-title">Symposium</div><div class="hex-time">10:00 - 1:00</div></div>
+                    <div class="hex-card"><div class="hex-title">ML Marathon</div><div class="hex-time">10:00 - 12:00</div></div>
+                    <div class="hex-card"><div class="hex-title">Hackathon Results</div><div class="hex-time">Combined</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VARIATION 2: NEON TIMELINE -->
+        <div class="variation">
+            <div class="variation-title">2. Neon Timeline</div>
+            <div class="variation-desc">Glowing neon aesthetic with alternating left-right timeline</div>
+            
+            <div class="schedule-controls">
+                <div class="schedule-tabs">
+                    <button class="schedule-btn active" onclick="switchDay(0, 'neon')" aria-label="Day 1"></button>
+                    <button class="schedule-btn" onclick="switchDay(1, 'neon')" aria-label="Day 2"></button>
+                    <button class="schedule-btn" onclick="switchDay(2, 'neon')" aria-label="Day 3"></button>
+                </div>
+                <div class="schedule-day-label" id="day-label-neon">Day 1</div>
+            </div>
+
+            <div class="activity-list active" id="neon-day-0">
+                <div class="neon-timeline">
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Inauguration</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Panel Discussion</div><div class="neon-time">9:00 AM - 12:00 PM</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Talk by DSP/ESP</div><div class="neon-time">9:00 AM - 12:00 PM</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Blind Coding Challenge</div><div class="neon-time">2:00 PM - 5:00 PM</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Squid Game</div><div class="neon-time">2:00 PM - 5:00 PM</div></div></div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="neon-day-1">
+                <div class="neon-timeline">
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Hackathon</div><div class="neon-time">11:00 AM</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Murder Mystery CTF</div><div class="neon-time">10:00 AM - 1:00 PM</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">SIG AI</div><div class="neon-time">2:00 PM - 5:00 PM</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Fabric Workshop</div><div class="neon-time">9:00 AM - 4:00 PM</div></div></div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="neon-day-2">
+                <div class="neon-timeline">
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Symposium</div><div class="neon-time">10:00 AM - 1:00 PM</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">ML Marathon</div><div class="neon-time">10:00 AM - 12:00 PM</div></div></div>
+                    <div class="neon-event"><div class="neon-card"><div class="neon-title">Hackathon Results + Valedictory</div><div class="neon-time">Combined with SMI</div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VARIATION 3: FLOATING CARDS -->
+        <div class="variation">
+            <div class="variation-title">3. Floating Cards</div>
+            <div class="variation-desc">Suspended glassmorphic cards with 3D perspective</div>
+            
+            <div class="schedule-controls">
+                <div class="schedule-tabs">
+                    <button class="schedule-btn active" onclick="switchDay(0, 'float')" aria-label="Day 1"></button>
+                    <button class="schedule-btn" onclick="switchDay(1, 'float')" aria-label="Day 2"></button>
+                    <button class="schedule-btn" onclick="switchDay(2, 'float')" aria-label="Day 3"></button>
+                </div>
+                <div class="schedule-day-label" id="day-label-float">Day 1</div>
+            </div>
+
+            <div class="activity-list active" id="float-day-0">
+                <div class="float-container">
+                    <div class="float-card"><div class="float-title">Inauguration</div></div>
+                    <div class="float-card"><div class="float-title">Panel Discussion</div><div class="float-time">9:00 AM - 12:00 PM</div></div>
+                    <div class="float-card"><div class="float-title">Talk by DSP/ESP</div><div class="float-time">9:00 AM - 12:00 PM</div></div>
+                    <div class="float-card"><div class="float-title">Blind Coding Challenge</div><div class="float-time">2:00 PM - 5:00 PM</div></div>
+                    <div class="float-card"><div class="float-title">Squid Game</div><div class="float-time">2:00 PM - 5:00 PM</div></div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="float-day-1">
+                <div class="float-container">
+                    <div class="float-card"><div class="float-title">Hackathon</div><div class="float-time">11:00 AM</div></div>
+                    <div class="float-card"><div class="float-title">Murder Mystery CTF</div><div class="float-time">10:00 AM - 1:00 PM</div></div>
+                    <div class="float-card"><div class="float-title">SIG AI</div><div class="float-time">2:00 PM - 5:00 PM</div></div>
+                    <div class="float-card"><div class="float-title">Fabric Workshop</div><div class="float-time">9:00 AM - 4:00 PM</div></div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="float-day-2">
+                <div class="float-container">
+                    <div class="float-card"><div class="float-title">Symposium</div><div class="float-time">10:00 AM - 1:00 PM</div></div>
+                    <div class="float-card"><div class="float-title">ML Marathon</div><div class="float-time">10:00 AM - 12:00 PM</div></div>
+                    <div class="float-card"><div class="float-title">Hackathon Results + Valedictory</div><div class="float-time">Combined with SMI</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VARIATION 4: TECH MATRIX -->
+        <div class="variation">
+            <div class="variation-title">4. Tech Matrix</div>
+            <div class="variation-desc">Cyberpunk grid with matrix-style aesthetic and green text</div>
+            
+            <div class="schedule-controls">
+                <div class="schedule-tabs">
+                    <button class="schedule-btn active" onclick="switchDay(0, 'matrix')" aria-label="Day 1"></button>
+                    <button class="schedule-btn" onclick="switchDay(1, 'matrix')" aria-label="Day 2"></button>
+                    <button class="schedule-btn" onclick="switchDay(2, 'matrix')" aria-label="Day 3"></button>
+                </div>
+                <div class="schedule-day-label" id="day-label-matrix">Day 1</div>
+            </div>
+
+            <div class="activity-list active" id="matrix-day-0">
+                <div class="matrix-grid">
+                    <div class="matrix-cell"><div class="matrix-title">INAUGURATION</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">PANEL DISCUSSION</div><div class="matrix-time">09:00 - 12:00</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">TALK BY DSP</div><div class="matrix-time">09:00 - 12:00</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">BLIND CODING</div><div class="matrix-time">14:00 - 17:00</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">SQUID GAME</div><div class="matrix-time">14:00 - 17:00</div></div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="matrix-day-1">
+                <div class="matrix-grid">
+                    <div class="matrix-cell"><div class="matrix-title">HACKATHON</div><div class="matrix-time">11:00</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">MURDER MYSTERY</div><div class="matrix-time">10:00 - 13:00</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">SIG AI</div><div class="matrix-time">14:00 - 17:00</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">FABRIC WORKSHOP</div><div class="matrix-time">09:00 - 16:00</div></div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="matrix-day-2">
+                <div class="matrix-grid">
+                    <div class="matrix-cell"><div class="matrix-title">SYMPOSIUM</div><div class="matrix-time">10:00 - 13:00</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">ML MARATHON</div><div class="matrix-time">10:00 - 12:00</div></div>
+                    <div class="matrix-cell"><div class="matrix-title">HACKATHON RESULTS</div><div class="matrix-time">COMBINED</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VARIATION 5: HOLOGRAPHIC FLIP -->
+        <div class="variation">
+            <div class="variation-title">5. Holographic Flip Cards</div>
+            <div class="variation-desc">3D flip animation - hover to reveal details on the back</div>
+            
+            <div class="schedule-controls">
+                <div class="schedule-tabs">
+                    <button class="schedule-btn active" onclick="switchDay(0, 'holo')" aria-label="Day 1"></button>
+                    <button class="schedule-btn" onclick="switchDay(1, 'holo')" aria-label="Day 2"></button>
+                    <button class="schedule-btn" onclick="switchDay(2, 'holo')" aria-label="Day 3"></button>
+                </div>
+                <div class="schedule-day-label" id="day-label-holo">Day 1</div>
+            </div>
+
+            <div class="activity-list active" id="holo-day-0">
+                <div class="hologram-container">
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Inauguration</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Opening event to kick off Turinger '26</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Panel Discussion</div><div class="hologram-time">9:00 - 12:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Industry experts discuss emerging trends and insights</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Talk by DSP/ESP</div><div class="hologram-time">9:00 - 12:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Distinguished speakers share valuable expertise</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Blind Coding</div><div class="hologram-time">2:00 - 5:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Test coding skills without IDE assistance</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Squid Game</div><div class="hologram-time">2:00 - 5:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Exciting competitions and fun gaming challenges</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="holo-day-1">
+                <div class="hologram-container">
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Hackathon</div><div class="hologram-time">11:00 AM</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Build innovative projects and showcase creativity</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Murder Mystery CTF</div><div class="hologram-time">10:00 - 1:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Cybersecurity challenge with mystery theme</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">SIG AI</div><div class="hologram-time">2:00 - 5:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Artificial intelligence discussion and demos</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Fabric Workshop</div><div class="hologram-time">9:00 - 4:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Learn and create with fabric technology</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-list" id="holo-day-2">
+                <div class="hologram-container">
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Symposium</div><div class="hologram-time">10:00 - 1:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Research discussions in dedicated wing</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">ML Marathon</div><div class="hologram-time">10:00 - 12:00</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Machine learning competition and challenges</div></div>
+                        </div>
+                    </div>
+                    <div class="hologram-card">
+                        <div class="hologram-inner">
+                            <div class="hologram-front"><div class="hologram-title">Hackathon Results</div><div class="hologram-time">Combined</div></div>
+                            <div class="hologram-back"><div class="hologram-info">Award winners + closing ceremony with SMI</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Which unique design stands out to you? Pick your favorite!</p>
+        </div>
+    </div>
+
+    <script>
+        function switchDay(dayIndex, variation) {
+            document.querySelectorAll(`#${variation}-day-0, #${variation}-day-1, #${variation}-day-2`).forEach(list => {
+                list.classList.remove('active');
+            });
+
+            const buttons = document.querySelectorAll(`#day-label-${variation}`).parentElement?.querySelectorAll('.schedule-btn');
+            if (buttons) {
+                buttons.forEach(btn => btn.classList.remove('active'));
+                buttons[dayIndex].classList.add('active');
+            } else {
+                // Manual way to find buttons
+                const dayLabel = document.getElementById(`day-label-${variation}`);
+                if (dayLabel) {
+                    const parent = dayLabel.parentElement;
+                    parent.querySelectorAll('.schedule-btn').forEach(btn => btn.classList.remove('active'));
+                    parent.querySelectorAll('.schedule-btn')[dayIndex].classList.add('active');
+                }
+            }
+
+            const selectedDay = document.getElementById(`${variation}-day-${dayIndex}`);
+            if (selectedDay) {
+                selectedDay.classList.add('active');
+            }
+
+            const dayLabel = document.getElementById(`day-label-${variation}`);
+            if (dayLabel) {
+                dayLabel.textContent = `Day ${dayIndex + 1}`;
+            }
+        }
+    </script>
+</body>
+</html>
