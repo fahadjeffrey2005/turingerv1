@@ -119,10 +119,10 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const popupItems = [
-        { name: 'ACM', logo: 'https://via.placeholder.com/60' },
-        { name: 'ACM W', logo: 'https://via.placeholder.com/60' },
-        { name: 'ACM SIG-SOFT', logo: 'https://via.placeholder.com/60' },
-        { name: 'ACM SIG-AI', logo: 'https://via.placeholder.com/60' }
+        { name: 'ACM', logo: 'logos/ACM.png' },
+        { name: 'ACM W', logo: 'logos/ACM W New.png' },
+        { name: 'ACM SIG-SOFT', logo: 'logos/SIG SOFT.png' },
+        { name: 'ACM SIG-AI', logo: 'logos/SIG AI.png' }
     ];
 
     const triggers = document.querySelectorAll('.social-trigger');
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
         popupHeader.textContent = data.label;
         
         // Update links only, keep items the same
-        const popupItemElements = popupContent.querySelectorAll('.popup-item');
+        const popupItemElements = popupContent.querySelectorAll('.social-logo-item');
         popupItemElements.forEach((itemElement, index) => {
             const item = popupItems[index];
             const link = data.links[item.name];
@@ -146,18 +146,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderPopupItems() {
-        popupContent.innerHTML = '';
+        popupContent.innerHTML = '<div class="social-logos-grid"></div>';
+        const grid = popupContent.querySelector('.social-logos-grid');
         popupItems.forEach(item => {
             const itemLink = document.createElement('a');
             itemLink.href = '#';
             itemLink.target = '_blank';
             itemLink.rel = 'noopener';
-            itemLink.className = 'popup-item';
+            itemLink.className = 'social-logo-item';
             itemLink.innerHTML = `
-                <img src="${item.logo}" alt="${item.name}" class="popup-logo">
-                <span class="popup-name">${item.name}</span>
+                <img src="${item.logo}" alt="${item.name}" class="social-logo">
+                <span class="social-logo-label">${item.name}</span>
             `;
-            popupContent.appendChild(itemLink);
+            grid.appendChild(itemLink);
         });
     }
 
@@ -174,4 +175,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// ============================================================
+// LINEUP DAY SWITCHER - Model 5 Dots with Glow Ring
+// ============================================================
+
+function switchLineupDay(index) {
+    const buttons = document.querySelectorAll('.schedule-btn');
+    const contents = document.querySelectorAll('[id^="schedule-day-"]');
+    const label = document.getElementById('lineup-day-label');
+
+    buttons.forEach(btn => btn.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+
+    buttons[index].classList.add('active');
+    contents[index].classList.add('active');
+
+    if (label) {
+        label.textContent = `Day ${index + 1}`;
+    }
+}
 
