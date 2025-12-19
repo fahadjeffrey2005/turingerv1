@@ -368,24 +368,23 @@ body.theme-black .events-hub {
     position: relative;
     display: flex;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: center;
     padding: 0;
     background: transparent;
     min-height: auto;
     color: #ffffff;
-    z-index: 1;
+    z-index: 10;
     flex-shrink: 0;
     border-top: none;
-    margin-left: auto;
-    margin-top: -390px;
-    margin-right: 205px;
+    margin: 0;
+    transform: translateX(100px) translateY(150px);
 }
 
 .social-container {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    gap: clamp(20px, 3vw, 40px);
+    gap: clamp(16px, 2.5vw, 32px);
     height: auto;
 }
 
@@ -446,7 +445,7 @@ body.theme-black .events-hub {
 /* Social Content Popup - Always Visible */
 .social-content-popup {
     position: absolute;
-    right: -220px;
+    right: -252px;
     top: 50%;
     transform: translateY(-50%) translateX(20px);
     opacity: 1;
@@ -454,14 +453,14 @@ body.theme-black .events-hub {
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: auto;
     z-index: 100;
-    padding: 28px;
+    padding: 29px;
     background: rgba(0, 20, 60, 0.3);
     border: 1px solid rgba(0, 128, 254, 0.2);
     border-radius: 16px;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    width: 220px;
-    height: auto;
+    width: 252px;
+    height: 340px;
     overflow: hidden;
 }
 
@@ -478,7 +477,7 @@ body.theme-black .events-hub {
 .popup-content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    gap: 25px;
 }
 
 .popup-item {
@@ -495,8 +494,8 @@ body.theme-black .events-hub {
 
 .popup-logo {
     width: 100%;
-    max-width: 70px;
-    height: 70px;
+    max-width: 81px;
+    height: 81px;
     border-radius: 12px;
     object-fit: cover;
     border: 2px solid rgba(0, 128, 254, 0.3);
@@ -829,6 +828,7 @@ body.theme-black .events-detail {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .contact-title {
@@ -845,10 +845,11 @@ body.theme-black .events-detail {
 .contact-content {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: clamp(40px, 5vw, 80px);
     width: 100%;
-    max-width: 1400px;
+    max-width: 100%;
+    position: relative;
 }
 
 .contact-wrapper {
@@ -857,7 +858,6 @@ body.theme-black .events-detail {
     flex-shrink: 0;
     display: flex;
     align-items: flex-start;
-    margin-right: -40px;
 }
 
 .contact-grid {
@@ -887,7 +887,7 @@ body.theme-black .events-detail {
 
 .contact-card-image {
     width: 120px;
-    height: 120px;
+    height: 200px;
     border-radius: 12px;
     object-fit: cover;
     flex-shrink: 0;
@@ -932,6 +932,9 @@ body.theme-black .events-detail {
 
 .contact-value {
     color: rgba(200, 230, 255, 0.9);
+    max-width: 180px;
+    word-break: break-word;
+    display: inline-block;
 }
 
 .contact-card:hover {
