@@ -1031,7 +1031,7 @@ body.theme-black .events-detail {
 }
 
 .event-flip-card:hover .event-flip-inner {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) !important;
 }
 
 .event-flip-front,

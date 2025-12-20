@@ -222,24 +222,30 @@
                 <p class="events-hub-label">Event vector</p>
                 <h2 class="events-heading">Events</h2>
                 <div class="events-layout">
-                    <div class="events-detail" aria-live="polite">
-                        <span class="events-detail-title">Hackathon</span>
-                        <p class="events-detail-body">36-hour build with noctilucent mentors.</p>
-                        <button class="events-link" type="button">Full lineup →</button>
+                    <div class="events-detail" id="eventDetailCard" aria-live="polite">
+                        <span class="events-detail-title" id="eventTitle">Blind Coding Challenge</span>
+                        <p class="events-detail-body" id="eventDescription">Code without seeing your screen. Pure logic and innovation.</p>
+                        <div id="eventButtonContainer"></div>
                     </div>
                     <div class="events-globe-slot" aria-hidden="true"></div>
                     <div class="events-stack" role="list">
-                        <button class="events-pill" type="button" role="listitem" data-title="Hackathon" data-description="36-hour build with noctilucent mentors.">
+                        <button class="events-pill" type="button" role="listitem" data-event="blind-coding" data-title="Blind Coding Challenge" data-description="Code without seeing your screen. Pure logic and innovation." data-has-page="false">
+                            <span class="events-pill-label">Blind Coding Challenge</span>
+                        </button>
+                        <button class="events-pill" type="button" role="listitem" data-event="squid-game" data-title="Squid Game" data-description="Strategic competition inspired by the popular series." data-has-page="false">
+                            <span class="events-pill-label">Squid Game</span>
+                        </button>
+                        <button class="events-pill" type="button" role="listitem" data-event="hackathon" data-title="Hackathon" data-description="36-hour build with noctilucent mentors." data-has-page="true">
                             <span class="events-pill-label">Hackathon</span>
                         </button>
-                        <button class="events-pill" type="button" role="listitem" data-title="Design Sprint" data-description="Rapid prototyping circuit tuned to motion graphics.">
-                            <span class="events-pill-label">Design Sprint</span>
+                        <button class="events-pill" type="button" role="listitem" data-event="murder-mystery" data-title="Murder Mystery CTF" data-description="Solve cryptic challenges in this thrilling competition." data-has-page="false">
+                            <span class="events-pill-label">Murder Mystery CTF</span>
                         </button>
-                        <button class="events-pill" type="button" role="listitem" data-title="Signal Keynote" data-description="Main stage broadcast with live neural visuals.">
-                            <span class="events-pill-label">Signal Keynote</span>
+                        <button class="events-pill" type="button" role="listitem" data-event="symposium" data-title="Symposium" data-description="Insightful talks and panel discussions on emerging tech." data-has-page="true">
+                            <span class="events-pill-label">Symposium</span>
                         </button>
-                        <button class="events-pill" type="button" role="listitem" data-title="Night Run" data-description="Glow-traced circuit that sweeps through campus.">
-                            <span class="events-pill-label">Night Run</span>
+                        <button class="events-pill" type="button" role="listitem" data-event="ml-marathon" data-title="ML Marathon" data-description="Machine learning competition with real-world datasets." data-has-page="false">
+                            <span class="events-pill-label">ML Marathon</span>
                         </button>
                     </div>
                 </div>

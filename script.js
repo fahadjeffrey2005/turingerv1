@@ -194,10 +194,37 @@ function switchLineupDay(index) {
         label.textContent = `Day ${index + 1}`;
     }
 
-    // Reset all card flips when switching days
+    // Reset all card flips when switching days by removing inline styles
     const cards = document.querySelectorAll('.event-flip-inner');
     cards.forEach(card => {
-        card.style.transform = 'rotateY(0deg)';
+        card.style.transform = '';
     });
 }
+
+// Event pill interactions
+document.querySelectorAll('.events-pill').forEach(pill => {
+    pill.addEventListener('mouseenter', function() {
+        const title = this.dataset.title;
+        const description = this.dataset.description;
+        const hasPage = this.dataset.hasPage === 'true';
+        const eventId = this.dataset.event;
+        
+        // Update detail card
+        document.getElementById('eventTitle').textContent = title;
+        document.getElementById('eventDescription').textContent = description;
+        
+        // Update button based on event type
+        const btnContainer = document.getElementById('eventButtonContainer');
+        
+        if (hasPage) {
+            btnContainer.innerHTML = `<button class="events-link" type="button" onclick="window.location.href='/${eventId}.html'">Learn More →</button>`;
+        } else {
+            btnContainer.innerHTML = '';
+        }
+        
+        // Update active pill
+        document.querySelectorAll('.events-pill').forEach(p => p.classList.remove('is-active'));
+        this.classList.add('is-active');
+    });
+});
 
