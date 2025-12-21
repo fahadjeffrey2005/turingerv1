@@ -1061,6 +1061,7 @@ body.theme-black .events-detail {
     letter-spacing: 0.03em;
     padding: 20px 12px;
     box-shadow: 0 8px 32px rgba(92, 179, 255, 0.1);
+    font-family: "Zen Dots", sans-serif;
 }
 
 .event-flip-back {

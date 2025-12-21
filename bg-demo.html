@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Ideas Demo - Hackathon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #000000;
+            color: #d5ffe9;
+        }
+
+        .demo-container {
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: #000000;
+            border-bottom: 1px solid rgba(92, 179, 255, 0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-family: "BBH Bartle", sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 0.1em;
+            color: #5CB3FF;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: rgba(200, 255, 235, 0.6);
+            font-size: 1rem;
+        }
+
+        .demo-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        .demo-label {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(92, 179, 255, 0.5);
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .demo-label h2 {
+            color: #5CB3FF;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .demo-label p {
+            color: rgba(200, 255, 235, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .content-overlay {
+            max-width: 600px;
+            text-align: center;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(92, 179, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .content-overlay h3 {
+            font-size: 2rem;
+            color: #5CB3FF;
+            margin-bottom: 15px;
+        }
+
+        .content-overlay p {
+            color: rgba(200, 255, 235, 0.8);
+            line-height: 1.6;
+        }
+
+        /* ===== BG 1: Matrix Code Rain ===== */
+        #bg1 {
+            background: linear-gradient(135deg, #000000, #001a00);
+            position: relative;
+        }
+
+        .code-rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .code-column {
+            position: absolute;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            opacity: 0.6;
+            animation: rainFall 8s linear infinite;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        @keyframes rainFall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* ===== BG 2: Animated Grid ===== */
+        #bg2 {
+            background: linear-gradient(135deg, #000000, #001a3d);
+            position: relative;
+        }
+
+        .grid-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(92, 179, 255, 0.1) 25%, rgba(92, 179, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(92, 179, 255, 0.1) 75%, rgba(92, 179, 255, 0.1) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(92, 179, 255, 0.1) 25%, rgba(92, 179, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(92, 179, 255, 0.1) 75%, rgba(92, 179, 255, 0.1) 76%, transparent 77%, transparent);
+            background-size: 60px 60px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 60px 60px;
+            }
+        }
+
+        .pulsing-nodes {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #5CB3FF;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #5CB3FF;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.3;
+            }
+        }
+
+        /* ===== BG 3: Circuit Board ===== */
+        #bg3 {
+            background: linear-gradient(135deg, #0a0a0a, #1a0a2e);
+            position: relative;
+        }
+
+        svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .circuit-line {
+            stroke: #5CB3FF;
+            stroke-width: 2;
+            fill: none;
+            opacity: 0.6;
+            animation: flowEnergy 3s ease-in-out infinite;
+        }
+
+        @keyframes flowEnergy {
+            0%, 100% {
+                stroke-dashoffset: 0;
+                opacity: 0.3;
+            }
+            50% {
+                stroke-dashoffset: -50;
+                opacity: 0.8;
+            }
+        }
+
+        /* ===== BG 4: Particle Collision ===== */
+        #bg4 {
+            background: linear-gradient(135deg, #000000, #1a0033);
+            position: relative;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff006e;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ff006e;
+        }
+
+        /* ===== BG 5: Gradient with Floating Code ===== */
+        #bg5 {
+            background: linear-gradient(135deg, #0f0f1e 0%, #2a0845 50%, #0f0f1e 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-code {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            color: rgba(92, 179, 255, 0.4);
+            font-size: 1.2rem;
+            animation: float 6s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(92, 179, 255, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotateZ(-5deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateY(-30px) rotateZ(5deg);
+                opacity: 0.6;
+            }
+        }
+
+        /* ===== BG 6: DNA Helix ===== */
+        #bg6 {
+            background: linear-gradient(135deg, #000000, #1a0a3d);
+            position: relative;
+        }
+
+        .helix {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 400px;
+        }
+
+        .helix-strand {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: helixRotate 4s linear infinite;
+        }
+
+        @keyframes helixRotate {
+            0%, 100% {
+                transform: rotateZ(0deg);
+            }
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        .helix-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #5CB3FF;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #5CB3FF;
+        }
+
+        /* ===== BG 7: Wave Animation ===== */
+        #bg7 {
+            background: linear-gradient(180deg, #000000 0%, #0a1a4d 50%, #000000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        svg.wave {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .wave-path {
+            fill: none;
+            stroke: #5CB3FF;
+            stroke-width: 3;
+            opacity: 0.6;
+        }
+
+        /* ===== BG 8: Graph Network ===== */
+        #bg8 {
+            background: linear-gradient(135deg, #000000, #0a0a2e);
+            position: relative;
+        }
+
+        .network-canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer {
+            background: #000000;
+            border-top: 1px solid rgba(92, 179, 255, 0.2);
+            padding: 40px;
+            text-align: center;
+            color: rgba(200, 255, 235, 0.6);
+        }
+
+        .footer a {
+            color: #5CB3FF;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="header">
+            <h1>BACKGROUND IDEAS DEMO</h1>
+            <p>Scroll through to see all 8 background concepts for the Hackathon page</p>
+        </div>
+
+        <!-- BG 1: Matrix Code Rain -->
+        <div class="demo-section" id="bg1">
+            <div class="code-rain" id="codeRain"></div>
+            <div class="demo-label">
+                <h2>1. Matrix Code Rain</h2>
+                <p>Green falling code characters</p>
+            </div>
+            <div class="content-overlay">
+                <h3>Matrix Code Rain</h3>
+                <p>A classic tech aesthetic with green characters cascading down. Perfect for that ultimate hacker vibe.</p>
+            </div>
+        </div>
+
+        <!-- BG 2: Animated Grid -->
+        <div class="demo-section" id="bg2">
+            <div class="grid-container"></div>
+            <div class="demo-label">
+                <h2>2. Animated Grid</h2>
+                <p>Moving grid with pulsing nodes</p>
+            </div>
+            <div class="content-overlay">
+                <h3>Animated Grid</h3>
+                <p>A tech-forward grid that moves and pulses. Nodes expand and contract, representing the dynamic nature of hacking.</p>
+            </div>
+        </div>
+
+        <!-- BG 3: Circuit Board -->
+        <div class="demo-section" id="bg3">
+            <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+                <path class="circuit-line" d="M 100 100 L 300 100 L 300 300 L 500 300 L 500 500 L 700 500" stroke-dasharray="50" />
+                <path class="circuit-line" d="M 900 100 L 700 100 L 700 400 L 400 400 L 400 700" stroke-dasharray="50" style="animation-delay: 0.5s" />
+                <path class="circuit-line" d="M 100 900 L 300 900 L 300 700 L 600 700 L 600 200" stroke-dasharray="50" style="animation-delay: 1s" />
+                <circle cx="300" cy="100" r="5" fill="#5CB3FF" opacity="0.8" />
+                <circle cx="300" cy="300" r="5" fill="#5CB3FF" opacity="0.8" />
+                <circle cx="500" cy="300" r="5" fill="#5CB3FF" opacity="0.8" />
+                <circle cx="500" cy="500" r="5" fill="#5CB3FF" opacity="0.8" />
+            </svg>
+            <div class="demo-label">
+                <h2>3. Circuit Board</h2>
+                <p>Flowing energy paths</p>
+            </div>
+            <div class="content-overlay">
+                <h3>Circuit Board</h3>
+                <p>Electronic pathways with flowing energy. Represents interconnected systems and technical infrastructure.</p>
+            </div>
+        </div>
+
+        <!-- BG 4: Particle Collision -->
+        <div class="demo-section" id="bg4">
+            <canvas id="particleCanvas"></canvas>
+            <div class="demo-label">
+                <h2>4. Particle Collision</h2>
+                <p>Bouncing energetic particles</p>
+            </div>
+            <div class="content-overlay">
+                <h3>Particle Collision</h3>
+                <p>High-energy particles bouncing and colliding. Symbolizes ideas colliding and creating innovation.</p>
+            </div>
+        </div>
+
+        <!-- BG 5: Gradient with Floating Code -->
+        <div class="demo-section" id="bg5">
+            <div class="floating-code" style="left: 10%; top: 20%; animation-delay: 0s;">{ }</div>
+            <div class="floating-code" style="right: 15%; top: 40%; animation-delay: 1s;">< /></div>
+            <div class="floating-code" style="left: 20%; bottom: 20%; animation-delay: 2s;">[ ]</div>
+            <div class="floating-code" style="right: 10%; bottom: 30%; animation-delay: 3s;">( )</div>
+            <div class="floating-code" style="left: 50%; top: 10%; animation-delay: 1.5s;">=></div>
+            <div class="demo-label">
+                <h2>5. Gradient + Floating Code</h2>
+                <p>Smooth gradient with code symbols</p>
+            </div>
+            <div class="content-overlay">
+                <h3>Gradient + Floating Code</h3>
+                <p>Smooth animated gradient with floating code brackets. Elegant and modern with a coding touch.</p>
+            </div>
+        </div>
+
+        <!-- BG 6: DNA Helix -->
+        <div class="demo-section" id="bg6">
+            <div class="helix">
+                <div class="helix-strand">
+                    <div class="helix-dot" style="left: 20%; top: 10%;"></div>
+                    <div class="helix-dot" style="right: 20%; top: 20%;"></div>
+                    <div class="helix-dot" style="left: 30%; top: 30%;"></div>
+                    <div class="helix-dot" style="right: 25%; top: 40%;"></div>
+                    <div class="helix-dot" style="left: 25%; top: 50%;"></div>
+                    <div class="helix-dot" style="right: 20%; top: 60%;"></div>
+                    <div class="helix-dot" style="left: 20%; top: 70%;"></div>
+                    <div class="helix-dot" style="right: 25%; top: 80%;"></div>
+                    <div class="helix-dot" style="left: 30%; top: 90%;"></div>
+                </div>
+            </div>
+            <div class="demo-label">
+                <h2>6. DNA Helix</h2>
+                <p>Rotating double helix structure</p>
+            </div>
+            <div class="content-overlay">
+                <h3>DNA Helix</h3>
+                <p>A rotating helix representing innovation and building something fundamentally new. Biological meets technology.</p>
+            </div>
+        </div>
+
+        <!-- BG 7: Wave Animation -->
+        <div class="demo-section" id="bg7">
+            <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,50 Q300,0 600,50 T1200,50" />
+                <path class="wave-path" d="M0,60 Q300,10 600,60 T1200,60" style="animation-delay: 0.5s; opacity: 0.4;" />
+                <path class="wave-path" d="M0,70 Q300,20 600,70 T1200,70" style="animation-delay: 1s; opacity: 0.2;" />
+            </svg>
+            <div class="demo-label">
+                <h2>7. Wave Animation</h2>
+                <p>Organic flowing waves</p>
+            </div>
+            <div class="content-overlay">
+                <h3>Wave Animation</h3>
+                <p>Smooth, flowing wave patterns with organic motion. Energetic yet smooth, representing the flow of ideas.</p>
+            </div>
+        </div>
+
+        <!-- BG 8: Graph Network -->
+        <div class="demo-section" id="bg8">
+            <canvas class="network-canvas" id="networkCanvas"></canvas>
+            <div class="demo-label">
+                <h2>8. Graph Network</h2>
+                <p>Interconnected nodes visualization</p>
+            </div>
+            <div class="content-overlay">
+                <h3>Graph Network</h3>
+                <p>A living knowledge graph with expanding/contracting nodes. Perfect metaphor for a hackathon ecosystem growing and evolving.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Which background appeals to you most for the Hackathon page?</p>
+            <p>Let me know and I'll implement it!</p>
+        </div>
+    </div>
+
+    <script>
+        // BG 1: Matrix Code Rain
+        function initCodeRain() {
+            const codeRain = document.getElementById('codeRain');
+            const characters = '01アイウエオカキクケコサシスセソタチツテト';
+            
+            for (let i = 0; i < 20; i++) {
+                const column = document.createElement('div');
+                column.className = 'code-column';
+                column.style.left = Math.random() * 100 + '%';
+                column.style.animationDuration = (5 + Math.random() * 5) + 's';
+                column.style.animationDelay = Math.random() * 2 + 's';
+                
+                let text = '';
+                for (let j = 0; j < 15; j++) {
+                    text += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                column.textContent = text;
+                codeRain.appendChild(column);
+            }
+        }
+
+        // BG 4: Particle Collision
+        function initParticles() {
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            const particles = [];
+            for (let i = 0; i < 30; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 3,
+                    vy: (Math.random() - 0.5) * 3,
+                    r: Math.random() * 4 + 2
+                });
+            }
+
+            function animate() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                    ctx.fillStyle = '#ff006e';
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = '#ff006e';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // BG 8: Graph Network
+        function initNetwork() {
+            const canvas = document.getElementById('networkCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            const nodes = [];
+            for (let i = 0; i < 15; i++) {
+                nodes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 3 + 2,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+
+            function animate() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                nodes.forEach(n => {
+                    n.x += n.vx;
+                    n.y += n.vy;
+                    n.pulse += 0.05;
+
+                    if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+                    if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+                    const pulseScale = 1 + Math.sin(n.pulse) * 0.3;
+                    ctx.fillStyle = '#5CB3FF';
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = '#5CB3FF';
+                    ctx.beginPath();
+                    ctx.arc(n.x, n.y, n.size * pulseScale, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                nodes.forEach((n1, i) => {
+                    nodes.forEach((n2, j) => {
+                        if (i < j) {
+                            const dx = n2.x - n1.x;
+                            const dy = n2.y - n1.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            
+                            if (dist < 200) {
+                                ctx.strokeStyle = `rgba(92, 179, 255, ${0.3 * (1 - dist / 200)})`;
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(n1.x, n1.y);
+                                ctx.lineTo(n2.x, n2.y);
+                                ctx.stroke();
+                            }
+                        }
+                    });
+                });
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        window.addEventListener('load', () => {
+            initCodeRain();
+            initParticles();
+            initNetwork();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 5 Demo - Gradient + Floating Code</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="components/registration.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #000000;
+            color: #d5ffe9;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating code elements */
+        .floating-code {
+            position: fixed;
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 1);
+            font-size: 1.5rem;
+            animation: float 6s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.75);
+            pointer-events: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transform: translateY(-100vh);
+            top: 0;
+        }
+
+        @keyframes rain {
+            0% {
+                transform: translateY(-100vh) rotateZ(0deg);
+                opacity: 1;
+            }
+            85% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(0deg);
+                opacity: 0;
+            }
+        }
+
+        .fc1 { left: 8%; animation: rain 7s linear infinite; animation-delay: 0s; font-size: 1.3rem; }
+        .fc2 { left: 65%; animation: rain 7.8s linear infinite; animation-delay: 0.235s; font-size: 1.4rem; }
+        .fc3 { left: 18%; animation: rain 6.3s linear infinite; animation-delay: 0.47s; font-size: 1.3rem; }
+        .fc4 { left: 78%; animation: rain 8.2s linear infinite; animation-delay: 0.705s; font-size: 1.5rem; }
+        .fc5 { left: 28%; animation: rain 6.8s linear infinite; animation-delay: 0.94s; font-size: 1.4rem; }
+        .fc6 { left: 82%; animation: rain 7.5s linear infinite; animation-delay: 1.175s; font-size: 1.3rem; }
+        .fc7 { left: 12%; animation: rain 6.3s linear infinite; animation-delay: 1.41s; font-size: 1.4rem; }
+        .fc8 { left: 72%; animation: rain 8.6s linear infinite; animation-delay: 1.645s; font-size: 1.5rem; }
+        .fc9 { left: 35%; animation: rain 6.8s linear infinite; animation-delay: 1.88s; font-size: 1.3rem; }
+        .fc10 { left: 55%; animation: rain 7.8s linear infinite; animation-delay: 2.115s; font-size: 1.4rem; }
+        .fc11 { left: 42%; animation: rain 7.1s linear infinite; animation-delay: 2.35s; font-size: 1.3rem; }
+        .fc12 { left: 88%; animation: rain 8.2s linear infinite; animation-delay: 2.585s; font-size: 1.5rem; }
+        .fc13 { left: 25%; animation: rain 6s linear infinite; animation-delay: 2.82s; font-size: 1.4rem; }
+        .fc14 { left: 68%; animation: rain 7.8s linear infinite; animation-delay: 3.055s; font-size: 1.3rem; }
+        .fc15 { left: 14%; animation: rain 6.3s linear infinite; animation-delay: 3.29s; font-size: 1.4rem; }
+        .fc16 { left: 76%; animation: rain 8.2s linear infinite; animation-delay: 3.525s; font-size: 1.5rem; }
+        .fc17 { left: 22%; animation: rain 6.8s linear infinite; animation-delay: 3.76s; font-size: 1.3rem; }
+        .fc18 { left: 62%; animation: rain 7.5s linear infinite; animation-delay: 3.995s; font-size: 1.4rem; }
+        .fc19 { left: 32%; animation: rain 6.3s linear infinite; animation-delay: 4.23s; font-size: 1.3rem; }
+        .fc20 { left: 85%; animation: rain 8.6s linear infinite; animation-delay: 4.465s; font-size: 1.5rem; }
+        .fc21 { left: 10%; animation: rain 6.8s linear infinite; animation-delay: 4.7s; font-size: 1.4rem; }
+        .fc22 { left: 70%; animation: rain 7.8s linear infinite; animation-delay: 4.935s; font-size: 1.3rem; }
+        .fc23 { left: 48%; animation: rain 6.8s linear infinite; animation-delay: 5.17s; font-size: 1.4rem; }
+        .fc24 { left: 80%; animation: rain 8.2s linear infinite; animation-delay: 5.405s; font-size: 1.5rem; }
+        .fc25 { left: 38%; animation: rain 6.3s linear infinite; animation-delay: 5.64s; font-size: 1.3rem; }
+        .fc26 { left: 60%; animation: rain 7.5s linear infinite; animation-delay: 5.875s; font-size: 1.4rem; }
+        .fc27 { left: 16%; animation: rain 7.1s linear infinite; animation-delay: 6.11s; font-size: 1.3rem; }
+        .fc28 { left: 74%; animation: rain 8.6s linear infinite; animation-delay: 6.345s; font-size: 1.5rem; }
+        .fc29 { left: 30%; animation: rain 6s linear infinite; animation-delay: 6.58s; font-size: 1.4rem; }
+        .fc30 { left: 84%; animation: rain 7.8s linear infinite; animation-delay: 6.815s; font-size: 1.3rem; }
+        .fc31 { left: 7%; animation: rain 6.3s linear infinite; animation-delay: 7.05s; font-size: 1.4rem; }
+        .fc32 { left: 66%; animation: rain 8.2s linear infinite; animation-delay: 7.285s; font-size: 1.5rem; }
+        .fc33 { left: 45%; animation: rain 6.8s linear infinite; animation-delay: 7.52s; font-size: 1.3rem; }
+        .fc34 { left: 79%; animation: rain 7.5s linear infinite; animation-delay: 7.755s; font-size: 1.4rem; }
+        .fc35 { left: 27%; animation: rain 6.3s linear infinite; animation-delay: 7.99s; font-size: 1.3rem; }
+        .fc36 { left: 73%; animation: rain 8.6s linear infinite; animation-delay: 8.225s; font-size: 1.5rem; }
+        .fc37 { left: 11%; animation: rain 6.8s linear infinite; animation-delay: 8.46s; font-size: 1.4rem; }
+        .fc38 { left: 64%; animation: rain 7.8s linear infinite; animation-delay: 8.695s; font-size: 1.3rem; }
+        .fc39 { left: 40%; animation: rain 6.8s linear infinite; animation-delay: 8.93s; font-size: 1.4rem; }
+        .fc40 { left: 86%; animation: rain 8.2s linear infinite; animation-delay: 9.165s; font-size: 1.5rem; }
+        .fc41 { left: 19%; animation: rain 6.3s linear infinite; animation-delay: 9.4s; font-size: 1.3rem; }
+        .fc42 { left: 69%; animation: rain 7.5s linear infinite; animation-delay: 9.635s; font-size: 1.4rem; }
+        .fc43 { left: 36%; animation: rain 7.1s linear infinite; animation-delay: 9.87s; font-size: 1.3rem; }
+        .fc44 { left: 77%; animation: rain 8.6s linear infinite; animation-delay: 10.105s; font-size: 1.5rem; }
+        .fc45 { left: 24%; animation: rain 6s linear infinite; animation-delay: 10.34s; font-size: 1.4rem; }
+        .fc46 { left: 83%; animation: rain 7.8s linear infinite; animation-delay: 10.575s; font-size: 1.3rem; }
+        .fc47 { left: 9%; animation: rain 6.3s linear infinite; animation-delay: 10.81s; font-size: 1.4rem; }
+        .fc48 { left: 71%; animation: rain 8.2s linear infinite; animation-delay: 11.045s; font-size: 1.5rem; }
+        .fc49 { left: 61%; animation: rain 7.5s linear infinite; animation-delay: 11.28s; font-size: 1.4rem; }
+
+        /* Content container */
+        .container {
+            max-width: 900px;
+            text-align: left;
+            z-index: 10;
+            margin: 0 auto;
+            padding: 0 18px;
+        }
+
+        .header-inline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 18px;
+        }
+
+        .title-block h1 {
+            margin-bottom: 6px;
+            text-align: left;
+        }
+
+        .title-block .dates {
+            margin: 0;
+            text-align: left;
+        }
+
+        .v-sep {
+            width: 1px;
+            height: 56px;
+            background: linear-gradient(to bottom, rgba(92,179,255,0.25), rgba(92,179,255,0.06));
+            border-radius: 2px;
+            margin: 0 18px;
+            flex-shrink: 0;
+        }
+
+        .side-actions { display:flex; align-items:center; gap:12px; }
+
+        .container h1 {
+            font-family: "BBH Bartle", sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 0.12em;
+            color: #5CB3FF;
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        .dates {
+            font-family: "Space Mono", monospace;
+            color: #5CB3FF;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: rgba(92, 179, 255, 0.4);
+            margin: 0 auto 25px;
+        }
+
+        .container .subtitle {
+            color: rgba(92, 179, 255, 0.8);
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: rgba(200, 255, 235, 0.7);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .event-details {
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .detail-label {
+            color: rgba(200, 255, 235, 0.9);
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+        }
+
+        .button-group {
+            margin-top: 45px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            background: linear-gradient(135deg, #5CB3FF, #0080FE);
+            color: #000000;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            color: #5CB3FF;
+            border: 1.5px solid rgba(92, 179, 255, 0.6);
+        }
+
+        .btn.secondary:hover {
+            background: rgba(92, 179, 255, 0.1);
+            border-color: rgba(92, 179, 255, 0.9);
+        }
+
+        /* PDF Modal Styles - Glassmorphism (cleaned & centered) */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            z-index: 1400;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.62);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .pdf-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .pdf-modal-content {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(92%, 980px);
+            max-height: 92vh;
+            background: rgba(6, 8, 12, 0.94);
+            border-radius: 14px;
+            border: 1.5px solid rgba(92, 179, 255, 0.36);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(92, 179, 255, 0.06);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 18px;
+            z-index: 2000;
+        }
+
+        .pdf-preview {
+            width: 100%;
+            height: calc(78vh);
+            max-height: 820px;
+            position: relative;
+            background: rgba(0, 0, 0, 0.28);
+        }
+
+        .pdf-preview::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 6, 8, 0.66);
+            border-radius: 6px;
+            pointer-events: none;
+            z-index: 1;
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+        }
+
+        #pdfViewer {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 6px;
+            display: block;
+        }
+
+        .download-btn {
+            margin-top: 14px;
+            margin-bottom: 6px;
+            align-self: center;
+            padding: 10px 24px;
+            background: rgba(92, 179, 255, 0.16);
+            border: 1.5px solid rgba(92, 179, 255, 0.44);
+            color: #5CB3FF;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.24s ease;
+        }
+
+        .download-btn:hover {
+            background: rgba(92, 179, 255, 0.28);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(92, 179, 255, 0.14);
+        }
+
+        /* Registration Modal Styles - Minimal Glassmorphism */
+        .registration-modal {
+            display: none;
+            position: fixed;
+            z-index: 1500;
+            inset: 0;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .registration-modal.active {
+            display: grid;
+            place-items: center;
+            padding: 20px;
+        }
+
+        .registration-modal-content {
+            width: 100%;
+            max-width: 420px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(92,179,255,0.32);
+            border-radius: 14px;
+            padding: 22px 22px 18px 22px;
+            backdrop-filter: blur(48px);
+            -webkit-backdrop-filter: blur(48px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .registration-modal-content h2 {
+            font-family: "BBH Bartle", sans-serif;
+            color: #aee6ff;
+            font-size: 1.4rem;
+            margin: 0 0 6px 0;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .registration-subtitle {
+            text-align: center;
+            color: rgba(92,179,255,0.45);
+            font-size: 0.82rem;
+            margin: 0 0 18px 0;
+        }
+
+        .form-group { margin-bottom: 14px; position: relative; }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 6px 8px 6px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(170,220,255,0.02);
+            color: rgba(220,255,240,0.95);
+            font-size: 0.95rem;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            caret-color: rgba(174,230,255,0.95);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .form-group input::placeholder { color: transparent; }
+
+        /* Keep focus behavior invisible visually but keep label triggers functional */
+        .form-group input:focus,
+        .form-group input:active,
+        .form-group input:focus-visible {
+            outline: none;
+            border-bottom-color: rgba(170,220,255,0.02);
+            box-shadow: none !important;
+            background: transparent;
+        }
+
+        /* Prevent inner focus borders in Firefox */
+        .form-group input::-moz-focus-inner { border: 0; }
+
+        /* Floating label */
+        .form-group label {
+            position: absolute;
+            left: 6px;
+            top: 12px;
+            font-size: 0.95rem;
+            color: rgba(170,220,255,0.45);
+            pointer-events: none;
+            transition: transform 0.18s ease, font-size 0.18s ease, top 0.18s ease, color 0.18s ease;
+            transform-origin: left top;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label {
+            transform: translateY(-46%) scale(0.86);
+            top: 6px;
+            color: rgba(174,230,255,0.95);
+        }
+
+        .registration-actions { display:flex; gap:12px; margin-top:18px; }
+
+        .register-submit {
+            flex:1;
+            padding:10px 12px;
+            background: linear-gradient(90deg, rgba(92,179,255,0.14), rgba(0,128,254,0.12));
+            border: 1px solid rgba(92,179,255,0.32);
+            color: #cfeeff;
+            border-radius: 10px;
+            font-weight:600;
+            font-size:0.92rem;
+            cursor:pointer;
+        }
+
+        .register-submit:hover { transform: translateY(-2px); filter:brightness(1.05); }
+
+        .register-cancel {
+            flex:1;
+            padding:10px 12px;
+            background: transparent;
+            border: none;
+            color: rgba(170,220,255,0.45);
+            text-align:center;
+            font-weight:500;
+            cursor:pointer;
+        }
+
+        .register-cancel:hover { color: rgba(170,220,255,0.7); text-decoration:underline; }
+
+
+    </style>
+</head>
+<body>
+    <!-- Floating code elements -->
+    <div class="floating-code fc1">{ }</div>
+    <div class="floating-code fc2">< /></div>
+    <div class="floating-code fc3">[ ]</div>
+    <div class="floating-code fc4">( )</div>
+    <div class="floating-code fc5">const</div>
+    <div class="floating-code fc6">let</div>
+    <div class="floating-code fc7">var</div>
+    <div class="floating-code fc8">function</div>
+    <div class="floating-code fc9">=></div>
+    <div class="floating-code fc10">class</div>
+    <div class="floating-code fc11">import</div>
+    <div class="floating-code fc12">export</div>
+    <div class="floating-code fc13">async</div>
+    <div class="floating-code fc14">await</div>
+    <div class="floating-code fc15">try</div>
+    <div class="floating-code fc16">catch</div>
+    <div class="floating-code fc17">if</div>
+    <div class="floating-code fc18">else</div>
+    <div class="floating-code fc19">for</div>
+    <div class="floating-code fc20">while</div>
+    <div class="floating-code fc21">return</div>
+    <div class="floating-code fc22">new</div>
+    <div class="floating-code fc23">this</div>
+    <div class="floating-code fc24">static</div>
+    <div class="floating-code fc25">extends</div>
+    <div class="floating-code fc26">implements</div>
+    <div class="floating-code fc27">interface</div>
+    <div class="floating-code fc28">type</div>
+    <div class="floating-code fc29">;</div>
+    <div class="floating-code fc30">:</div>
+    <div class="floating-code fc31">...</div>
+    <div class="floating-code fc32">::</div>
+    <div class="floating-code fc33">?.</div>
+    <div class="floating-code fc34">??</div>
+    <div class="floating-code fc35">||</div>
+    <div class="floating-code fc36">&&</div>
+    <div class="floating-code fc37">!</div>
+    <div class="floating-code fc38">==</div>
+    <div class="floating-code fc39">===</div>
+    <div class="floating-code fc40">!=</div>
+    <div class="floating-code fc41">!==</div>
+    <div class="floating-code fc42">></div>
+    <div class="floating-code fc43">&lt;</div>
+    <div class="floating-code fc44">>=</div>
+    <div class="floating-code fc45"><=</div>
+    <div class="floating-code fc46">+=</div>
+    <div class="floating-code fc47">-=</div>
+    <div class="floating-code fc48">*=</div>
+    <div class="floating-code fc49">/=</div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="header-inline">
+            <div class="title-block">
+                <h1>HACKATHON</h1>
+                <p class="dates">29-30 March 2025</p>
+            </div>
+            <div class="v-sep" aria-hidden="true"></div>
+            <div class="side-actions">
+                <div class="button-group">
+                    <button class="btn" id="registerBtn">Register Now</button>
+                    <button class="btn secondary" id="ruleBookBtn">Rulebook</button>
+                </div>
+            </div>
+        </div>
+
+        <p class="description">Code, innovate, and compete for 24 hours straight. Build something amazing with the brightest minds.</p>
+
+        <div class="event-details">
+            <div class="detail-item">
+                <span class="detail-label">₹1,00,000 Prize Pool</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Teams of 2-4</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Preview Modal -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-modal-content">
+            <div class="pdf-preview">
+                <iframe id="pdfViewer" src="files/fahad%20jeffrey.pdf#page=1&zoom=page-fit" type="application/pdf"></iframe>
+            </div>
+            <button class="btn download-btn" id="downloadBtn">Download PDF</button>
+        </div>
+    </div>
+
+    <!-- Registration modal is loaded from components/registration.js -->
+    </div>
+
+
+
+    <script>
+        // PDF Modal functionality
+        const ruleBookBtn = document.getElementById('ruleBookBtn');
+        const pdfModal = document.getElementById('pdfModal');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        ruleBookBtn.addEventListener('click', () => {
+            pdfModal.classList.add('active');
+        });
+
+        pdfModal.addEventListener('click', (e) => {
+            if (e.target === pdfModal) {
+                pdfModal.classList.remove('active');
+            }
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.href = 'files/fahad%20jeffrey.pdf';
+            link.download = 'Hackathon_Rulebook.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // Registration modal is provided by components/registration.js
+    </script>
+    <script type="module" src="components/registration.js"></script>
+</body>
+</html>

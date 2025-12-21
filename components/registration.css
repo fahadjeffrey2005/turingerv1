@@ -1,0 +1,96 @@
+/* Registration component styles (extracted) */
+.registration-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 1200; }
+.registration-modal.active { display: flex; }
+.registration-modal::backdrop { backdrop-filter: blur(4px); }
+
+.registration-modal-content {
+    width: 420px;
+    max-width: calc(100% - 40px);
+    background: rgba(10,14,16,0.54);
+    border-radius: 14px;
+    padding: 22px 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(8px) saturate(120%);
+}
+
+.registration-modal-content h2 {
+    margin: 0 0 6px 0;
+    font-weight: 600;
+}
+
+.registration-subtitle {
+    text-align: center;
+    color: rgba(170,220,255,0.45);
+    font-size: 0.88rem;
+    margin: 0 0 18px 0;
+}
+
+.form-group { margin-bottom: 14px; position: relative; }
+
+.form-group input {
+    width: 100%;
+    padding: 14px 6px 8px 6px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(170,220,255,0.02);
+    color: rgba(220,255,240,0.95);
+    font-size: 0.95rem;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    caret-color: rgba(174,230,255,0.95);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.form-group input::placeholder { color: transparent; }
+
+/* Keep focus behavior invisible visually but keep label triggers functional */
+.form-group input:focus,
+.form-group input:active,
+.form-group input:focus-visible {
+    outline: none;
+    border-bottom-color: rgba(170,220,255,0.02);
+    box-shadow: none !important;
+    background: transparent;
+}
+
+.form-group input::-moz-focus-inner { border: 0; }
+
+/* Floating label */
+.form-group label {
+    position: absolute;
+    left: 6px;
+    top: 12px;
+    font-size: 0.95rem;
+    color: rgba(170,220,255,0.45);
+    pointer-events: none;
+    transition: transform 0.18s ease, font-size 0.18s ease, top 0.18s ease, color 0.18s ease;
+    transform-origin: left top;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    transform: translateY(-46%) scale(0.86);
+    top: 6px;
+    color: rgba(174,230,255,0.95);
+}
+
+.registration-actions { display:flex; gap:12px; margin-top:18px; }
+
+.register-submit {
+    flex:1;
+    padding:10px 12px;
+    background: linear-gradient(90deg, rgba(92,179,255,0.14), rgba(0,128,254,0.12));
+    border: 1px solid rgba(92,179,255,0.32);
+    color: #cfeeff;
+    border-radius: 8px;
+}
+
+.register-cancel {
+    padding:10px 12px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.04);
+    color: rgba(200,230,255,0.7);
+    border-radius: 8px;
+}

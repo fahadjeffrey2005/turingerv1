@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symposium - Turinger '26</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Archivo+Black&family=Goldman:wght@400;700&family=Special+Gothic+Expanded+One&family=Zen+Dots&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #000000;
+            color: #d5ffe9;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #5CB3FF;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0080FE;
+        }
+
+        .header h1 {
+            font-family: "BBH Bartle", sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            color: #5CB3FF;
+        }
+
+        .header p {
+            color: rgba(200, 255, 235, 0.7);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .time-info {
+            color: rgba(92, 179, 255, 0.8);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .content {
+            background: linear-gradient(135deg, rgba(92, 179, 255, 0.05), rgba(0, 128, 254, 0.02));
+            border-radius: 12px;
+            border: 1px solid rgba(92, 179, 255, 0.1);
+            padding: 50px;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #5CB3FF;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .section-content {
+            color: rgba(200, 255, 235, 0.8);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .speakers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .speaker-card {
+            background: rgba(92, 179, 255, 0.1);
+            border: 1px solid rgba(92, 179, 255, 0.3);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .speaker-card:hover {
+            background: rgba(92, 179, 255, 0.15);
+            border-color: rgba(92, 179, 255, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .speaker-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .speaker-name {
+            font-weight: 700;
+            color: #5CB3FF;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .speaker-role {
+            color: rgba(200, 255, 235, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .schedule-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(92, 179, 255, 0.2);
+        }
+
+        .schedule-table th {
+            background: rgba(92, 179, 255, 0.1);
+            color: #5CB3FF;
+            font-weight: 700;
+        }
+
+        .schedule-table tr:hover {
+            background: rgba(92, 179, 255, 0.05);
+        }
+
+        .schedule-time {
+            color: #5CB3FF;
+            font-weight: 600;
+            min-width: 120px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #5CB3FF, #0080FE);
+            color: #000000;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(92, 179, 255, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            border-top: 1px solid rgba(92, 179, 255, 0.2);
+            color: rgba(200, 255, 235, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="header">
+            <h1>SYMPOSIUM</h1>
+            <p>Insights & Innovation Summit</p>
+            <div class="time-info">📅 10:00 AM - 4:00 PM</div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Event Overview</div>
+                <div class="section-content">
+                    <p>The Turinger Symposium brings together industry leaders, innovators, and thought leaders to discuss the future of technology. Experience inspiring talks, engaging panel discussions, and networking opportunities with some of the brightest minds in the industry.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Featured Speakers</div>
+                <div class="speakers">
+                    <div class="speaker-card">
+                        <div class="speaker-icon">🎤</div>
+                        <div class="speaker-name">Dr. Sarah Chen</div>
+                        <div class="speaker-role">AI & Machine Learning Expert</div>
+                    </div>
+                    <div class="speaker-card">
+                        <div class="speaker-icon">💼</div>
+                        <div class="speaker-name">James Rodriguez</div>
+                        <div class="speaker-role">Startup Founder & Investor</div>
+                    </div>
+                    <div class="speaker-card">
+                        <div class="speaker-icon">🚀</div>
+                        <div class="speaker-name">Emma Thompson</div>
+                        <div class="speaker-role">Tech Innovation Lead</div>
+                    </div>
+                    <div class="speaker-card">
+                        <div class="speaker-icon">🔬</div>
+                        <div class="speaker-name">Prof. Michael Zhang</div>
+                        <div class="speaker-role">Research & Development</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Event Schedule</div>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="schedule-time">10:00 AM</td>
+                            <td>Welcome & Opening Remarks</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">10:30 AM</td>
+                            <td>Keynote: "The Future of Tech" - Dr. Sarah Chen</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">11:15 AM</td>
+                            <td>Panel Discussion: Industry Trends</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">12:00 PM</td>
+                            <td>Networking Lunch</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">1:00 PM</td>
+                            <td>Talks: "Startup Journey" - James Rodriguez</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">1:45 PM</td>
+                            <td>Talks: "Innovation at Scale" - Emma Thompson</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">2:30 PM</td>
+                            <td>Q&A Session</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">3:00 PM</td>
+                            <td>Networking & Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">3:30 PM</td>
+                            <td>Closing Remarks & Raffle</td>
+                        </tr>
+                        <tr>
+                            <td class="schedule-time">4:00 PM</td>
+                            <td>Event Ends</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Networking Opportunities</div>
+                <div class="section-content">
+                    <p>Connect with industry professionals, fellow students, and innovators. Our networking sessions are designed to facilitate meaningful conversations and potential collaborations. Refreshments will be served throughout the day.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Attendance</div>
+                <div class="section-content">
+                    <p>Free for all Turinger participants. Seats are limited - register early to secure your spot!</p>
+                </div>
+                <button class="cta-button">Register Now</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Questions? Contact us at symposium@turinger.com</p>
+        </div>
+    </div>
+</body>
+</html>
