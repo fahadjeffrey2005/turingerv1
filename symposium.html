@@ -6,7 +6,8 @@
     <title>Symposium - Turinger '26</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Archivo+Black&family=Goldman:wght@400;700&family=Special+Gothic+Expanded+One&family=Zen+Dots&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="components/registration.css">
     <style>
         * {
             margin: 0;
@@ -15,295 +16,478 @@
         }
 
         body {
-            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #000000;
-            color: #d5ffe9;
-            padding: 40px 20px;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000;
+            color: #e0f7ff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fixed research-themed background */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #0a0f1c 0%, #0d1426 25%, #0f1729 50%, #0a0f1c 75%, #0d1426 100%);
+        }
+
+        .bg-layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(147, 197, 253, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+            animation: bgPulse 8s ease-in-out infinite alternate;
+        }
+
+        .bg-layer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridShift 20s linear infinite;
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes gridShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
+        }
+
+        /* Mathematical equations overlay */
+        .equations {
+            position: absolute;
+            top: 15%;
+            right: 8%;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: rgba(147, 197, 253, 0.08);
+            line-height: 1.8;
+            white-space: pre;
+            transform: rotate(-5deg);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .equations:nth-child(2) {
+            top: 60%;
+            right: 12%;
+            transform: rotate(3deg);
+            font-size: 12px;
+        }
+
+        .equations:nth-child(3) {
+            top: 35%;
+            left: 10%;
+            transform: rotate(-8deg);
+            font-size: 16px;
+        }
+
+        /* Content wrapper that scrolls over background */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
+        /* Back link */
         .back-link {
-            display: inline-block;
-            margin-bottom: 30px;
-            color: #5CB3FF;
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #e0f7ff;
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
         }
 
         .back-link:hover {
-            color: #0080FE;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            stroke: #e0f7ff;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 80px;
         }
 
         .header h1 {
-            font-family: "BBH Bartle", sans-serif;
-            font-size: 3.5rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 20px;
-            color: #5CB3FF;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #60a5fa, #93c5fd, #dbeafe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
         }
 
         .header p {
-            color: rgba(200, 255, 235, 0.7);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #93c5fd;
+            margin-bottom: 20px;
+            font-weight: 300;
         }
 
         .time-info {
-            color: rgba(92, 179, 255, 0.8);
-            font-size: 1rem;
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #dbeafe;
+            backdrop-filter: blur(5px);
         }
 
+        /* Content sections */
         .content {
-            background: linear-gradient(135deg, rgba(92, 179, 255, 0.05), rgba(0, 128, 254, 0.02));
-            border-radius: 12px;
-            border: 1px solid rgba(92, 179, 255, 0.1);
-            padding: 50px;
-            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
         }
 
         .section {
-            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
         }
 
         .section-title {
-            font-size: 1.8rem;
-            color: #5CB3FF;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #60a5fa;
             margin-bottom: 20px;
-            font-weight: 700;
+            border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+            padding-bottom: 10px;
         }
 
         .section-content {
-            color: rgba(200, 255, 235, 0.8);
-            line-height: 1.8;
-            font-size: 1.05rem;
+            color: #e0f7ff;
+            line-height: 1.6;
         }
 
+        .section-content p {
+            margin-bottom: 15px;
+        }
+
+        /* Speakers grid */
         .speakers {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .speaker-card {
-            background: rgba(92, 179, 255, 0.1);
-            border: 1px solid rgba(92, 179, 255, 0.3);
-            border-radius: 8px;
-            padding: 25px;
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
             text-align: center;
+            transition: all 0.3s ease;
         }
 
         .speaker-card:hover {
-            background: rgba(92, 179, 255, 0.15);
-            border-color: rgba(92, 179, 255, 0.6);
-            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(96, 165, 250, 0.3);
+            transform: translateY(-2px);
         }
 
         .speaker-icon {
-            font-size: 3rem;
+            font-size: 2rem;
             margin-bottom: 15px;
         }
 
         .speaker-name {
-            font-weight: 700;
-            color: #5CB3FF;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+            font-weight: 600;
+            color: #dbeafe;
+            margin-bottom: 5px;
         }
 
         .speaker-role {
-            color: rgba(200, 255, 235, 0.7);
             font-size: 0.9rem;
+            color: #93c5fd;
+            opacity: 0.8;
         }
 
+        /* Schedule table */
         .schedule-table {
             width: 100%;
-            margin-top: 20px;
             border-collapse: collapse;
+            margin-top: 20px;
         }
 
         .schedule-table th,
         .schedule-table td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid rgba(92, 179, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .schedule-table th {
-            background: rgba(92, 179, 255, 0.1);
-            color: #5CB3FF;
-            font-weight: 700;
-        }
-
-        .schedule-table tr:hover {
-            background: rgba(92, 179, 255, 0.05);
+            color: #60a5fa;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(96, 165, 250, 0.3);
         }
 
         .schedule-time {
-            color: #5CB3FF;
-            font-weight: 600;
-            min-width: 120px;
+            color: #93c5fd;
+            font-weight: 500;
+            font-family: 'Space Mono', monospace;
         }
 
+        /* CTA Button */
         .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, #5CB3FF, #0080FE);
-            color: #000000;
-            padding: 15px 40px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            margin-top: 30px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(92, 179, 255, 0.4);
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
         }
 
+        /* Footer */
         .footer {
             text-align: center;
             margin-top: 60px;
-            padding: 40px;
-            border-top: 1px solid rgba(92, 179, 255, 0.2);
-            color: rgba(200, 255, 235, 0.6);
+            padding: 30px;
+            color: rgba(224, 247, 255, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .back-link {
+                top: 20px;
+                left: 20px;
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+
+            .header {
+                padding-top: 60px;
+                margin-bottom: 40px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .speakers {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-table th,
+            .schedule-table td {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-link">← Back to Home</a>
-        
-        <div class="header">
-            <h1>SYMPOSIUM</h1>
-            <p>Insights & Innovation Summit</p>
-            <div class="time-info">📅 10:00 AM - 4:00 PM</div>
-        </div>
+    <!-- Fixed background layer -->
+    <div class="bg-layer">
+        <div class="equations">∫ ∇·E dV = ∮ E·dA
+∂ψ/∂t = -iℏ ∇²ψ/2m + Vψ
+lim (1 + 1/n)ⁿ = e</div>
+        <div class="equations">F = ma
+E = mc²
+∇ × E = -∂B/∂t</div>
+        <div class="equations">∑ p(x) = 1
+d/dx ∫ f(x) dx = f(x)
+Δx Δp ≥ ℏ/2</div>
+    </div>
 
-        <div class="content">
-            <div class="section">
-                <div class="section-title">Event Overview</div>
-                <div class="section-content">
-                    <p>The Turinger Symposium brings together industry leaders, innovators, and thought leaders to discuss the future of technology. Experience inspiring talks, engaging panel discussions, and networking opportunities with some of the brightest minds in the industry.</p>
+    <!-- Scrolling content -->
+    <div class="content-wrapper">
+        <div class="container">
+            <a href="index.html" class="back-link" aria-label="Back to home">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Back to Home</span>
+            </a>
+
+            <div class="header">
+                <h1>SYMPOSIUM</h1>
+                <p>Research & Innovation Summit</p>
+                <div class="time-info">📅 10:00 AM - 4:00 PM</div>
+            </div>
+
+            <div class="content">
+                <div class="section">
+                    <div class="section-title">Event Overview</div>
+                    <div class="section-content">
+                        <p>The Turinger Symposium brings together leading researchers, academics, and industry innovators to explore cutting-edge developments in technology and science. This premier research event features keynote presentations, technical sessions, and collaborative discussions on the latest breakthroughs shaping our digital future.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Featured Researchers</div>
+                    <div class="speakers">
+                        <div class="speaker-card">
+                            <div class="speaker-icon">🧠</div>
+                            <div class="speaker-name">Dr. Sarah Chen</div>
+                            <div class="speaker-role">AI Research Director</div>
+                        </div>
+                        <div class="speaker-card">
+                            <div class="speaker-icon">🔬</div>
+                            <div class="speaker-name">Prof. James Rodriguez</div>
+                            <div class="speaker-role">Quantum Computing Lead</div>
+                        </div>
+                        <div class="speaker-card">
+                            <div class="speaker-icon">📊</div>
+                            <div class="speaker-name">Dr. Emma Thompson</div>
+                            <div class="speaker-role">Data Science Researcher</div>
+                        </div>
+                        <div class="speaker-card">
+                            <div class="speaker-icon">⚡</div>
+                            <div class="speaker-name">Prof. Michael Zhang</div>
+                            <div class="speaker-role">Cybersecurity Expert</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Research Agenda</div>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Session</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="schedule-time">10:00 AM</td>
+                                <td>Welcome & Opening Remarks</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">10:30 AM</td>
+                                <td>Keynote: "AI in Scientific Discovery" - Dr. Sarah Chen</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">11:15 AM</td>
+                                <td>Panel: Quantum Computing Breakthroughs</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">12:00 PM</td>
+                                <td>Networking Lunch & Poster Session</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">1:00 PM</td>
+                                <td>Technical Session: Machine Learning Advances</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">1:45 PM</td>
+                                <td>Research Showcase: Student Projects</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">2:30 PM</td>
+                                <td>Q&A and Open Discussion</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">3:00 PM</td>
+                                <td>Industry-Academia Collaboration Panel</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">3:45 PM</td>
+                                <td>Closing Remarks & Awards</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-time">4:00 PM</td>
+                                <td>Event Concludes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Research Focus Areas</div>
+                    <div class="section-content">
+                        <p>Explore groundbreaking research in artificial intelligence, quantum computing, cybersecurity, data science, and emerging technologies. Network with leading researchers and discover opportunities for collaboration and innovation.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Registration</div>
+                    <div class="section-content">
+                        <p>Join us for this premier research symposium. Free for all Turinger participants. Limited seats available - register now to secure your spot and contribute to the future of technology research.</p>
+                    </div>
+                    <button id="registerBtn" class="cta-button">Register Now</button>
                 </div>
             </div>
 
-            <div class="section">
-                <div class="section-title">Featured Speakers</div>
-                <div class="speakers">
-                    <div class="speaker-card">
-                        <div class="speaker-icon">🎤</div>
-                        <div class="speaker-name">Dr. Sarah Chen</div>
-                        <div class="speaker-role">AI & Machine Learning Expert</div>
-                    </div>
-                    <div class="speaker-card">
-                        <div class="speaker-icon">💼</div>
-                        <div class="speaker-name">James Rodriguez</div>
-                        <div class="speaker-role">Startup Founder & Investor</div>
-                    </div>
-                    <div class="speaker-card">
-                        <div class="speaker-icon">🚀</div>
-                        <div class="speaker-name">Emma Thompson</div>
-                        <div class="speaker-role">Tech Innovation Lead</div>
-                    </div>
-                    <div class="speaker-card">
-                        <div class="speaker-icon">🔬</div>
-                        <div class="speaker-name">Prof. Michael Zhang</div>
-                        <div class="speaker-role">Research & Development</div>
-                    </div>
-                </div>
+            <div class="footer">
+                <p>Questions? Contact us at symposium@turinger.com</p>
             </div>
-
-            <div class="section">
-                <div class="section-title">Event Schedule</div>
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Activity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="schedule-time">10:00 AM</td>
-                            <td>Welcome & Opening Remarks</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">10:30 AM</td>
-                            <td>Keynote: "The Future of Tech" - Dr. Sarah Chen</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">11:15 AM</td>
-                            <td>Panel Discussion: Industry Trends</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">12:00 PM</td>
-                            <td>Networking Lunch</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">1:00 PM</td>
-                            <td>Talks: "Startup Journey" - James Rodriguez</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">1:45 PM</td>
-                            <td>Talks: "Innovation at Scale" - Emma Thompson</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">2:30 PM</td>
-                            <td>Q&A Session</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">3:00 PM</td>
-                            <td>Networking & Coffee Break</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">3:30 PM</td>
-                            <td>Closing Remarks & Raffle</td>
-                        </tr>
-                        <tr>
-                            <td class="schedule-time">4:00 PM</td>
-                            <td>Event Ends</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Networking Opportunities</div>
-                <div class="section-content">
-                    <p>Connect with industry professionals, fellow students, and innovators. Our networking sessions are designed to facilitate meaningful conversations and potential collaborations. Refreshments will be served throughout the day.</p>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Attendance</div>
-                <div class="section-content">
-                    <p>Free for all Turinger participants. Seats are limited - register early to secure your spot!</p>
-                </div>
-                <button class="cta-button">Register Now</button>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>Questions? Contact us at symposium@turinger.com</p>
         </div>
     </div>
+
+    <script type="module" src="components/registration.js"></script>
 </body>
 </html>
