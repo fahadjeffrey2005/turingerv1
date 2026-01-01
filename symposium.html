@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Symposium - Turinger '26</title>
+    <title>Symposium - Background Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="components/registration.css">
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,479 +14,801 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #000;
-            color: #e0f7ff;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            font-family: "Inter", system-ui, sans-serif;
+            overflow: hidden;
         }
 
-        /* Fixed research-themed background */
-        .bg-layer {
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            transition: filter 0.3s ease;
+        }
+
+        canvas.blurred {
+            filter: blur(8px);
+        }
+
+        .back-link {
+            position: fixed;
+            left: 24px;
+            top: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            color: rgba(190,230,255,0.95);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            backdrop-filter: blur(6px) saturate(110%);
+            -webkit-backdrop-filter: blur(6px) saturate(110%);
+            transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+            z-index: 2200;
+        }
+
+        .back-link svg { 
+            width: 14px; 
+            height: 14px; 
+            stroke: currentColor; 
+            opacity: 0.95; 
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.035);
+            color: #aee6ff;
+            box-shadow: 0 6px 20px rgba(92,179,255,0.06);
+        }
+
+        .content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            text-align: center;
+            color: #d5ffe9;
+            max-width: 700px;
+            padding: 40px 50px;
+            pointer-events: none;
+        }
+
+        .content h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #0080FE, #00B4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: "BBH Bartle", sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+        }
+
+        .content p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: rgba(213, 255, 233, 0.65);
+            font-style: italic;
+            margin-bottom: 28px;
+            letter-spacing: 0.3px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-learn {
+            background: transparent;
+            color: #00B4FF;
+            border: 1px solid rgba(0, 180, 255, 0.4);
+        }
+
+        .btn-learn:hover {
+            border-color: rgba(0, 180, 255, 0.8);
+            background: rgba(0, 180, 255, 0.05);
+        }
+
+        .btn-register {
+            background: transparent;
+            color: rgba(0, 180, 255, 0.8);
+            border: 1px solid rgba(0, 180, 255, 0.3);
+        }
+
+        .btn-register:hover {
+            border-color: rgba(0, 180, 255, 0.6);
+            background: rgba(0, 180, 255, 0.03);
+        }
+
+        /* PDF Preview Modal */
+        .pdf-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            background: linear-gradient(135deg, #0a0f1c 0%, #0d1426 25%, #0f1729 50%, #0a0f1c 75%, #0d1426 100%);
-        }
-
-        .bg-layer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(147, 197, 253, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
-            animation: bgPulse 8s ease-in-out infinite alternate;
-        }
-
-        .bg-layer::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridShift 20s linear infinite;
-        }
-
-        @keyframes bgPulse {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes gridShift {
-            0% { background-position: 0 0; }
-            100% { background-position: 60px 60px; }
-        }
-
-        /* Mathematical equations overlay */
-        .equations {
-            position: absolute;
-            top: 15%;
-            right: 8%;
-            font-family: 'Space Mono', monospace;
-            font-size: 14px;
-            color: rgba(147, 197, 253, 0.08);
-            line-height: 1.8;
-            white-space: pre;
-            transform: rotate(-5deg);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .equations:nth-child(2) {
-            top: 60%;
-            right: 12%;
-            transform: rotate(3deg);
-            font-size: 12px;
-        }
-
-        .equations:nth-child(3) {
-            top: 35%;
-            left: 10%;
-            transform: rotate(-8deg);
-            font-size: 16px;
-        }
-
-        /* Content wrapper that scrolls over background */
-        .content-wrapper {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* Back link */
-        .back-link {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            display: inline-flex;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 300;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pdf-modal.active {
+            display: flex;
+        }
+
+        .pdf-modal-content {
+            background: #1a1a1a;
             border-radius: 12px;
-            color: #e0f7ff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .back-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .back-link svg {
-            width: 16px;
-            height: 16px;
-            stroke: #e0f7ff;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-            padding-top: 80px;
-        }
-
-        .header h1 {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, #60a5fa, #93c5fd, #dbeafe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            letter-spacing: -0.02em;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            color: #93c5fd;
-            margin-bottom: 20px;
-            font-weight: 300;
-        }
-
-        .time-info {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: #dbeafe;
-            backdrop-filter: blur(5px);
-        }
-
-        /* Content sections */
-        .content {
+            overflow: hidden;
+            max-width: 900px;
+            width: 90%;
+            max-height: 80vh;
             display: flex;
             flex-direction: column;
-            gap: 50px;
+            border: 1px solid rgba(0, 180, 255, 0.3);
         }
 
-        .section {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #60a5fa;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(96, 165, 250, 0.2);
-            padding-bottom: 10px;
-        }
-
-        .section-content {
-            color: #e0f7ff;
-            line-height: 1.6;
-        }
-
-        .section-content p {
-            margin-bottom: 15px;
-        }
-
-        /* Speakers grid */
-        .speakers {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .speaker-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
+        .pdf-header {
             padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 180, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .speaker-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(96, 165, 250, 0.3);
-            transform: translateY(-2px);
+        .pdf-header h2 {
+            color: #00B4FF;
+            margin: 0;
+            font-size: 18px;
         }
 
-        .speaker-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
+        .pdf-close {
+            background: none;
+            border: none;
+            color: #00B4FF;
+            font-size: 24px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .speaker-name {
-            font-weight: 600;
-            color: #dbeafe;
-            margin-bottom: 5px;
-        }
-
-        .speaker-role {
-            font-size: 0.9rem;
-            color: #93c5fd;
+        .pdf-close:hover {
             opacity: 0.8;
         }
 
-        /* Schedule table */
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .schedule-table th,
-        .schedule-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .schedule-table th {
-            color: #60a5fa;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(96, 165, 250, 0.3);
-        }
-
-        .schedule-time {
-            color: #93c5fd;
-            font-weight: 500;
-            font-family: 'Space Mono', monospace;
-        }
-
-        /* CTA Button */
-        .cta-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .cta-button:hover {
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 60px;
+        .pdf-viewer {
+            flex: 1;
+            overflow-y: auto;
             padding: 30px;
-            color: rgba(224, 247, 255, 0.6);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(213, 255, 233, 0.9);
+            font-size: 14px;
+            line-height: 1.8;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
-            }
+        .pdf-viewer h3 {
+            color: #0080FE;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
 
-            .back-link {
-                top: 20px;
-                left: 20px;
-                padding: 10px 15px;
-                font-size: 13px;
-            }
+        .pdf-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(0, 180, 255, 0.2);
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
 
-            .header {
-                padding-top: 60px;
-                margin-bottom: 40px;
-            }
+        .pdf-download-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #0080FE, #00B4FF);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
 
-            .section {
-                padding: 20px;
-            }
+        .pdf-download-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 6px 16px rgba(0, 128, 254, 0.4);
+        }
 
-            .speakers {
-                grid-template-columns: 1fr;
-            }
+        /* Registration Modal Styles */
+        .registration-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 1200; background: transparent; }
+        .registration-modal.active { display: flex; }
+        .registration-modal::backdrop { backdrop-filter: blur(4px); }
 
-            .schedule-table th,
-            .schedule-table td {
-                padding: 10px;
-            }
+        .registration-modal-content {
+            width: 420px;
+            max-width: calc(100% - 40px);
+            background: rgba(10,14,16,0.54);
+            border-radius: 14px;
+            padding: 22px 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.04);
+            backdrop-filter: blur(8px) saturate(120%);
+        }
+
+        .registration-modal-content h2 {
+            margin: 0 0 6px 0;
+            font-weight: 600;
+            color: #00B4FF;
+        }
+
+        .registration-subtitle {
+            text-align: center;
+            color: rgba(170,220,255,0.45);
+            font-size: 0.88rem;
+            margin: 0 0 18px 0;
+        }
+
+        .form-group { margin-bottom: 14px; position: relative; }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 6px 8px 6px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(170,220,255,0.02);
+            color: rgba(220,255,240,0.95);
+            font-size: 0.95rem;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            caret-color: rgba(174,230,255,0.95);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .form-group input::placeholder { color: transparent; }
+
+        .form-group input:focus,
+        .form-group input:active,
+        .form-group input:focus-visible {
+            outline: none;
+            border-bottom-color: rgba(170,220,255,0.02);
+            box-shadow: none !important;
+            background: transparent;
+        }
+
+        .form-group input::-moz-focus-inner { border: 0; }
+
+        .form-group label {
+            position: absolute;
+            left: 6px;
+            top: 12px;
+            font-size: 0.95rem;
+            color: rgba(170,220,255,0.45);
+            pointer-events: none;
+            transition: transform 0.18s ease, font-size 0.18s ease, top 0.18s ease, color 0.18s ease;
+            transform-origin: left top;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label {
+            transform: translateY(-46%) scale(0.86);
+            top: 6px;
+            color: rgba(174,230,255,0.95);
+        }
+
+        .registration-actions { display:flex; gap:12px; margin-top:18px; }
+
+        .register-submit {
+            flex:1;
+            padding:10px 12px;
+            background: linear-gradient(90deg, rgba(92,179,255,0.14), rgba(0,128,254,0.12));
+            border: 1px solid rgba(92,179,255,0.32);
+            color: #cfeeff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .register-submit:hover {
+            background: linear-gradient(90deg, rgba(92,179,255,0.24), rgba(0,128,254,0.22));
+        }
+
+        .register-cancel {
+            padding:10px 12px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.04);
+            color: rgba(200,230,255,0.7);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .register-cancel:hover {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #d5ffe9;
+            cursor: pointer;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body>
-    <!-- Fixed background layer -->
-    <div class="bg-layer">
-        <div class="equations">∫ ∇·E dV = ∮ E·dA
-∂ψ/∂t = -iℏ ∇²ψ/2m + Vψ
-lim (1 + 1/n)ⁿ = e</div>
-        <div class="equations">F = ma
-E = mc²
-∇ × E = -∂B/∂t</div>
-        <div class="equations">∑ p(x) = 1
-d/dx ∫ f(x) dx = f(x)
-Δx Δp ≥ ℏ/2</div>
-    </div>
-
-    <!-- Scrolling content -->
-    <div class="content-wrapper">
-        <div class="container">
-            <a href="index.html" class="back-link" aria-label="Back to home">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Back to Home</span>
-            </a>
-
-            <div class="header">
-                <h1>SYMPOSIUM</h1>
-                <p>Research & Innovation Summit</p>
-                <div class="time-info">📅 10:00 AM - 4:00 PM</div>
-            </div>
-
-            <div class="content">
-                <div class="section">
-                    <div class="section-title">Event Overview</div>
-                    <div class="section-content">
-                        <p>The Turinger Symposium brings together leading researchers, academics, and industry innovators to explore cutting-edge developments in technology and science. This premier research event features keynote presentations, technical sessions, and collaborative discussions on the latest breakthroughs shaping our digital future.</p>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">Featured Researchers</div>
-                    <div class="speakers">
-                        <div class="speaker-card">
-                            <div class="speaker-icon">🧠</div>
-                            <div class="speaker-name">Dr. Sarah Chen</div>
-                            <div class="speaker-role">AI Research Director</div>
-                        </div>
-                        <div class="speaker-card">
-                            <div class="speaker-icon">🔬</div>
-                            <div class="speaker-name">Prof. James Rodriguez</div>
-                            <div class="speaker-role">Quantum Computing Lead</div>
-                        </div>
-                        <div class="speaker-card">
-                            <div class="speaker-icon">📊</div>
-                            <div class="speaker-name">Dr. Emma Thompson</div>
-                            <div class="speaker-role">Data Science Researcher</div>
-                        </div>
-                        <div class="speaker-card">
-                            <div class="speaker-icon">⚡</div>
-                            <div class="speaker-name">Prof. Michael Zhang</div>
-                            <div class="speaker-role">Cybersecurity Expert</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">Research Agenda</div>
-                    <table class="schedule-table">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Session</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="schedule-time">10:00 AM</td>
-                                <td>Welcome & Opening Remarks</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">10:30 AM</td>
-                                <td>Keynote: "AI in Scientific Discovery" - Dr. Sarah Chen</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">11:15 AM</td>
-                                <td>Panel: Quantum Computing Breakthroughs</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">12:00 PM</td>
-                                <td>Networking Lunch & Poster Session</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">1:00 PM</td>
-                                <td>Technical Session: Machine Learning Advances</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">1:45 PM</td>
-                                <td>Research Showcase: Student Projects</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">2:30 PM</td>
-                                <td>Q&A and Open Discussion</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">3:00 PM</td>
-                                <td>Industry-Academia Collaboration Panel</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">3:45 PM</td>
-                                <td>Closing Remarks & Awards</td>
-                            </tr>
-                            <tr>
-                                <td class="schedule-time">4:00 PM</td>
-                                <td>Event Concludes</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">Research Focus Areas</div>
-                    <div class="section-content">
-                        <p>Explore groundbreaking research in artificial intelligence, quantum computing, cybersecurity, data science, and emerging technologies. Network with leading researchers and discover opportunities for collaboration and innovation.</p>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">Registration</div>
-                    <div class="section-content">
-                        <p>Join us for this premier research symposium. Free for all Turinger participants. Limited seats available - register now to secure your spot and contribute to the future of technology research.</p>
-                    </div>
-                    <button id="registerBtn" class="cta-button">Register Now</button>
-                </div>
-            </div>
-
-            <div class="footer">
-                <p>Questions? Contact us at symposium@turinger.com</p>
-            </div>
+<body class="theme-white">
+    <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span>Back to Home</span>
+    </a>
+    
+    <canvas id="canvas"></canvas>
+    
+    <div class="content">
+        <h1>SYMPOSIUM</h1>
+        <p>Interactive particle sphere. Move your cursor to rotate.</p>
+        <div class="button-group">
+            <button class="btn btn-learn" id="learnMoreBtn">Learn More</button>
+            <button class="btn btn-register" id="registerNowBtn">Register Now</button>
         </div>
     </div>
 
-    <script type="module" src="components/registration.js"></script>
+    <!-- PDF Preview Modal -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-modal-content">
+            <div class="pdf-header">
+                <h2>Symposium Overview</h2>
+                <button class="pdf-close" id="pdfClose">&times;</button>
+            </div>
+            <div class="pdf-viewer" id="pdfViewer">
+                <h3>About the Symposium</h3>
+                <p>The Turinger '26 Symposium is an exclusive gathering of thought leaders, researchers, and innovators in the fields of artificial intelligence, machine learning, and emerging technologies.</p>
+                
+                <h3>Key Topics</h3>
+                <p>• Large Language Models and Foundation Models<br>
+                   • Deep Learning Architecture Design<br>
+                   • Reinforcement Learning and Decision Making<br>
+                   • Neural Network Optimization<br>
+                   • AI Safety and Ethical Considerations</p>
+                
+                <h3>Event Details</h3>
+                <p><strong>Date:</strong> March 15-17, 2026<br>
+                   <strong>Location:</strong> Mumbai, India<br>
+                   <strong>Capacity:</strong> 500 participants<br>
+                   <strong>Fee:</strong> Early bird - $99 | Regular - $149</p>
+                
+                <h3>Speakers</h3>
+                <p>Join us to hear from leading researchers and industry experts who are shaping the future of AI and machine learning.</p>
+                
+                <h3>Agenda</h3>
+                <p><strong>Day 1:</strong> Keynote sessions and panel discussions<br>
+                   <strong>Day 2:</strong> Technical workshops and hands-on labs<br>
+                   <strong>Day 3:</strong> Networking and future directions roundtable</p>
+            </div>
+            <div class="pdf-footer">
+                <button class="pdf-download-btn" id="pdfDownloadBtn">Download PDF</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // ============================================
+        // PARTICLE SYSTEM - EQUATIONS IN 3D
+        // ============================================
+
+        const canvas = document.getElementById('canvas');
+
+        let scene, camera, renderer;
+        let mouseX = 0, mouseY = 0;
+        let targetRotX = 0, targetRotY = 0;
+        let currentTheme = 'black';
+        let sceneReady = false;
+
+        const equations = [
+            "L = -Σᵢ yᵢ log(ŷᵢ)",
+            "MSE = (1/n)Σ(y - ŷ)²",
+            "MAE = (1/n)Σ|y - ŷ|",
+            "KL(P||Q) = Σₚ log(p/q)",
+            "H(X) = -Σₚ(x) log p(x)",
+            "I(X;Y) = H(X) - H(X|Y)",
+            "σ(z) = 1/(1 + e⁻ᶻ)",
+            "tanh(z) = (e²ᶻ - 1)/(e²ᶻ + 1)",
+            "ReLU(z) = max(0, z)",
+            "softmax(zᵢ) = eᶻⁱ/Σⱼ eᶻʲ",
+            "GELU(x) = x·Φ(x)",
+            "Swish(x) = x·σ(x)",
+            "Mish(x) = x·tanh(softplus(x))",
+            "θ := θ - α∇J(θ)",
+            "v := βv + (1-β)∇J",
+            "m := β₁m + (1-β₁)∇J",
+            "v := β₂v + (1-β₂)(∇J)²",
+            "θ := θ - α·m̂/(√v̂ + ε)",
+            "g := g + (∇J)²",
+            "θ := θ - α·∇J/√(g + ε)",
+            "h := ρh + (1-ρ)(∇J)²",
+            "θ := θ - α·∇J/√(h + ε)",
+            "z = Wx + b",
+            "a = σ(z)",
+            "ŷ = Wₙ...σ(W₁x + b₁)...+ bₙ",
+            "∂L/∂W = ∂L/∂a·∂a/∂z·∂z/∂W",
+            "BatchNorm: (x - μ)/(√(σ² + ε))",
+            "LayerNorm: (x - μ)/σ",
+            "InstanceNorm: (x - μᵢ)/σᵢ",
+            "GroupNorm: normalize groups",
+            "Dropout: y = x·mask/p",
+            "ResNet: y = F(x) + x",
+            "DenseNet: y = [x; F(x)]",
+            "Attention = softmax(QKᵀ/√dₖ)V",
+            "MultiHead = Concat(heads)W",
+            "PE(pos,2i) = sin(pos/10000^(2i/d))",
+            "PE(pos,2i+1) = cos(pos/10000^(2i/d))",
+            "Conv: y[i] = Σⱼ w[j]·x[i+j] + b",
+            "Pool: y[i] = max/avg(x[i:i+k])",
+            "L₁: λΣ|θ|",
+            "L₂: (λ/2)Σθ²",
+            "ElasticNet: λ₁Σ|θ| + λ₂Σθ²",
+            "EarlyStopping: stop if val_loss↑",
+            "P(A|B) = P(B|A)P(A)/P(B)",
+            "MAP: argmax P(θ)·P(D|θ)",
+            "MLE: argmax Πᵢ P(xᵢ|θ)",
+            "ELBO = E[log p(x,z|θ)] - E[log q(z)]",
+            "VAE: L = KL(q||p) - E[log p(x|z)]",
+            "GAN: min max E[log D] + E[log(1-D)]",
+            "Q(s,a) := Q + α[r + γ max Q(s',a')]",
+            "V(s) := E[r + γV(s')]",
+            "π(a|s) = exp(Q(s,a))/Σₐ exp(Q(s,a))",
+            "∇J = E[∇log π(a|s)·Q(s,a)]",
+            "A(s,a) = Q(s,a) - V(s)",
+            "PPO: clip(πₙₑw/πₒₗd, 1±ε)·A",
+            "A3C: async updates from workers",
+            "TD(λ): δ + γλ(R + V(s'))",
+            "SARSA: Q := Q + α[r + γQ(s',a')]",
+            "Bellman: V(s) = E[r + γV(s')]",
+            "KMeans: μₖ := mean(xᵢ: i ∈ Cₖ)",
+            "GMM: p(x) = Σₖ πₖ·N(x|μₖ,Σₖ)",
+            "EM: E-step: γₖ = πₖN(x|μₖ)/p(x)",
+            "EM: M-step: μₖ := Σᵢ γₖ(i)xᵢ/Σᵢ γₖ(i)",
+            "PCA: W = argmax Var(Wx)",
+            "tSNE: min KL(P||Q)",
+            "UMAP: preserve local structure",
+            "Silhouette: (b - a)/max(a,b)",
+            "DaviesBouldin: Σᵢ maxⱼ (σᵢ+σⱼ)/d(μᵢ,μⱼ)",
+            "Elbow: find knee in inertia",
+            "Autoencoder: x̃ = Dec(Enc(x))",
+            "ICA: find independent components",
+            "NMF: V ≈ WH, W,H ≥ 0",
+            "RoI Pool: pool regions of interest",
+            "NMS: suppress overlapping boxes",
+            "IoU: |A ∩ B|/|A ∪ B|",
+            "mAP: avg precision across recall",
+            "Word2Vec: max Σ log p(context|word)",
+            "GloVe: min Σ wᵢwⱼ(log Xᵢⱼ - bᵢ - bⱼ)²",
+            "FastText: subword embeddings",
+            "Perplexity: 2^(-Σ log₂ p(xᵢ))",
+            "BLEU: geometric mean of n-grams",
+            "ROUGE: recall-oriented metric",
+            "METEOR: alignment-based metric",
+            "ARIMA: AR + I + MA components",
+            "ACF: correlation at lag h",
+            "PACF: partial correlation at lag h",
+            "Bagging: y = (1/B)Σ yₑ(x)",
+            "Boosting: weight samples by error",
+            "Stacking: meta-learner on bases"
+        ];
+
+        const PARTICLE_BOUNDS = {
+            radiusMin: 600,
+            radiusMax: 1200,
+            cameraZ: 600
+        };
+
+        function generateShellPositions(count) {
+            const positions = [];
+            const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+            const radius = 1400;
+
+            for (let i = 0; i < count; i++) {
+                const theta = goldenAngle * i;
+                const y = 1 - (i / (count - 1)) * 2;
+                const r = Math.sqrt(1 - y * y);
+                const x = Math.cos(theta) * r;
+                const z = Math.sin(theta) * r;
+
+                positions.push({
+                    x: x * radius,
+                    y: y * radius,
+                    z: z * radius
+                });
+            }
+            return positions;
+        }
+
+        const shellPositions = generateShellPositions(equations.length);
+        let equationElements = [];
+        let equationsContainer = null;
+
+        function initScene() {
+            try {
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x000000);
+                scene.fog = new THREE.FogExp2(0x000000, 0.0015);
+
+                const aspect = window.innerWidth / window.innerHeight;
+                camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 10000);
+                camera.position.z = PARTICLE_BOUNDS.cameraZ;
+
+                renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    antialias: true,
+                    alpha: false
+                });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setClearColor(0x000000);
+
+                // Create equation elements
+                equationsContainer = document.createElement('div');
+                equationsContainer.style.cssText = 'position:fixed;top:50%;left:50%;width:2800px;height:2800px;margin-left:-1400px;margin-top:-1400px;pointer-events:none;transform-style:preserve-3d;perspective:1000px;';
+                document.body.appendChild(equationsContainer);
+
+                for (let i = 0; i < equations.length; i++) {
+                    const pos = shellPositions[i];
+                    const eq = document.createElement('div');
+                    eq.className = 'equation';
+                    eq.textContent = equations[i];
+                    eq.dataset.x = pos.x;
+                    eq.dataset.y = pos.y;
+                    eq.dataset.z = pos.z;
+                    eq.style.cssText = `
+                        position: absolute;
+                        font-family: 'Courier New', monospace;
+                        font-size: 28px;
+                        font-weight: 900;
+                        white-space: nowrap;
+                        transform-style: preserve-3d;
+                        background: linear-gradient(135deg, #0080FE, #00B4FF);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                        text-shadow: 0 0 15px rgba(0, 180, 255, 0.6), 0 0 30px rgba(0, 150, 255, 0.4);
+                        letter-spacing: 1px;
+                    `;
+                    equationsContainer.appendChild(eq);
+                    equationElements.push(eq);
+                }
+
+                sceneReady = true;
+                animate();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function setTheme() {
+            if (!sceneReady) return;
+            scene.background = new THREE.Color(0x000000);
+            scene.fog = new THREE.FogExp2(0x000000, 0.0015);
+            renderer.setClearColor(0x000000);
+            document.body.className = 'theme-black';
+        }
+
+        function onMouseMove(event) {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (!sceneReady || !equationsContainer) return;
+
+            targetRotX += (mouseY * 30 - targetRotX) * 0.12;
+            targetRotY += (mouseX * 30 - targetRotY) * 0.12;
+
+            equationsContainer.style.transform = `rotateX(${targetRotX}deg) rotateY(${targetRotY}deg)`;
+
+            equationElements.forEach(el => {
+                const x = parseFloat(el.dataset.x);
+                const y = parseFloat(el.dataset.y);
+                let z = parseFloat(el.dataset.z);
+
+                if (z < 0) {
+                    z = Math.max(z, -900);
+                }
+
+                el.style.left = (x + 1400) + 'px';
+                el.style.top = (y + 1400) + 'px';
+                el.style.transform = `translateZ(${z}px)`;
+
+                const opacity = 0.3 + (Math.max(0, z) / 1600) * 0.7;
+                el.style.opacity = opacity;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            if (!sceneReady) return;
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('resize', onWindowResize);
+        setTheme();
+
+        // PDF Modal Handler
+        const pdfModal = document.getElementById('pdfModal');
+        const learnMoreBtn = document.getElementById('learnMoreBtn');
+        const pdfClose = document.getElementById('pdfClose');
+        const pdfDownloadBtn = document.getElementById('pdfDownloadBtn');
+
+        function blurCanvas() {
+            canvas.classList.add('blurred');
+        }
+
+        function unblurCanvas() {
+            canvas.classList.remove('blurred');
+        }
+
+        learnMoreBtn.addEventListener('click', () => {
+            pdfModal.classList.add('active');
+            blurCanvas();
+        });
+
+        pdfClose.addEventListener('click', () => {
+            pdfModal.classList.remove('active');
+            unblurCanvas();
+        });
+
+        pdfModal.addEventListener('click', (e) => {
+            if (e.target === pdfModal) {
+                pdfModal.classList.remove('active');
+                unblurCanvas();
+            }
+        });
+
+        pdfDownloadBtn.addEventListener('click', () => {
+            // Simulate PDF download
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,Symposium Overview - Turinger 2026\n\nEvent Details and Information');
+            element.setAttribute('download', 'turinger-symposium.txt');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        });
+
+        // Registration Modal Handler
+        const registerNowBtn = document.getElementById('registerNowBtn');
+        registerNowBtn.addEventListener('click', () => {
+            const regModal = document.getElementById('registrationModal');
+            if (regModal) {
+                regModal.classList.add('active');
+                blurCanvas();
+            }
+        });
+
+        // Mount registration component
+        import('./components/registration.js').then(module => {
+            module.mount({ triggerSelector: '#registerNowBtn', parent: document.body });
+        }).catch(() => {
+            // Fallback: create inline registration modal
+            const regTemplate = `
+                <div class="registration-modal" id="registrationModal">
+                    <div class="registration-modal-content">
+                        <h2>Register</h2>
+                        <p class="registration-subtitle">Join us for the Symposium</p>
+                        <form id="registrationForm">
+                            <div class="form-group">
+                                <input type="text" id="fullName" name="fullName" placeholder="Name" required>
+                                <label for="fullName">Full Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="you@email.com" required>
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
+                                <label for="phone">Phone</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="college" name="college" placeholder="Your institution" required>
+                                <label for="college">College/Organization</label>
+                            </div>
+                            <div class="registration-actions">
+                                <button type="submit" class="register-submit">Register</button>
+                                <button type="button" class="register-cancel" id="cancelRegister">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = regTemplate;
+            document.body.appendChild(wrapper.firstElementChild);
+
+            const registrationModal = document.getElementById('registrationModal');
+            const registrationForm = document.getElementById('registrationForm');
+            const cancelRegister = document.getElementById('cancelRegister');
+
+            registerNowBtn.addEventListener('click', () => {
+                registrationModal.classList.add('active');
+            });
+
+            cancelRegister.addEventListener('click', () => {
+                registrationModal.classList.remove('active');
+                unblurCanvas();
+                registrationForm.reset();
+            });
+
+            registrationModal.addEventListener('click', (e) => {
+                if (e.target === registrationModal) {
+                    registrationModal.classList.remove('active');
+                    unblurCanvas();
+                    registrationForm.reset();
+                }
+            });
+
+            registrationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Registration submitted! We will contact you soon.');
+                registrationModal.classList.remove('active');
+                unblurCanvas();
+                registrationForm.reset();
+            });
+        });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initScene);
+        } else {
+            initScene();
+        }
+    </script>
 </body>
 </html>
