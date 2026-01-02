@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Animation Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background: #000000;
+            font-family: "Inter", system-ui, sans-serif;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-container {
+            text-align: center;
+        }
+
+        .demo-button {
+            padding: 12px 28px;
+            background: linear-gradient(90deg, rgba(92,179,255,0.14), rgba(0,128,254,0.12));
+            border: 2px solid rgba(92,179,255,0.32);
+            color: #cfeeff;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        /* Registration Animation Overlay */
+        .registration-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+        }
+
+        .registration-overlay.active {
+            display: flex;
+        }
+
+        .registration-animation-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #animationCanvas {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .success-checkmark {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .success-checkmark.show {
+            opacity: 1;
+        }
+
+        .checkmark-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d084, #00b86c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 208, 132, 0.6);
+        }
+
+        .success-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 80px);
+            color: #00d084;
+            font-size: 18px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .success-text.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 style="color: #00B4FF; margin-bottom: 20px;">Registration Animation Demo</h1>
+        <button class="demo-button" id="triggerAnimBtn">Trigger Animation</button>
+    </div>
+
+    <!-- Registration Animation Overlay -->
+    <div class="registration-overlay" id="registrationOverlay">
+        <div class="registration-animation-container">
+            <canvas id="animationCanvas"></canvas>
+            <div class="success-checkmark" id="successCheckmark">
+                <div class="checkmark-icon">✓</div>
+            </div>
+            <div class="success-text" id="successText">Registration Confirmed</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        class RegistrationAnimation {
+            constructor(canvasId, overlayId) {
+                this.canvas = document.getElementById(canvasId);
+                this.overlay = document.getElementById(overlayId);
+                this.successCheckmark = document.getElementById('successCheckmark');
+                this.successText = document.getElementById('successText');
+                
+                this.initScene();
+                this.setupAnimation();
+            }
+
+            initScene() {
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+                this.renderer = new THREE.WebGLRenderer({ 
+                    canvas: this.canvas, 
+                    antialias: true, 
+                    alpha: true 
+                });
+                this.renderer.setSize(300, 300);
+                this.renderer.setClearColor(0x000000, 0);
+                this.camera.position.z = 2;
+
+                // Create globe from particles
+                this.createGlobe();
+            }
+
+            createGlobe() {
+                const particleCount = 2000;
+                const geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array(particleCount * 3);
+
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    const theta = Math.random() * Math.PI * 2;
+                    const phi = Math.random() * Math.PI;
+                    const radius = 0.8;
+
+                    positions[i] = radius * Math.sin(phi) * Math.cos(theta);
+                    positions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                    positions[i + 2] = radius * Math.cos(phi);
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+                const material = new THREE.PointsMaterial({
+                    color: 0x00B4FF,
+                    size: 0.02,
+                    sizeAttenuation: true,
+                    transparent: true,
+                    opacity: 0.8
+                });
+
+                this.globe = new THREE.Points(geometry, material);
+                this.scene.add(this.globe);
+            }
+
+            setupAnimation() {
+                this.rotationX = 0;
+                this.rotationY = 0;
+            }
+
+            animate(duration = 2000) {
+                return new Promise((resolve) => {
+                    this.overlay.classList.add('active');
+                    const startTime = Date.now();
+
+                    const animationLoop = () => {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+
+                        // Spin the globe
+                        this.globe.rotation.x += 0.015;
+                        this.globe.rotation.y += 0.02;
+
+                        this.renderer.render(this.scene, this.camera);
+
+                        if (progress < 1) {
+                            requestAnimationFrame(animationLoop);
+                        } else {
+                            // Show success checkmark
+                            this.successCheckmark.classList.add('show');
+                            this.successText.classList.add('show');
+
+                            // Fade out overlay after 1.5 seconds
+                            setTimeout(() => {
+                                this.overlay.classList.remove('active');
+                                this.successCheckmark.classList.remove('show');
+                                this.successText.classList.remove('show');
+                                resolve();
+                            }, 1500);
+                        }
+                    };
+
+                    animationLoop();
+                });
+            }
+        }
+
+        // Initialize
+        const animation = new RegistrationAnimation('animationCanvas', 'registrationOverlay');
+
+        // Trigger button
+        document.getElementById('triggerAnimBtn').addEventListener('click', () => {
+            animation.animate(2000);
+        });
+    </script>
+</body>
+</html>

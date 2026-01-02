@@ -4,8 +4,8 @@
 .registration-modal::backdrop { backdrop-filter: blur(4px); }
 
 .registration-modal-content {
-    width: 420px;
-    max-width: calc(100% - 40px);
+    width: 90%;
+    max-width: 1000px;
     background: rgba(10,14,16,0.54);
     border-radius: 14px;
     padding: 22px 20px;

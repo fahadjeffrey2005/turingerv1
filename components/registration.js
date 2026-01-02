@@ -1,8 +1,16 @@
+function getSubtitle() {
+  const path = window.location.pathname;
+  if (path.includes('symposium')) {
+    return 'Experience ideas, innovation, and insights at our Symposium';
+  }
+  return '24 Hours. One Vision. Unlimited Possibilities.';
+}
+
 const template = `
 <div class="registration-modal" id="registrationModal">
   <div class="registration-modal-content">
     <h2>Register</h2>
-    <p class="registration-subtitle">Join us for an amazing hackathon</p>
+    <p class="registration-subtitle">${getSubtitle()}</p>
     <form id="registrationForm">
       <div class="form-group">
         <input type="text" id="fullName" name="fullName" placeholder="Name" required>
@@ -61,10 +69,18 @@ function mount({ triggerSelector = '#registerBtn', parent = document.body } = {}
 
   registrationForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    // Basic client-side interaction — replace with real submission as needed
-    alert('Registration submitted! We will contact you soon.');
     registrationModal.classList.remove('active');
-    registrationForm.reset();
+    
+    // Trigger registration animation if available
+    if (window.registrationAnimation) {
+      window.registrationAnimation.animate(2000).then(() => {
+        registrationForm.reset();
+      });
+    } else {
+      alert('Registration submitted! We will contact you soon.');
+      registrationForm.reset();
+    }
+  });
   });
 }
 
