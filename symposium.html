@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
     <title>Symposium - Background Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -376,10 +379,16 @@
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(12px);
             z-index: 2000;
+            opacity: 1;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .registration-overlay.active {
             display: flex;
+        }
+
+        .registration-overlay.fade-out {
+            opacity: 0;
         }
 
         .registration-animation-container {
@@ -396,6 +405,12 @@
             height: 300px;
             border-radius: 50%;
             display: block;
+            opacity: 1;
+            transition: opacity 2s ease-out;
+        }
+
+        #animationCanvas.fade-out {
+            opacity: 0;
         }
 
         .success-checkmark {
@@ -406,7 +421,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.6s ease;
+            transition: opacity 2s ease-out;
         }
 
         .success-checkmark.show {
@@ -414,33 +429,36 @@
         }
 
         .checkmark-icon {
-            width: 120px;
-            height: 120px;
+            width: 178px;
+            height: 178px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #00d084, #00b86c);
+            background: rgba(0, 212, 132, 0.15);
+            border: 2px solid rgba(0, 212, 132, 0.3);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
-            color: white;
-            box-shadow: 0 0 30px rgba(0, 208, 132, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(0, 212, 132, 0.1);
         }
 
-        .success-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, 80px);
-            color: #00d084;
-            font-size: 18px;
+        .checkmark-text {
+            font-size: 80px;
+            color: rgba(0, 212, 132, 0.8);
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .checkmark-label {
+            font-size: 14px;
+            color: rgba(0, 212, 132, 0.7);
             font-weight: 600;
-            opacity: 0;
-            transition: opacity 0.6s ease;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
 
-        .success-text.show {
-            opacity: 1;
-        }
 
         .theme-toggle {
             position: fixed;
@@ -826,7 +844,7 @@
         });
 
         // Mount registration component
-        import('./components/registration.js?v=3').then(module => {
+        import('./components/registration.js?v=5').then(module => {
             module.mount({ triggerSelector: '#registerNowBtn', parent: document.body });
         }).catch(() => {
             // Fallback: create inline registration modal
@@ -907,9 +925,9 @@
         <div class="registration-animation-container">
             <canvas id="animationCanvas"></canvas>
             <div class="success-checkmark" id="successCheckmark">
-                <div class="checkmark-icon">✓</div>
+                <div class="checkmark-text">✓</div>
+                <div class="checkmark-label">Confirmed</div>
             </div>
-            <div class="success-text" id="successText">Registration Confirmed</div>
         </div>
     </div>
 
@@ -919,10 +937,8 @@
                 this.canvas = document.getElementById(canvasId);
                 this.overlay = document.getElementById(overlayId);
                 this.successCheckmark = document.getElementById('successCheckmark');
-                this.successText = document.getElementById('successText');
                 
                 this.initScene();
-                this.setupAnimation();
             }
 
             initScene() {
@@ -969,37 +985,45 @@
                 this.scene.add(this.globe);
             }
 
-            setupAnimation() {
-                this.rotationX = 0;
-                this.rotationY = 0;
-            }
-
             animate(duration = 2000) {
                 return new Promise((resolve) => {
                     this.overlay.classList.add('active');
+                    this.canvas.classList.remove('fade-out');
+                    this.successCheckmark.classList.remove('show');
+                    
                     const startTime = Date.now();
+
+                    // Start the success circle fading in immediately
+                    setTimeout(() => {
+                        this.successCheckmark.classList.add('show');
+                    }, 50);
 
                     const animationLoop = () => {
                         const elapsed = Date.now() - startTime;
                         const progress = Math.min(elapsed / duration, 1);
 
-                        this.globe.rotation.x += 0.015;
-                        this.globe.rotation.y += 0.02;
+                        this.globe.rotation.x += 0.012;
+                        this.globe.rotation.y += 0.018;
 
                         this.renderer.render(this.scene, this.camera);
 
                         if (progress < 1) {
                             requestAnimationFrame(animationLoop);
                         } else {
-                            this.successCheckmark.classList.add('show');
-                            this.successText.classList.add('show');
+                            // Fade out the canvas
+                            this.canvas.classList.add('fade-out');
 
+                            // After a moment, fade out the entire overlay
                             setTimeout(() => {
-                                this.overlay.classList.remove('active');
-                                this.successCheckmark.classList.remove('show');
-                                this.successText.classList.remove('show');
-                                resolve();
-                            }, 1500);
+                                this.overlay.classList.add('fade-out');
+                                
+                                setTimeout(() => {
+                                    this.overlay.classList.remove('active');
+                                    this.overlay.classList.remove('fade-out');
+                                    this.successCheckmark.classList.remove('show');
+                                    resolve();
+                                }, 600);
+                            }, 600);
                         }
                     };
 

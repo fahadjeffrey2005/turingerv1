@@ -1,10 +1,3 @@
-// ============================================================
-// DOTS SYSTEM - Now handled by dots/dots.js
-// The particle background, globe, and all animations
-// have been moved to a standalone modular system.
-// See /dots folder for complete documentation.
-// ============================================================
-
 // Theme control function that delegates to dots system
 function setSceneTheme(themeKey) {
     if (window.setDotsTheme) {
@@ -12,13 +5,9 @@ function setSceneTheme(themeKey) {
     }
 }
 
-// Make it available globally
 window.setSceneTheme = setSceneTheme;
 
-// ============================================================
-// GLASS TRANSITION EFFECT - Scroll-based Blur & Dim
-// ============================================================
-
+// Scroll-based Blur & Dim Effect
 document.addEventListener('DOMContentLoaded', () => {
     const root = document.documentElement;
     const blurOverlay = document.getElementById('conceptBlurOverlay');
@@ -73,10 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateGlassEffect();
 });
 
-// ============================================================
-// SOCIAL CONTENT POPUP - Dynamic Links Only
-// ============================================================
-
+// Social Content Popup - Dynamic Links
 document.addEventListener('DOMContentLoaded', function() {
     // Social platform data - only links change
     const socialLinks = {

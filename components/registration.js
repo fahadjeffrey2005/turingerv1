@@ -81,10 +81,13 @@ function mount({ triggerSelector = '#registerBtn', parent = document.body } = {}
       registrationForm.reset();
     }
   });
-  });
 }
 
 // Auto-mount using default trigger
-mount();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => mount());
+} else {
+  mount();
+}
 
 export { mount };
