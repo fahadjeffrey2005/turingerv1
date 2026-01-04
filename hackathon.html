@@ -657,6 +657,38 @@
         </div>
     </div>
 
+    <!-- Registration Form Modal -->
+    <div class="registration-modal" id="registrationModal">
+      <div class="registration-modal-content">
+        <div class="registration-header">
+          <h2>Register</h2>
+        </div>
+        <p class="registration-subtitle">24 Hours. One Vision. Unlimited Possibilities.</p>
+        <form id="registrationForm">
+          <div class="form-group">
+            <input type="text" id="fullName" name="fullName" placeholder="Name" required>
+            <label for="fullName">Full Name</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" name="email" placeholder="you@email.com" required>
+            <label for="email">Email</label>
+          </div>
+          <div class="form-group">
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
+            <label for="phone">Phone</label>
+          </div>
+          <div class="form-group">
+            <input type="text" id="college" name="college" placeholder="Your institution" required>
+            <label for="college">College</label>
+          </div>
+          <div class="registration-actions">
+            <button type="submit" class="register-submit">Register</button>
+            <button type="button" class="register-cancel" id="cancelRegister">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Main content -->
     <div class="container">
         <div class="header-inline">
@@ -835,7 +867,52 @@
         window.addEventListener('load', () => {
             registrationAnimation = new RegistrationAnimation('animationCanvas', 'registrationOverlay');
         });
+        
+        // Simple registration modal handler - no dependencies
+        document.addEventListener('DOMContentLoaded', () => {
+            const registerBtn = document.getElementById('registerBtn');
+            const registrationModal = document.getElementById('registrationModal');
+            const registrationForm = document.getElementById('registrationForm');
+            const cancelRegister = document.getElementById('cancelRegister');
+            
+            if (registerBtn && registrationModal) {
+                // Open modal on button click
+                registerBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    registrationModal.classList.add('active');
+                });
+                
+                // Close modal on cancel button
+                cancelRegister.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    registrationModal.classList.remove('active');
+                    registrationForm.reset();
+                });
+                
+                // Close modal on outside click
+                registrationModal.addEventListener('click', (e) => {
+                    if (e.target === registrationModal) {
+                        registrationModal.classList.remove('active');
+                        registrationForm.reset();
+                    }
+                });
+                
+                // Handle form submission
+                registrationForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    registrationModal.classList.remove('active');
+                    
+                    if (window.registrationAnimation) {
+                        window.registrationAnimation.animate(2000).then(() => {
+                            registrationForm.reset();
+                        });
+                    } else {
+                        alert('Thank you for registering! We will contact you soon.');
+                        registrationForm.reset();
+                    }
+                });
+            }
+        });
     </script>
-    <script type="module" src="components/registration.js?v=5"></script>
 </body>
 </html>

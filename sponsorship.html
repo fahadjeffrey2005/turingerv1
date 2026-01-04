@@ -135,15 +135,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 120px 40px 80px;
-            max-width: 1600px;
+            padding: 130px 60px 100px;
+            max-width: 1800px;
             margin: 0 auto;
         }
 
         /* Header section */
         .sponsorship-header {
             text-align: center;
-            margin-bottom: 100px;
+            margin-bottom: 110px;
             max-width: 1000px;
         }
 
@@ -195,16 +195,16 @@
         .sponsorship-tiers {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
+            gap: 32px;
             width: 100%;
             max-width: 1600px;
-            margin-bottom: 100px;
+            margin-bottom: 120px;
         }
 
         /* Tier card */
         .tier-card {
             position: relative;
-            padding: 36px 28px;
+            padding: 48px 40px;
             border-radius: 20px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -493,15 +493,18 @@
             text-align: center;
             max-width: 900px;
             border-top: 2px solid rgba(0, 128, 254, 0.25);
-            padding-top: 70px;
-            margin-top: 80px;
+            padding-top: 100px;
+            padding-bottom: 60px;
+            margin-top: 120px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .footer-text {
-            font-size: 16px;
+            font-size: 17px;
             color: rgba(213, 255, 233, 0.85);
-            line-height: 1.95;
-            margin-bottom: 32px;
+            line-height: 2;
+            margin-bottom: 40px;
             letter-spacing: 0.3px;
             font-weight: 300;
         }
@@ -878,7 +881,11 @@
     <!-- Dots System -->
     <script src="dots/dots.js"></script>
     
-    <!-- Initialize Dots -->
+    <!-- Registration Component -->
+    <link rel="stylesheet" href="components/registration.css">
+    <script src="components/sponsorship-enquiry.js"></script>
+    
+    <!-- Initialize Dots and Enquiry -->
     <script>
         window.addEventListener('load', initDots);
 
@@ -888,6 +895,12 @@
             document.body.classList.remove('theme-white');
             window.setDotsTheme?.('black');
             localStorage.setItem('turinger-theme', 'black');
+            
+            // Mount enquiry modal for all Get Started buttons
+            mountEnquiry({ 
+                triggerSelector: '.tier-cta',
+                parent: document.body 
+            });
         });
 
         // Save theme preference
@@ -900,14 +913,6 @@
             }
             window.setDotsTheme?.(theme);
         }
-
-        // CTA buttons - contact form or redirect
-        document.querySelectorAll('.tier-cta').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const tierName = this.closest('.tier-card').querySelector('.tier-name').textContent;
-                alert(`Thank you for your interest in the ${tierName} sponsorship tier!\n\nPlease contact us at sponsors@turinger.com to proceed.`);
-            });
-        });
     </script>
 </body>
 </html>

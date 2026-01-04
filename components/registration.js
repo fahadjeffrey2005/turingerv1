@@ -1,4 +1,7 @@
-function getSubtitle() {
+function getSubtitle(tier = null) {
+  if (tier) {
+    return `Interested in ${tier} sponsorship? Let's connect!`;
+  }
   const path = window.location.pathname;
   if (path.includes('symposium')) {
     return 'Experience ideas, innovation, and insights at our Symposium';
@@ -6,11 +9,28 @@ function getSubtitle() {
   return '24 Hours. One Vision. Unlimited Possibilities.';
 }
 
-const template = `
-<div class="registration-modal" id="registrationModal">
-  <div class="registration-modal-content">
-    <h2>Register</h2>
-    <p class="registration-subtitle">${getSubtitle()}</p>
+function getTierColor(tier) {
+  const colors = {
+    platinum: { border: 'rgba(0, 180, 255, 0.3)', accent: '#00B4FF', label: 'PLATINUM' },
+    gold: { border: 'rgba(212, 175, 55, 0.3)', accent: '#D4AF37', label: 'GOLD' },
+    silver: { border: 'rgba(192, 192, 192, 0.3)', accent: '#C0C0C0', label: 'SILVER' },
+    bronze: { border: 'rgba(205, 127, 50, 0.3)', accent: '#CD7F32', label: 'BRONZE' }
+  };
+  return colors[tier?.toLowerCase()] || { border: 'rgba(92,179,255,0.32)', accent: '#0080FE', label: 'REGISTRATION' };
+}
+
+const template = (tier = null) => {
+  const tierColor = getTierColor(tier);
+  const tierClass = tier ? `registration-modal-${tier.toLowerCase()}` : '';
+  
+  return `
+<div class="registration-modal ${tierClass}" id="registrationModal" data-tier="${tier || ''}">
+  <div class="registration-modal-content" style="border-color: ${tierColor.border}">
+    <div class="registration-header">
+      <h2>Register</h2>
+      ${tier ? `<span class="tier-badge" style="color: ${tierColor.accent}">${tierColor.label}</span>` : ''}
+    </div>
+    <p class="registration-subtitle">${getSubtitle(tier)}</p>
     <form id="registrationForm">
       <div class="form-group">
         <input type="text" id="fullName" name="fullName" placeholder="Name" required>
@@ -29,31 +49,52 @@ const template = `
         <label for="college">College</label>
       </div>
       <div class="registration-actions">
-        <button type="submit" class="register-submit">Register</button>
+        <button type="submit" class="register-submit" style="border-color: ${tierColor.border}; color: ${tierColor.accent}">Register</button>
         <button type="button" class="register-cancel" id="cancelRegister">Cancel</button>
       </div>
     </form>
   </div>
 </div>
 `;
+};
 
-function mount({ triggerSelector = '#registerBtn', parent = document.body } = {}) {
-  if (document.getElementById('registrationModal')) return;
+function mount({ triggerSelector = '#registerBtn', parent = document.body, tier = null } = {}) {
+  if (document.getElementById('registrationModal')) {
+    // If modal exists, just add click listeners to new triggers
+    const triggers = document.querySelectorAll(triggerSelector);
+    triggers.forEach(trigger => {
+      if (!trigger.dataset.registrationBound) {
+        trigger.addEventListener('click', () => {
+          const tierName = trigger.closest('.tier-card')?.querySelector('.tier-name')?.textContent || null;
+          document.getElementById('registrationModal').classList.add('active');
+          if (tierName) {
+            document.getElementById('registrationModal').dataset.tier = tierName;
+          }
+        });
+        trigger.dataset.registrationBound = 'true';
+      }
+    });
+    return;
+  }
 
   const wrapper = document.createElement('div');
-  wrapper.innerHTML = template;
+  wrapper.innerHTML = template(tier);
   parent.appendChild(wrapper.firstElementChild);
 
   const registrationModal = document.getElementById('registrationModal');
   const registrationForm = document.getElementById('registrationForm');
   const cancelRegister = document.getElementById('cancelRegister');
-  const trigger = document.querySelector(triggerSelector);
+  const triggers = document.querySelectorAll(triggerSelector);
 
-  if (trigger) {
-    trigger.addEventListener('click', () => {
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', function() {
+      const tierName = this.closest('.tier-card')?.querySelector('.tier-name')?.textContent || null;
       registrationModal.classList.add('active');
+      if (tierName) {
+        registrationModal.dataset.tier = tierName;
+      }
     });
-  }
+  });
 
   cancelRegister.addEventListener('click', () => {
     registrationModal.classList.remove('active');
@@ -71,7 +112,6 @@ function mount({ triggerSelector = '#registerBtn', parent = document.body } = {}
     e.preventDefault();
     registrationModal.classList.remove('active');
     
-    // Trigger registration animation if available
     if (window.registrationAnimation) {
       window.registrationAnimation.animate(2000).then(() => {
         registrationForm.reset();
