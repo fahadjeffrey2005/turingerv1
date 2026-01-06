@@ -12,6 +12,20 @@
  */
 
 // ============================================================
+// DEVICE DETECTION
+// ============================================================
+const isMobileDevice = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+           window.matchMedia('(max-width: 768px)').matches;
+};
+
+const isLowEndDevice = () => {
+    // Detect low-end devices based on memory and CPU
+    const cores = navigator.hardwareConcurrency || 1;
+    return cores <= 2;
+};
+
+// ============================================================
 // PARTICLE BOUNDS & CONFIGURATION
 // ============================================================
 const PARTICLE_BOUNDS = {
@@ -39,7 +53,7 @@ const SCENE_THEMES = {
         globeEdgeColor: 0x0018F9,
         globeEdgeOpacity: 1,
         particleBlending: THREE.NormalBlending,
-        particleSize: 6.5,
+        particleSize: isMobileDevice() ? 3.5 : 6.5,
         particleOpacity: 1,
         particleTransparent: false,
         particlePalette: {
@@ -58,7 +72,7 @@ const SCENE_THEMES = {
         globeEdgeColor: 0x0080FE,
         globeEdgeOpacity: 0.72,
         particleBlending: THREE.AdditiveBlending,
-        particleSize: 4.5,
+        particleSize: isMobileDevice() ? 2.5 : 4.5,
         particleOpacity: 0.9,
         particleTransparent: true,
         particlePalette: {
@@ -127,6 +141,8 @@ function initDots() {
 
     // Event Listeners
     document.addEventListener('mousemove', onDocumentMouseMove, false);
+    document.addEventListener('touchmove', onDocumentTouchMove, { passive: true });
+    document.addEventListener('touchend', onDocumentTouchEnd, false);
     window.addEventListener('resize', onWindowResize, false);
 
     sceneReady = true;
@@ -140,7 +156,12 @@ function initDots() {
 // PARTICLE CREATION
 // ============================================================
 function createParticles() {
-    const particleCount = 8500;
+    // Dynamic particle count based on device
+    let particleCount = 8500;
+    if (isMobileDevice()) {
+        particleCount = isLowEndDevice() ? 1500 : 3000;
+    }
+    
     particleGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -321,11 +342,19 @@ function animateDots() {
     const targetActivityLevel = isMouseActive ? 1.0 : 0.15;
     activityLevel += (targetActivityLevel - activityLevel) * 0.02;
 
-    targetX = mouseX * 0.000375;
-    targetY = mouseY * 0.000375;
+    // Disable mouse tracking on mobile devices for better performance
+    if (!isMobileDevice()) {
+        targetX = mouseX * 0.000375;
+        targetY = mouseY * 0.000375;
 
-    camera.position.x += (mouseX * 0.092 - camera.position.x) * 0.0115 * activityLevel;
-    camera.position.y += (-mouseY * 0.092 - camera.position.y) * 0.0115 * activityLevel;
+        camera.position.x += (mouseX * 0.092 - camera.position.x) * 0.0115 * activityLevel;
+        camera.position.y += (-mouseY * 0.092 - camera.position.y) * 0.0115 * activityLevel;
+    } else {
+        // Subtle rotation on mobile
+        targetX = Math.sin(Date.now() * 0.0001) * 0.15;
+        targetY = Math.cos(Date.now() * 0.00008) * 0.1;
+    }
+    
     camera.position.z = 400;
     camera.lookAt(scene.position);
 
@@ -613,6 +642,19 @@ function updateThemeTransition() {
 
 function setDotsTheme(themeKey) {
     startSceneThemeTransition(themeKey);
+}
+
+function onDocumentTouchMove(event) {
+    if (event.touches.length > 0) {
+        mouseX = event.touches[0].clientX;
+        mouseY = event.touches[0].clientY;
+        lastMouseMoveTime = Date.now();
+        isMouseActive = true;
+    }
+}
+
+function onDocumentTouchEnd(event) {
+    isMouseActive = false;
 }
 
 // ============================================================

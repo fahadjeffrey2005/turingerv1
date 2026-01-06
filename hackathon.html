@@ -583,6 +583,184 @@
             text-transform: uppercase;
         }
 
+        /* ============================================================
+           MOBILE OPTIMIZATIONS (768px and below)
+           ============================================================ */
+        @media (max-width: 768px) {
+            * {
+                animation-duration: 0.3s !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            body {
+                padding: 20px 16px;
+            }
+
+            .floating-code {
+                font-size: 1rem;
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+
+            .fc1, .fc2, .fc3, .fc4, .fc5, .fc6, .fc7, .fc8, .fc9, .fc10,
+            .fc11, .fc12, .fc13, .fc14, .fc15, .fc16, .fc17, .fc18, .fc19, .fc20,
+            .fc21, .fc22, .fc23, .fc24, .fc25, .fc26, .fc27, .fc28, .fc29, .fc30,
+            .fc31, .fc32, .fc33, .fc34, .fc35, .fc36, .fc37, .fc38 {
+                font-size: 0.9rem !important;
+                animation: rain 5s linear infinite !important;
+            }
+
+            .registration-modal-content {
+                width: 95%;
+                max-width: 90vw;
+                padding: 20px 16px;
+                border-radius: 12px;
+            }
+
+            .registration-modal-content h2 {
+                font-size: 1.4rem;
+                margin-bottom: 8px;
+            }
+
+            .registration-subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 16px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .form-group input {
+                padding: 12px 4px 6px 4px;
+                font-size: 1rem;
+            }
+
+            .form-group label {
+                font-size: 0.9rem;
+            }
+
+            .registration-actions {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 16px;
+            }
+
+            .register-submit,
+            .register-cancel {
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 0.9rem;
+                min-height: 48px;
+            }
+
+            .registration-overlay {
+                backdrop-filter: blur(2px);
+            }
+
+            .success-checkmark {
+                width: 60px;
+                height: 60px;
+            }
+
+            .checkmark-text {
+                font-size: 32px;
+            }
+        }
+
+        /* ============================================================
+           EXTRA SMALL DEVICES (480px and below)
+           ============================================================ */
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px;
+            }
+
+            .floating-code {
+                font-size: 0.8rem;
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            }
+
+            .fc1, .fc2, .fc3, .fc4, .fc5, .fc6, .fc7, .fc8, .fc9, .fc10,
+            .fc11, .fc12, .fc13, .fc14, .fc15, .fc16, .fc17, .fc18, .fc19, .fc20,
+            .fc21, .fc22, .fc23, .fc24, .fc25, .fc26, .fc27, .fc28, .fc29, .fc30,
+            .fc31, .fc32, .fc33, .fc34, .fc35, .fc36, .fc37, .fc38 {
+                font-size: 0.75rem !important;
+            }
+
+            .registration-modal-content {
+                max-width: 95vw;
+                padding: 16px 12px;
+            }
+
+            .registration-modal-content h2 {
+                font-size: 1.2rem;
+            }
+
+            .register-submit,
+            .register-cancel {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ============================================================
+           TABLET LANDSCAPE (768px - 1024px)
+           ============================================================ */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+            .registration-modal-content {
+                width: 70vw;
+                max-width: 600px;
+                padding: 24px 32px;
+            }
+        }
+
+        /* ============================================================
+           TOUCH DEVICE OPTIMIZATION
+           ============================================================ */
+        @media (hover: none) and (pointer: coarse) {
+            .register-submit:hover,
+            .register-cancel:hover {
+                transform: none;
+                background: inherit;
+            }
+
+            body {
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            button {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
+        /* ============================================================
+           BROWSER COMPATIBILITY
+           ============================================================ */
+        @supports (backdrop-filter: blur(1px)) {
+            .registration-modal-content {
+                backdrop-filter: blur(48px);
+                -webkit-backdrop-filter: blur(48px);
+            }
+        }
+
+        @-webkit-keyframes rain {
+            0% {
+                -webkit-transform: translateY(-100vh) rotateZ(0deg);
+                opacity: 1;
+            }
+            85% {
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateY(100vh) rotateZ(0deg);
+                opacity: 0;
+            }
+        }
 
     </style>
 </head>

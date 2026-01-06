@@ -482,6 +482,246 @@
             border-color: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
+
+        /* ============================================================
+           MOBILE OPTIMIZATIONS (768px and below)
+           ============================================================ */
+        @media (max-width: 768px) {
+            * {
+                animation-duration: 0.3s !important;
+            }
+
+            html, body {
+                scroll-behavior: auto;
+            }
+
+            .back-link {
+                top: 16px;
+                left: 16px;
+                font-size: 0.8rem;
+                padding: 6px 10px;
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+            }
+
+            .back-link svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            .content {
+                padding: 30px 20px;
+                max-width: 90vw;
+            }
+
+            .content h1 {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+                letter-spacing: 0.08em;
+            }
+
+            .content p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            .social-links {
+                gap: 10px;
+            }
+
+            .social-icon {
+                width: 36px;
+                height: 36px;
+                min-width: 36px;
+            }
+
+            .social-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .pdf-viewer {
+                padding: 16px;
+            }
+
+            .pdf-viewer h2 {
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+
+            .pdf-viewer h3 {
+                font-size: 1rem;
+                margin-top: 14px;
+                margin-bottom: 8px;
+            }
+
+            .pdf-footer {
+                padding: 12px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .pdf-download-btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 0.9rem;
+                min-height: 48px;
+            }
+
+            .theme-toggle {
+                top: 16px;
+                right: 16px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            canvas.blurred {
+                filter: blur(4px);
+            }
+        }
+
+        /* ============================================================
+           EXTRA SMALL DEVICES (480px and below)
+           ============================================================ */
+        @media (max-width: 480px) {
+            .back-link {
+                top: 12px;
+                left: 12px;
+                font-size: 0.7rem;
+                padding: 5px 8px;
+            }
+
+            .content {
+                padding: 20px 16px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .content h1 {
+                font-size: 1.4rem;
+                margin-bottom: 8px;
+                letter-spacing: 0.05em;
+            }
+
+            .content p {
+                font-size: 0.75rem;
+                margin-bottom: 16px;
+            }
+
+            .social-links {
+                gap: 8px;
+                justify-content: center;
+            }
+
+            .social-icon {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+            }
+
+            .social-icon svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .pdf-viewer {
+                padding: 12px;
+            }
+
+            .pdf-viewer h2 {
+                font-size: 1.1rem;
+            }
+
+            .pdf-viewer h3 {
+                font-size: 0.9rem;
+            }
+
+            .pdf-footer {
+                padding: 10px;
+            }
+
+            .pdf-download-btn {
+                padding: 10px;
+                font-size: 0.8rem;
+            }
+
+            .theme-toggle {
+                top: 12px;
+                right: 12px;
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+
+            canvas.blurred {
+                filter: blur(3px);
+            }
+        }
+
+        /* ============================================================
+           TABLET LANDSCAPE (768px - 1024px)
+           ============================================================ */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+            .content {
+                max-width: 80vw;
+                padding: 30px 40px;
+            }
+        }
+
+        /* ============================================================
+           TOUCH DEVICE OPTIMIZATION
+           ============================================================ */
+        @media (hover: none) and (pointer: coarse) {
+            .back-link:hover,
+            .social-icon:hover,
+            .pdf-download-btn:hover,
+            .theme-toggle:hover {
+                transform: none;
+                background: inherit;
+            }
+
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            body {
+                -webkit-user-select: none;
+                user-select: none;
+            }
+        }
+
+        /* ============================================================
+           BROWSER COMPATIBILITY
+           ============================================================ */
+        @supports (backdrop-filter: blur(1px)) {
+            .back-link {
+                backdrop-filter: blur(6px) saturate(110%);
+                -webkit-backdrop-filter: blur(6px) saturate(110%);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            from {
+                -webkit-transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                -webkit-transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body class="theme-white">

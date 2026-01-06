@@ -1256,3 +1256,181 @@ body.theme-black .events-detail {
     }
 }
 
+/* ============================================================
+   MOBILE OPTIMIZATIONS (< 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Performance: Reduce animations on mobile */
+    * {
+        animation-duration: 0.3s !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    #centerTitle {
+        font-size: 2rem;
+        letter-spacing: 0.08em;
+    }
+
+    .page-stack {
+        margin-top: 0;
+    }
+
+    .landing-section {
+        min-height: 80vh;
+        padding: 20px;
+    }
+
+    /* Optimized heading sizes */
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    /* Touch target minimum: 48px */
+    button {
+        min-height: 48px;
+        padding: 12px 20px;
+    }
+
+    .btn {
+        padding: 14px 24px;
+        font-size: 0.95rem;
+    }
+
+    /* Concept section optimization */
+    .concept-overlay {
+        padding: 20px;
+    }
+
+    .console-heading {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    .console-title {
+        font-size: 1.4rem;
+        margin-top: 12px;
+    }
+
+    .console-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .console-body {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .concept-learn-more {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+
+    /* Modal optimizations */
+    .registration-modal-content {
+        width: 95%;
+        max-width: 90vw;
+        padding: 18px 16px;
+    }
+
+    .registration-modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .registration-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .form-group input {
+        padding: 12px 4px 6px 4px;
+        font-size: 1rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .registration-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .register-submit,
+    .register-cancel {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* Remove hover effects on touch devices */
+    @media (hover: none) {
+        button:hover {
+            transform: none;
+            background: inherit;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+    }
+
+    /* Reduce filter effects for performance */
+    .concept-blur-overlay {
+        backdrop-filter: blur(2px);
+    }
+
+    /* Disable expensive shadows on mobile */
+    .registration-modal-content {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Extra small devices (< 480px) */
+@media (max-width: 480px) {
+    #centerTitle {
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .landing-section {
+        min-height: 60vh;
+    }
+
+    .console-title {
+        font-size: 1.2rem;
+    }
+
+    .registration-modal-content {
+        max-width: 95vw;
+        padding: 14px 12px;
+    }
+
+    .registration-modal-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .registration-actions {
+        margin-top: 14px;
+    }
+}

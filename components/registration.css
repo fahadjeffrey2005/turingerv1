@@ -380,3 +380,133 @@
     border-color: rgba(255, 255, 255, 0.2);
     color: rgba(200, 230, 255, 0.9);
 }
+/* ============================================================
+   MOBILE OPTIMIZATIONS
+   ============================================================ */
+@media (max-width: 768px) {
+    .registration-modal {
+        padding: 10px;
+    }
+
+    .registration-modal-content {
+        width: 95%;
+        max-width: 90vw;
+        padding: 16px 14px;
+        border-radius: 12px;
+    }
+
+    .registration-modal-content h2 {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+    }
+
+    .registration-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-group input {
+        padding: 12px 4px 6px 4px;
+        font-size: 1rem;
+        border-bottom-width: 1px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .registration-actions {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 16px;
+    }
+
+    .register-submit,
+    .register-cancel {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+
+    /* Enquiry modal optimizations */
+    .enquiry-modal-content {
+        width: 95%;
+        max-width: 90vw;
+        padding: 16px 14px;
+    }
+
+    .enquiry-modal-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .enquiry-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .enquiry-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .enquiry-submit,
+    .enquiry-cancel {
+        width: 100%;
+    }
+
+    /* Disable hover effects on touch devices */
+    @media (hover: none) {
+        .register-submit:hover,
+        .register-cancel:hover,
+        .enquiry-submit:hover,
+        .enquiry-cancel:hover {
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    /* Reduce shadows for performance */
+    .registration-modal-content,
+    .enquiry-modal-content {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-modal-content {
+        max-width: 95vw;
+        padding: 14px 12px;
+    }
+
+    .registration-modal-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .register-submit,
+    .register-cancel {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+    }
+
+    .enquiry-modal-content {
+        max-width: 95vw;
+        padding: 14px 12px;
+    }
+
+    .enquiry-modal-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .enquiry-submit,
+    .enquiry-cancel {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+    }
+}
