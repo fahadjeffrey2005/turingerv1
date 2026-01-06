@@ -103,9 +103,66 @@ let targetSceneTheme = 'white';
 let themeTransition = null;
 
 // ============================================================
+// DEBUGGING - Remove this section in production
+// ============================================================
+function logDeviceDebugInfo() {
+    const isMobile = isMobileDevice();
+    const isLowEnd = isLowEndDevice();
+    const particleCountDebug = isMobile ? (isLowEnd ? 1500 : 3000) : 8500;
+    
+    const debugInfo = {
+        userAgent: navigator.userAgent.substring(0, 80),
+        isMobileDevice: isMobile,
+        isLowEndDevice: isLowEnd,
+        particleCount: particleCountDebug,
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight,
+        mediaQuery768: window.matchMedia('(max-width: 768px)').matches,
+        hardwareConcurrency: navigator.hardwareConcurrency || 'unknown',
+        deviceMemory: navigator.deviceMemory || 'unknown'
+    };
+    
+    console.log('%c🔍 DOTS DEBUG INFO', 'color: #0080FE; font-weight: bold; font-size: 14px;', debugInfo);
+    
+    // Show on screen for mobile testing
+    if (isMobile) {
+        const debugPanel = document.createElement('div');
+        debugPanel.id = 'dots-debug-panel';
+        debugPanel.style.cssText = `
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #0080FE;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 11px;
+            z-index: 9999;
+            max-width: 280px;
+            line-height: 1.4;
+        `;
+        debugPanel.innerHTML = `
+            <strong>DOTS DEBUG</strong><br>
+            Mobile: ${isMobile ? '✓' : '✗'}<br>
+            Low-End: ${isLowEnd ? '✓' : '✗'}<br>
+            Particles: ${particleCountDebug.toLocaleString()}<br>
+            Size: ${window.innerWidth}x${window.innerHeight}<br>
+            UA: ${navigator.userAgent.substring(0, 40)}..
+        `;
+        document.body.appendChild(debugPanel);
+    }
+    
+    return debugInfo;
+}
+
+// ============================================================
 // INITIALIZATION
 // ============================================================
 function initDots() {
+    // Log device info
+    logDeviceDebugInfo();
+    
     // Create Scene
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0xffffff, 0.0004);
@@ -120,14 +177,15 @@ function initDots() {
     );
     camera.position.z = PARTICLE_BOUNDS.cameraZ;
 
-    // Create Renderer
+    // Create Renderer - optimized for mobile
+    const isMobile = isMobileDevice();
     renderer = new THREE.WebGLRenderer({
         canvas: document.getElementById('fluidCanvas'),
-        antialias: true,
+        antialias: !isMobile,
         alpha: false
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(isMobile ? Math.min(window.devicePixelRatio, 1) : window.devicePixelRatio);
     renderer.setClearColor(0xffffff, 1);
 
     // Create Background
@@ -275,7 +333,8 @@ function createBackgroundPlane() {
 }
 
 function createFluidMesh() {
-    const geometry = new THREE.IcosahedronGeometry(100, 4);
+    const detail = isMobileDevice() ? 3 : 4;
+    const geometry = new THREE.IcosahedronGeometry(100, detail);
     const material = new THREE.MeshBasicMaterial({
         color: 0x007a2d,
         wireframe: true,
@@ -289,7 +348,7 @@ function createFluidMesh() {
     fluidMesh.scale.setScalar(fluidMesh.userData.baseScale);
     scene.add(fluidMesh);
 
-    const edgeGeometry = new THREE.EdgesGeometry(geometry, 15);
+    const edgeGeometry = new THREE.EdgesGeometry(geometry, isMobileDevice() ? 20 : 15);
     const edgeMaterial = new THREE.LineBasicMaterial({
         color: 0x00521a,
         linewidth: 1.90,
