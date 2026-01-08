@@ -124,8 +124,8 @@ function logDeviceDebugInfo() {
     
     console.log('%c🔍 DOTS DEBUG INFO', 'color: #0080FE; font-weight: bold; font-size: 14px;', debugInfo);
     
-    // Show on screen for mobile testing
-    if (isMobile) {
+    // Debug panel hidden by default - enable by typing in console: window.showDotsDebug = true; location.reload();
+    if (window.showDotsDebug && isMobile) {
         const debugPanel = document.createElement('div');
         debugPanel.id = 'dots-debug-panel';
         debugPanel.style.cssText = `
