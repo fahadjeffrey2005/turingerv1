@@ -102,6 +102,9 @@ let sceneReady = false;
 let targetSceneTheme = 'white';
 let themeTransition = null;
 
+// Dynamic camera Z for scroll animations
+let dynamicCameraZ = null;
+
 // ============================================================
 // DEBUGGING - Remove this section in production
 // ============================================================
@@ -414,7 +417,8 @@ function animateDots() {
         targetY = Math.cos(Date.now() * 0.00008) * 0.1;
     }
     
-    camera.position.z = 400;
+    // Use dynamic camera Z if set (for scroll animations), otherwise use default
+    camera.position.z = dynamicCameraZ !== null ? dynamicCameraZ : 400;
     camera.lookAt(scene.position);
 
     // Animate particles
@@ -723,6 +727,14 @@ window.initDots = initDots;
 window.setDotsTheme = setDotsTheme;
 window.dotsParticles = null;
 window.dotsParticleMaterial = null;
+window.dotsScene = null;
+window.dotsCamera = null;
+window.dotsRenderer = null;
+
+// Set dynamic camera Z for scroll animations
+window.setDynamicCameraZ = function(z) {
+    dynamicCameraZ = z;
+};
 
 // Update these references after initialization
 const originalInitDots = window.initDots;
@@ -730,4 +742,8 @@ window.initDots = function() {
     originalInitDots.call(this);
     window.dotsParticles = particles;
     window.dotsParticleMaterial = particleMaterial;
+    window.dotsScene = scene;
+    window.dotsCamera = camera;
+    window.dotsRenderer = renderer;
+    console.log('[dots] Exposed: scene, camera, renderer, particles, particleMaterial');
 };

@@ -70,8 +70,6 @@
 
     <div class="container">
         <div class="content">
-            <h1>ENDER SEQUENCE</h1>
-            <p>Extended scrollable area with black background and interactive dots particle system.</p>
         </div>
     </div>
 
@@ -82,60 +80,53 @@
     <script src="../dots/dots.js"></script>
     
     <script>
-        // Initialize dots on page load
-        window.addEventListener('load', () => {
-            if (typeof window.initDots === 'function') {
-                window.initDots();
-            }
-            if (typeof window.setDotsTheme === 'function') {
-                window.setDotsTheme('black');
-            }
+        // Initialize scroll animation module
+        window.initScrollAnimation = function(config = {}) {
+            const {
+                particleFadeRate = 1.5,
+                cameraZStart = 400,
+                cameraZEnd = 50,
+                theme = 'black',
+                initDelay = 500
+            } = config;
 
-            // Scroll-based animation for dots fade and globe growth
-            let scene, camera, particleSystem;
-            
-            // Give time for dots to initialize
-            setTimeout(() => {
-                // Try to access the THREE.js scene from the dots system
-                const canvas = document.getElementById('fluidCanvas');
-                
-                window.addEventListener('scroll', () => {
-                    // Calculate scroll progress (0 to 1)
-                    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-                    const scrollProgress = window.scrollY / scrollHeight;
-                    
-                    // Fade out particles: opacity decreases from 1 to 0
-                    const particleOpacity = Math.max(0, 1 - scrollProgress * 1.5);
-                    
-                    // Exponential globe growth: scale increases exponentially
-                    // Start at 1x, grows to massive size
-                    const globeScale = Math.pow(1 + (scrollProgress * 3), 2.5);
-                    
-                    // Fade ONLY the particles material, NOT the globe
-                    if (window.dotsParticleMaterial) {
-                        window.dotsParticleMaterial.opacity = particleOpacity;
-                        window.dotsParticleMaterial.needsUpdate = true;
-                    }
-                    
-                    // Keep globe and everything else at full opacity
-                    if (window.dotsScene && window.dotsScene.children) {
-                        window.dotsScene.children.forEach(child => {
-                            if (child.material && child !== window.dotsParticles) {
-                                child.material.opacity = 1.0;
-                                if (child.material.needsUpdate !== undefined) {
-                                    child.material.needsUpdate = true;
-                                }
-                            }
-                        });
-                    }
-                    
-                    // Scale camera zoom for exponential growth effect
-                    if (window.dotsCamera) {
-                        window.dotsCamera.position.z = 600 / globeScale;
-                    }
-                }, { passive: true });
-            }, 500);
-        });
+            window.addEventListener('load', () => {
+                if (typeof window.initDots === 'function') {
+                    window.initDots();
+                }
+                if (typeof window.setDotsTheme === 'function') {
+                    window.setDotsTheme(theme);
+                }
+
+                // Give time for dots to initialize
+                setTimeout(() => {
+                    window.addEventListener('scroll', () => {
+                        // Calculate scroll progress (0 to 1)
+                        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                        const scrollProgress = window.scrollY / scrollHeight;
+                        
+                        // Fade out particles: opacity decreases from 1 to 0
+                        const particleOpacity = Math.max(0, 1 - scrollProgress * particleFadeRate);
+                        
+                        // Fade ONLY the particles material, NOT the globe
+                        if (window.dotsParticleMaterial) {
+                            window.dotsParticleMaterial.opacity = particleOpacity;
+                            window.dotsParticleMaterial.needsUpdate = true;
+                        }
+                        
+                        // Move camera closer to make globe appear larger
+                        const cameraZRange = cameraZStart - cameraZEnd;
+                        const newZ = cameraZStart - (scrollProgress * cameraZRange);
+                        if (typeof window.setDynamicCameraZ === 'function') {
+                            window.setDynamicCameraZ(newZ);
+                        }
+                    }, { passive: true });
+                }, initDelay);
+            });
+        };
+
+        // Initialize with default config
+        window.initScrollAnimation();
     </script>
 </body>
 </html>
