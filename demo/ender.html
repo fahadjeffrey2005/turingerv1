@@ -62,6 +62,46 @@
             margin: 0 auto;
             line-height: 1.6;
         }
+
+        /* Logo overlay for end sequence */
+        #logoOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        #logoOverlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #logoOverlay img {
+            max-width: 680px;
+            max-height: 680px;
+            width: 100%;
+            height: auto;
+            animation: logoPulse 0.8s ease-out;
+        }
+
+        @keyframes logoPulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 <body class="theme-black">
@@ -73,59 +113,22 @@
         </div>
     </div>
 
+    <!-- Logo overlay for end sequence -->
+    <div id="logoOverlay">
+        <img src="../logos/turingerlogo.png" alt="Turinger Logo">
+    </div>
+
     <!-- THREE.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <!-- Dots System -->
     <script src="../dots/dots.js"></script>
     
+    <!-- Scroll Animation Module -->
+    <script src="scrollAnimation.js"></script>
+    
     <script>
-        // Initialize scroll animation module
-        window.initScrollAnimation = function(config = {}) {
-            const {
-                particleFadeRate = 1.5,
-                cameraZStart = 400,
-                cameraZEnd = 50,
-                theme = 'black',
-                initDelay = 500
-            } = config;
-
-            window.addEventListener('load', () => {
-                if (typeof window.initDots === 'function') {
-                    window.initDots();
-                }
-                if (typeof window.setDotsTheme === 'function') {
-                    window.setDotsTheme(theme);
-                }
-
-                // Give time for dots to initialize
-                setTimeout(() => {
-                    window.addEventListener('scroll', () => {
-                        // Calculate scroll progress (0 to 1)
-                        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-                        const scrollProgress = window.scrollY / scrollHeight;
-                        
-                        // Fade out particles: opacity decreases from 1 to 0
-                        const particleOpacity = Math.max(0, 1 - scrollProgress * particleFadeRate);
-                        
-                        // Fade ONLY the particles material, NOT the globe
-                        if (window.dotsParticleMaterial) {
-                            window.dotsParticleMaterial.opacity = particleOpacity;
-                            window.dotsParticleMaterial.needsUpdate = true;
-                        }
-                        
-                        // Move camera closer to make globe appear larger
-                        const cameraZRange = cameraZStart - cameraZEnd;
-                        const newZ = cameraZStart - (scrollProgress * cameraZRange);
-                        if (typeof window.setDynamicCameraZ === 'function') {
-                            window.setDynamicCameraZ(newZ);
-                        }
-                    }, { passive: true });
-                }, initDelay);
-            });
-        };
-
-        // Initialize with default config
+        // Initialize scroll animation with default config
         window.initScrollAnimation();
     </script>
 </body>
