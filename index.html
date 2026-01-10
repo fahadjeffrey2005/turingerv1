@@ -537,10 +537,19 @@
             
             <!-- Finisher Logo Overlay -->
             <div id="finisher-logo" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 1.2s ease-in-out; pointer-events: none;">
-                <img src="logos/turingerlogo.png" alt="Turinger Logo" style="max-width: 680px; max-height: 680px; width: 100%; height: auto; animation: finisherPulse 0.8s ease-out;">
+                <img src="logos/turingerlogo.png" alt="Turinger Logo" style="max-width: 680px; max-height: 680px; width: 100%; height: auto;">
             </div>
 
             <style>
+                #finisher-logo.active {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+
+                #finisher-logo img {
+                    animation: finisherPulse 0.8s ease-out;
+                }
+
                 @keyframes finisherPulse {
                     0% { opacity: 0; transform: scale(0.8); }
                     100% { opacity: 1; transform: scale(1); }
@@ -557,8 +566,8 @@
                         logoSelector: '#finisher-logo',
                         particleFadeRate: 1.2,
                         cameraZoomStart: 400,
-                        cameraZoomEnd: 30,
-                        logoThreshold: 0.85
+                        cameraZoomEnd: 18,
+                        logoThreshold: 0.25
                     };
 
                     let state = {
@@ -570,7 +579,8 @@
                         wasInFinisher: false,
                         lastScrollProgress: 0,
                         entryCamera: 400,
-                        entryParticleOpacity: 1
+                        entryParticleOpacity: 1,
+                        logoElement: null
                     };
 
                     function initFinisher() {
@@ -581,6 +591,9 @@
 
                         state.sectionTop = section.offsetTop;
                         state.sectionHeight = section.offsetHeight;
+
+                        // Cache logo element for performance
+                        state.logoElement = document.querySelector(config.logoSelector);
 
                         // Store original particle opacity from dots system
                         if (window.dotsParticleMaterial) {
@@ -633,16 +646,22 @@
                                 window.setDynamicCameraZ(newCameraZ);
                             }
 
-                            // EFFECT 3: Show logo at threshold
-                            const logo = document.querySelector(config.logoSelector);
-                            if (logo) {
-                                if (clampedProgress >= config.logoThreshold && !state.logoShown) {
-                                    logo.style.opacity = '1';
+                            // EFFECT 3: Show logo gradually as you scroll further into finisher
+                            if (state.logoElement) {
+                                // Start showing logo at 25% progress, fully visible by ~45%
+                                const logoProgress = Math.max(0, (clampedProgress - config.logoThreshold) / (1 - config.logoThreshold));
+                                const logoOpacity = Math.min(1, logoProgress * 4); // Faster appearance (multiplier 4x)
+                                
+                                if (logoProgress > 0 && !state.logoShown) {
+                                    state.logoElement.classList.add('active');
                                     state.logoShown = true;
-                                } else if (clampedProgress < config.logoThreshold && state.logoShown) {
-                                    logo.style.opacity = '0';
+                                } else if (logoProgress <= 0 && state.logoShown) {
+                                    state.logoElement.classList.remove('active');
                                     state.logoShown = false;
                                 }
+                                
+                                // Set opacity based on progress for smooth fade-in
+                                state.logoElement.style.opacity = logoOpacity.toString();
                             }
 
                             state.wasInFinisher = true;
@@ -662,9 +681,9 @@
                             }
 
                             // Hide logo
-                            const logo = document.querySelector(config.logoSelector);
-                            if (logo) {
-                                logo.style.opacity = '0';
+                            if (state.logoElement) {
+                                state.logoElement.classList.remove('active');
+                                state.logoElement.style.opacity = '0';
                                 state.logoShown = false;
                             }
 
@@ -672,11 +691,10 @@
                         }
                     }
 
-                    // Initialize when dots system is ready
+                    // Initialize immediately - no delay needed
                     window.addEventListener('load', () => {
-                        setTimeout(() => {
-                            initFinisher();
-                        }, 500);
+                        initFinisher();
+                        updateFinisherEffect();
                     });
 
                     // Smooth scroll listener
@@ -686,14 +704,25 @@
         </section>
     </main>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="dots/dots.js"></script>
-    <script src="script.js?v=108"></script>
-    <script src="concepts/uno.js?v=107"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="dots/dots.js" defer></script>
+    <script src="script.js?v=108" defer></script>
+    <script src="concepts/uno.js?v=107" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize dots background first
-            initDots();
+            // Defer heavy initialization to idle time
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    initDots();
+                });
+            } else {
+                // Fallback for browsers without requestIdleCallback
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        initDots();
+                    }, 0);
+                });
+            }
 
             const unoSection = document.getElementById('concept-uno');
             const overlay = unoSection?.querySelector('.concept-overlay');
