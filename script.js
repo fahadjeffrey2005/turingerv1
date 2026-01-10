@@ -162,30 +162,50 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// LINEUP DAY SWITCHER - Model 5 Dots with Glow Ring
+// LINEUP DAY SWITCHER - Timeline Version
 // ============================================================
 
 function switchLineupDay(index) {
-    const buttons = document.querySelectorAll('.schedule-btn');
-    const contents = document.querySelectorAll('[id^="schedule-day-"]');
-    const label = document.getElementById('lineup-day-label');
+    const contents = document.querySelectorAll('[data-day]');
+    
+    contents.forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    const dayContent = document.querySelector(`[data-variation="original"][data-day="${index + 1}"]`);
+    if (dayContent) {
+        dayContent.style.display = 'block';
+    }
+}
 
-    buttons.forEach(btn => btn.classList.remove('active'));
-    contents.forEach(content => content.classList.remove('active'));
+// COLOR BAR DAY SELECTOR - Index Page Version
+function selectIndexDay(day) {
+    // Update color bar
+    const barFill = document.getElementById('colorBarFill');
+    const fillPercentage = (day / 3) * 100;
+    barFill.style.width = fillPercentage + '%';
 
-    buttons[index].classList.add('active');
-    contents[index].classList.add('active');
-
-    if (label) {
-        label.textContent = `Day ${index + 1}`;
+    // Update day buttons
+    for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('dayBtn' + i);
+        const underline = btn.querySelector('div');
+        if (i === day) {
+            btn.style.color = '#00D4FF';
+            underline.style.width = '100%';
+        } else {
+            btn.style.color = 'rgba(213, 255, 233, 0.5)';
+            underline.style.width = '0%';
+        }
     }
 
-    // Reset all card flips when switching days by removing inline styles
-    const cards = document.querySelectorAll('.event-flip-inner');
-    cards.forEach(card => {
-        card.style.transform = '';
-    });
+    // Update schedule visibility using existing switchLineupDay logic
+    switchLineupDay(day - 1);
 }
+
+// Initialize with Day 1
+document.addEventListener('DOMContentLoaded', () => {
+    selectIndexDay(1);
+});
 
 // Event pill interactions
 document.querySelectorAll('.events-pill').forEach(pill => {

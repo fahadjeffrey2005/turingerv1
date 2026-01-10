@@ -10,6 +10,119 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Zen+Dots&display=swap" rel="stylesheet">
+    <style>
+        /* Timeline Styles - Glass Cards */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background: rgba(200, 255, 235, 0.2);
+        }
+
+        .timeline-item {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: calc(50% - 16px);
+            padding: 16px;
+            background: transparent;
+            border: none;
+            backdrop-filter: none;
+            transition: all 0.3s ease;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            background: linear-gradient(135deg, rgba(92, 179, 255, 0.1), rgba(0, 128, 254, 0.05));
+            border-radius: 8px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .timeline-item:hover .timeline-content::before {
+            opacity: 1;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(92, 179, 255, 0.2), rgba(0, 128, 254, 0.12));
+        }
+
+        .timeline-content:hover {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content:hover {
+            padding-left: 16px;
+            padding-right: 24px;
+        }
+
+        .timeline-dot {
+            display: none;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            display: none;
+        }
+
+        .timeline-title {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            letter-spacing: 0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-time {
+            color: rgba(0, 128, 254, 0.6);
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-desc {
+            color: rgba(200, 255, 235, 0.7);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body class="scroll-shell concepts-body concept-uno">
     <!-- Solid white background layer -->
@@ -91,127 +204,148 @@
         <section class="black-section" id="black-v" aria-label="Vector immersion sequence">
             <!-- LINEUP Schedule - Inside Dark Region -->
             <div class="lineup-schedule-section">
-                <h3 class="schedule-title">SCHEDULE</h3>
+                <h3 class="schedule-title" style="font-size: 2.5rem;">SCHEDULE</h3>
                 
-                <div class="schedule-tabs">
-                    <button class="schedule-btn active" onclick="switchLineupDay(0)" aria-label="Day 1"></button>
-                    <button class="schedule-btn" onclick="switchLineupDay(1)" aria-label="Day 2"></button>
-                    <button class="schedule-btn" onclick="switchLineupDay(2)" aria-label="Day 3"></button>
+                <!-- Minimalistic Color Bar Day Selector -->
+                <div style="margin-bottom: 40px; max-width: 750px; margin-left: auto; margin-right: auto;">
+                    <!-- Color Bar Progress -->
+                    <div style="position: relative; height: 2px; background: rgba(0, 128, 254, 0.08); border-radius: 1px; margin-bottom: 24px; overflow: hidden;">
+                        <div id="colorBarFill" style="position: absolute; top: 0; left: 0; height: 100%; width: 33.33%; background: linear-gradient(90deg, #0080FE, #A855F7); transition: width 0.8s ease; border-radius: 1px;"></div>
+                    </div>
+
+                    <!-- Day Labels -->
+                    <div style="display: flex; justify-content: center; gap: 200px; align-items: flex-start; padding: 0;">
+                        <div style="text-align: center;">
+                            <button id="dayBtn1" onclick="selectIndexDay(1)" style="background: none; border: none; color: #00D4FF; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.8px; position: relative;">
+                                Day 1
+                                <div style="position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 100%; height: 1.5px; background: #00D4FF; transition: width 0.3s ease;"></div>
+                            </button>
+                        </div>
+                        <div style="text-align: center;">
+                            <button id="dayBtn2" onclick="selectIndexDay(2)" style="background: none; border: none; color: rgba(213, 255, 233, 0.5); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.8px; position: relative;">
+                                Day 2
+                                <div style="position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 0%; height: 1.5px; background: #00D4FF; transition: width 0.3s ease;"></div>
+                            </button>
+                        </div>
+                        <div style="text-align: center;">
+                            <button id="dayBtn3" onclick="selectIndexDay(3)" style="background: none; border: none; color: rgba(213, 255, 233, 0.5); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.8px; position: relative;">
+                                Day 3
+                                <div style="position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 0%; height: 1.5px; background: #00D4FF; transition: width 0.3s ease;"></div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="schedule-day-label" id="lineup-day-label">Day 1</div>
                 
                 <div class="schedule-activities">
-                    <div class="activity-list active" id="schedule-day-0">
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Inauguration</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">Opening Event</div>
-                                    <div class="flip-brief">Kick off Turinger '26</div>
+                    <!-- Day 1 -->
+                    <div class="day-content active" data-variation="original" data-day="1">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Inauguration</div>
+                                    <div class="timeline-desc">Official opening ceremony marks hackathon festival kickoff.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Panel Discussion</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">9:00 AM - 12:00 PM</div>
-                                    <div class="flip-brief">Industry experts discuss trends</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Panel Discussion</div>
+                                    <div class="timeline-time">9:00 AM – 12:00 PM</div>
+                                    <div class="timeline-desc">Industry experts discuss emerging trends and career.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Talk by DSP/ESP</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">9:00 AM - 12:00 PM</div>
-                                    <div class="flip-brief">Distinguished speakers</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">ESP Talk</div>
+                                    <div class="timeline-time">9:00 AM – 12:00 PM</div>
+                                    <div class="timeline-desc">Interactive session featuring industry professional insights sharing.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Blind Coding</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">2:00 PM - 5:00 PM</div>
-                                    <div class="flip-brief">Test coding skills</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Blind Coding Challenge</div>
+                                    <div class="timeline-time">2:00 PM – 5:00 PM</div>
+                                    <div class="timeline-desc">Code challenge without output using pure logic.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Squid Game</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">2:00 PM - 5:00 PM</div>
-                                    <div class="flip-brief">Gaming challenges</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Squid Game: Tech Edition</div>
+                                    <div class="timeline-time">2:00 PM – 5:00 PM</div>
+                                    <div class="timeline-desc">Speed and focus challenge with technical rounds.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="activity-list" id="schedule-day-1">
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Hackathon</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">11:00 AM</div>
-                                    <div class="flip-brief">Build & innovate projects</div>
+
+                    <!-- Day 2 -->
+                    <div class="day-content" data-variation="original" data-day="2" style="display: none;">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Case File: Last Commit</div>
+                                    <div class="timeline-time">10:00 AM – 1:00 PM</div>
+                                    <div class="timeline-desc">Cybersecurity mystery through analyzing digital evidence clues.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Murder Mystery CTF</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">10:00 AM - 1:00 PM</div>
-                                    <div class="flip-brief">Cybersecurity mystery</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Lovelace Hackathon</div>
+                                    <div class="timeline-time">11:00 AM onwards</div>
+                                    <div class="timeline-desc">Women-led hackathon celebrating innovation and inclusion globally.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">SIG AI</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">2:00 PM - 5:00 PM</div>
-                                    <div class="flip-brief">AI discussion & demos</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Token Trivia Quiz</div>
+                                    <div class="timeline-time">2:00 PM – 5:00 PM</div>
+                                    <div class="timeline-desc">Technical quiz blending logic and industry trivia.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Fabric Workshop</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">9:00 AM - 4:00 PM</div>
-                                    <div class="flip-brief">Fabric technology</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Microsoft Fabric Workshop</div>
+                                    <div class="timeline-time">9:00 AM – 4:00 PM</div>
+                                    <div class="timeline-desc">Data analytics workshop exploring collection and visualization.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="activity-list" id="schedule-day-2">
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Symposium</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">10:00 AM - 1:00 PM</div>
-                                    <div class="flip-brief">Research Wing discussions</div>
+
+                    <!-- Day 3 -->
+                    <div class="day-content" data-variation="original" data-day="3" style="display: none;">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Symposium – Research Wing</div>
+                                    <div class="timeline-time">10:00 AM – 12:00 PM</div>
+                                    <div class="timeline-desc">Research-focused symposium on technical advancements and innovation.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">ML Marathon</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">10:00 AM - 12:00 PM</div>
-                                    <div class="flip-brief">ML competition challenges</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">ML Marathon</div>
+                                    <div class="timeline-time">10:00 AM – 12:00 PM</div>
+                                    <div class="timeline-desc">Three-hour sprint building machine learning models fast.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
-                        </div>
-                        <div class="event-flip-card">
-                            <div class="event-flip-inner">
-                                <div class="event-flip-front">Hackathon Results</div>
-                                <div class="event-flip-back">
-                                    <div class="flip-time">Combined with SMI</div>
-                                    <div class="flip-brief">Awards & Valedictory</div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Valedictory</div>
+                                    <div class="timeline-time">Ends by 12:00 PM, buffer till 1:00 PM</div>
+                                    <div class="timeline-desc">Closing ceremony celebrating participant achievements and success.</div>
                                 </div>
+                                <div class="timeline-dot"></div>
                             </div>
                         </div>
                     </div>
