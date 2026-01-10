@@ -556,7 +556,7 @@
                         sectionSelector: '#finisher',
                         logoSelector: '#finisher-logo',
                         particleFadeRate: 1.2,
-                        cameraZoomStart: 300,
+                        cameraZoomStart: 400,
                         cameraZoomEnd: 30,
                         logoThreshold: 0.85
                     };
@@ -567,7 +567,10 @@
                         sectionTop: 0,
                         sectionHeight: 0,
                         initialized: false,
-                        wasInFinisher: false
+                        wasInFinisher: false,
+                        lastScrollProgress: 0,
+                        entryCamera: 400,
+                        entryParticleOpacity: 1
                     };
 
                     function initFinisher() {
@@ -601,24 +604,32 @@
                         const isInFinisher = scrollY >= sectionStart && scrollY < sectionEnd;
 
                         if (isInFinisher) {
+                            // Capture entry state on first frame entering section
+                            if (!state.wasInFinisher) {
+                                state.entryCamera = config.cameraZoomStart;
+                                state.entryParticleOpacity = state.originalParticleOpacity;
+                                if (window.dotsParticleMaterial) {
+                                    state.entryParticleOpacity = window.dotsParticleMaterial.opacity;
+                                }
+                            }
+
                             // INSIDE FINISHER - Apply all effects
                             const scrollProgress = (scrollY - sectionStart) / state.sectionHeight;
                             const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
 
-                            // Apply cubic easing for smooth acceleration
-                            const easedProgress = clampedProgress * clampedProgress * (3 - 2 * clampedProgress);
-
+                            // Use linear interpolation from entry state for perfect continuity
+                            
                             // EFFECT 1: Fade particles gradually and slowly
                             if (window.dotsParticleMaterial) {
-                                const particleOpacity = Math.max(0, state.originalParticleOpacity - (clampedProgress * config.particleFadeRate * state.originalParticleOpacity));
+                                const particleOpacity = Math.max(0, state.entryParticleOpacity - (clampedProgress * config.particleFadeRate * state.entryParticleOpacity));
                                 window.dotsParticleMaterial.opacity = particleOpacity;
                                 window.dotsParticleMaterial.needsUpdate = true;
                             }
 
-                            // EFFECT 2: Camera zoom into globe
+                            // EFFECT 2: Camera zoom into globe - interpolate smoothly from entry state
                             if (typeof window.setDynamicCameraZ === 'function') {
-                                const cameraZRange = config.cameraZoomStart - config.cameraZoomEnd;
-                                const newCameraZ = config.cameraZoomStart - (easedProgress * cameraZRange);
+                                const cameraZRange = state.entryCamera - config.cameraZoomEnd;
+                                const newCameraZ = state.entryCamera - (clampedProgress * cameraZRange);
                                 window.setDynamicCameraZ(newCameraZ);
                             }
 
@@ -635,18 +646,19 @@
                             }
 
                             state.wasInFinisher = true;
+                            state.lastScrollProgress = clampedProgress;
                         }
                         // OUTSIDE FINISHER - Reset everything if we just exited
                         else if (state.wasInFinisher) {
-                            // Reset particles to original opacity
+                            // Reset particles to entry opacity smoothly
                             if (window.dotsParticleMaterial) {
-                                window.dotsParticleMaterial.opacity = state.originalParticleOpacity;
+                                window.dotsParticleMaterial.opacity = state.entryParticleOpacity;
                                 window.dotsParticleMaterial.needsUpdate = true;
                             }
 
-                            // Reset camera zoom back out
+                            // Reset camera to entry position smoothly
                             if (typeof window.setDynamicCameraZ === 'function') {
-                                window.setDynamicCameraZ(config.cameraZoomStart);
+                                window.setDynamicCameraZ(state.entryCamera);
                             }
 
                             // Hide logo
