@@ -721,3 +721,13 @@ function onDocumentTouchEnd(event) {
 // ============================================================
 window.initDots = initDots;
 window.setDotsTheme = setDotsTheme;
+window.dotsParticles = null;
+window.dotsParticleMaterial = null;
+
+// Update these references after initialization
+const originalInitDots = window.initDots;
+window.initDots = function() {
+    originalInitDots.call(this);
+    window.dotsParticles = particles;
+    window.dotsParticleMaterial = particleMaterial;
+};

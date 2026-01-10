@@ -258,6 +258,31 @@ body.theme-black .events-hub {
     transform: translateY(-1px);
 }
 
+/* Special styling for events with own pages */
+.events-pill[data-event="hackathon"],
+.events-pill[data-event="symposium"] {
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    background: rgba(168, 85, 247, 0.12);
+    color: rgba(196, 181, 253, 0.9);
+}
+
+.events-pill[data-event="hackathon"]:hover,
+.events-pill[data-event="symposium"]:hover,
+.events-pill[data-event="hackathon"]:focus-visible,
+.events-pill[data-event="symposium"]:focus-visible {
+    border-color: transparent;
+    background: transparent;
+    color: #000000;
+    transform: translateY(-2px);
+}
+
+.events-pill[data-event="hackathon"].is-active,
+.events-pill[data-event="symposium"].is-active {
+    border-color: rgba(168, 85, 247, 0.6);
+    background: rgba(88, 28, 135, 0.3);
+    color: rgba(243, 232, 255, 0.95);
+    transform: translateY(-1px);
+}
 @media (max-width: 1200px) {
     .events-layout {
         grid-template-columns: minmax(240px, 300px) minmax(320px, 380px) minmax(240px, 300px);
