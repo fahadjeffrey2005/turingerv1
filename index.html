@@ -528,6 +528,150 @@
             </div>
             </div>
         </section>
+
+        <!-- FINISHER SECTION - Reuses main dots background, modifies behavior on scroll -->
+        <section id="finisher" style="position: relative; width: 100%; min-height: 400vh; background: transparent; margin: 0 !important; padding: 0 !important; z-index: 10; border: none;">
+            <!-- Finisher Content Area -->
+            <div style="position: relative; z-index: 25; width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #0080FE;">
+            </div>
+            
+            <!-- Finisher Logo Overlay -->
+            <div id="finisher-logo" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 1.2s ease-in-out; pointer-events: none;">
+                <img src="logos/turingerlogo.png" alt="Turinger Logo" style="max-width: 680px; max-height: 680px; width: 100%; height: auto; animation: finisherPulse 0.8s ease-out;">
+            </div>
+
+            <style>
+                @keyframes finisherPulse {
+                    0% { opacity: 0; transform: scale(0.8); }
+                    100% { opacity: 1; transform: scale(1); }
+                }
+            </style>
+
+            <!-- FINISHER BEHAVIOR MODIFIER - Reuses main dots system -->
+            <script>
+                (function() {
+                    'use strict';
+
+                    const config = {
+                        sectionSelector: '#finisher',
+                        logoSelector: '#finisher-logo',
+                        particleFadeRate: 1.2,
+                        cameraZoomStart: 300,
+                        cameraZoomEnd: 30,
+                        logoThreshold: 0.85
+                    };
+
+                    let state = {
+                        logoShown: false,
+                        originalParticleOpacity: 1,
+                        sectionTop: 0,
+                        sectionHeight: 0,
+                        initialized: false,
+                        wasInFinisher: false
+                    };
+
+                    function initFinisher() {
+                        if (state.initialized) return;
+
+                        const section = document.querySelector(config.sectionSelector);
+                        if (!section) return;
+
+                        state.sectionTop = section.offsetTop;
+                        state.sectionHeight = section.offsetHeight;
+
+                        // Store original particle opacity from dots system
+                        if (window.dotsParticleMaterial) {
+                            state.originalParticleOpacity = window.dotsParticleMaterial.opacity;
+                        }
+
+                        state.initialized = true;
+                    }
+
+                    function updateFinisherEffect() {
+                        // Initialize on first call
+                        if (!state.initialized) {
+                            initFinisher();
+                        }
+
+                        const scrollY = window.scrollY;
+                        const sectionStart = state.sectionTop;
+                        const sectionEnd = state.sectionTop + state.sectionHeight;
+
+                        // Check if currently INSIDE finisher section
+                        const isInFinisher = scrollY >= sectionStart && scrollY < sectionEnd;
+
+                        if (isInFinisher) {
+                            // INSIDE FINISHER - Apply all effects
+                            const scrollProgress = (scrollY - sectionStart) / state.sectionHeight;
+                            const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
+
+                            // Apply cubic easing for smooth acceleration
+                            const easedProgress = clampedProgress * clampedProgress * (3 - 2 * clampedProgress);
+
+                            // EFFECT 1: Fade particles gradually and slowly
+                            if (window.dotsParticleMaterial) {
+                                const particleOpacity = Math.max(0, state.originalParticleOpacity - (clampedProgress * config.particleFadeRate * state.originalParticleOpacity));
+                                window.dotsParticleMaterial.opacity = particleOpacity;
+                                window.dotsParticleMaterial.needsUpdate = true;
+                            }
+
+                            // EFFECT 2: Camera zoom into globe
+                            if (typeof window.setDynamicCameraZ === 'function') {
+                                const cameraZRange = config.cameraZoomStart - config.cameraZoomEnd;
+                                const newCameraZ = config.cameraZoomStart - (easedProgress * cameraZRange);
+                                window.setDynamicCameraZ(newCameraZ);
+                            }
+
+                            // EFFECT 3: Show logo at threshold
+                            const logo = document.querySelector(config.logoSelector);
+                            if (logo) {
+                                if (clampedProgress >= config.logoThreshold && !state.logoShown) {
+                                    logo.style.opacity = '1';
+                                    state.logoShown = true;
+                                } else if (clampedProgress < config.logoThreshold && state.logoShown) {
+                                    logo.style.opacity = '0';
+                                    state.logoShown = false;
+                                }
+                            }
+
+                            state.wasInFinisher = true;
+                        }
+                        // OUTSIDE FINISHER - Reset everything if we just exited
+                        else if (state.wasInFinisher) {
+                            // Reset particles to original opacity
+                            if (window.dotsParticleMaterial) {
+                                window.dotsParticleMaterial.opacity = state.originalParticleOpacity;
+                                window.dotsParticleMaterial.needsUpdate = true;
+                            }
+
+                            // Reset camera zoom back out
+                            if (typeof window.setDynamicCameraZ === 'function') {
+                                window.setDynamicCameraZ(config.cameraZoomStart);
+                            }
+
+                            // Hide logo
+                            const logo = document.querySelector(config.logoSelector);
+                            if (logo) {
+                                logo.style.opacity = '0';
+                                state.logoShown = false;
+                            }
+
+                            state.wasInFinisher = false;
+                        }
+                    }
+
+                    // Initialize when dots system is ready
+                    window.addEventListener('load', () => {
+                        setTimeout(() => {
+                            initFinisher();
+                        }, 500);
+                    });
+
+                    // Smooth scroll listener
+                    window.addEventListener('scroll', updateFinisherEffect, { passive: true });
+                })();
+            </script>
+        </section>
     </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
