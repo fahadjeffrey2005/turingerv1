@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Zen+Dots&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="dots/dots.css?v=54">
     <style>
         * {
             margin: 0;
@@ -1102,23 +1101,33 @@
     <!-- THREE.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
-    <!-- Dots System -->
-    <script src="dots/dots.js"></script>
+    <!-- Infinity Background System -->
+    <script src="src/js/infinity-background.js"></script>
     
     <!-- Registration Component -->
     <link rel="stylesheet" href="components/registration.css">
     <script src="components/sponsorship-enquiry.js"></script>
     
-    <!-- Initialize Dots and Enquiry -->
+    <!-- Initialize Infinity Background and Enquiry -->
     <script>
-        window.addEventListener('load', initDots);
-
-        // Theme detection - default to dark
         document.addEventListener('DOMContentLoaded', () => {
-            // Default to dark theme
-            document.body.classList.remove('theme-white');
-            window.setDotsTheme?.('black');
-            localStorage.setItem('turinger-theme', 'black');
+            // Initialize infinity background
+            const background = new InfinityBackground({
+                canvasId: 'fluidCanvas',
+                gridSize: 50,
+                spacing: 5,
+                backgroundColor: 0x000000,
+                lineColor: 0x0080FE,
+                lineOpacity: 0.4,
+                particleColor: { r: 1.0, g: 1.0, b: 1.0 }, // White
+                particleSize: 0.5,
+                hoverColor: { r: 0, g: 0.502, b: 1 }, // Blue on hover
+                hoverDistance: 30,
+                hoverLift: 15,
+                cameraPosZ: 60,
+                cameraPosY: 15
+            });
+            background.init();
             
             // Mount enquiry modal for all Get Started buttons
             mountEnquiry({ 
@@ -1126,17 +1135,6 @@
                 parent: document.body 
             });
         });
-
-        // Save theme preference
-        function setTheme(theme) {
-            localStorage.setItem('turinger-theme', theme);
-            if (theme === 'white') {
-                document.body.classList.add('theme-white');
-            } else {
-                document.body.classList.remove('theme-white');
-            }
-            window.setDotsTheme?.(theme);
-        }
     </script>
 </body>
 </html>

@@ -130,7 +130,7 @@ section {
     -webkit-backdrop-filter: blur(var(--background-blur));
     pointer-events: none;
     z-index: 5;
-    transition: backdrop-filter 0.6s ease, -webkit-backdrop-filter 0.6s ease, background 0.6s ease;
+    transition: none;
 }
 
 
@@ -904,6 +904,37 @@ body.theme-black .events-detail {
 
 .sponsor-button:hover .sponsor-button-arrow {
     transform: translateX(4px);
+}
+
+/* Register Now Button - Specific Override */
+#registration-cta {
+    position: relative;
+    z-index: 10;
+    filter: none !important;
+    backdrop-filter: none !important;
+    mix-blend-mode: normal !important;
+}
+
+#registration-cta .sponsor-button {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: none !important;
+    mix-blend-mode: normal !important;
+    position: relative;
+    z-index: 11;
+}
+
+#registration-cta .sponsor-button-text {
+    transition: none !important;
+    mix-blend-mode: normal !important;
+}
+
+#registration-cta .sponsor-button:hover {
+    background: #000000 !important;
+    box-shadow: 0 12px 32px rgba(0, 128, 254, 0.25) !important;
+    transition: box-shadow 0.35s ease !important;
 }
 
 @media (max-width: 640px) {
