@@ -1146,10 +1146,32 @@
 
             registrationForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                alert('Registration submitted! We will contact you soon.');
+                
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const college = document.getElementById('college').value.trim();
+                
+                if (!fullName || !email || !phone || !college) {
+                    alert('Please fill all fields');
+                    return;
+                }
+                
+                const registrationData = {
+                    fullName, email, phone, college,
+                    events: ['symposium'],
+                    timestamp: new Date().toISOString()
+                };
+                
+                sessionStorage.setItem('registrationData', JSON.stringify(registrationData));
+                sessionStorage.setItem('registrationType', 'symposium');
+                
                 registrationModal.classList.remove('active');
                 unblurCanvas();
-                registrationForm.reset();
+                
+                setTimeout(() => {
+                    window.location.href = 'payment.html';
+                }, 500);
             });
         });
 

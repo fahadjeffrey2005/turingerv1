@@ -1079,16 +1079,31 @@
                 // Handle form submission
                 registrationForm.addEventListener('submit', (e) => {
                     e.preventDefault();
+                    
+                    const fullName = document.getElementById('fullName').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const phone = document.getElementById('phone').value.trim();
+                    const college = document.getElementById('college').value.trim();
+                    
+                    if (!fullName || !email || !phone || !college) {
+                        alert('Please fill all fields');
+                        return;
+                    }
+                    
+                    const registrationData = {
+                        fullName, email, phone, college,
+                        events: ['hackathon'],
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    sessionStorage.setItem('registrationData', JSON.stringify(registrationData));
+                    sessionStorage.setItem('registrationType', 'hackathon');
+                    
                     registrationModal.classList.remove('active');
                     
-                    if (window.registrationAnimation) {
-                        window.registrationAnimation.animate(2000).then(() => {
-                            registrationForm.reset();
-                        });
-                    } else {
-                        alert('Thank you for registering! We will contact you soon.');
-                        registrationForm.reset();
-                    }
+                    setTimeout(() => {
+                        window.location.href = 'payment.html';
+                    }, 500);
                 });
             }
         });
