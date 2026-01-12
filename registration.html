@@ -34,71 +34,89 @@
         }
 
         .registration-wrapper {
-            position: relative;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 1;
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 0;
+            margin: 0;
         }
 
         .registration-container {
-            max-width: 500px;
             width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .registration-modal-content {
-            background: rgba(10, 14, 16, 0.4);
-            border-radius: 12px;
-            padding: 20px 18px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(92, 179, 255, 0.25);
-            backdrop-filter: blur(6px) saturate(110%);
+            background: rgba(10, 14, 16, 0.08);
+            border-radius: 0;
+            padding: 60px 40px;
+            box-shadow: none;
+            border: none;
+            backdrop-filter: blur(3px) saturate(110%);
+            width: 100vw;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
         }
 
         .registration-modal-content h2 {
-            margin: 0 0 4px 0;
-            font-family: "BBH Bartle", sans-serif;
-            font-size: 1.6rem;
+            margin: 0 0 12px 0;
+            font-family: "Zen Dots", sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 600;
             color: #5CB3FF;
             letter-spacing: 0.06em;
+            text-align: center;
         }
 
         .registration-subtitle {
-            text-align: left;
-            color: rgba(170, 220, 255, 0.4);
-            font-size: 0.8rem;
-            margin: 0 0 16px 0;
+            text-align: center;
+            color: rgba(170, 220, 255, 0.5);
+            font-size: clamp(0.95rem, 2vw, 1.2rem);
+            margin: 0 0 40px 0;
+            max-width: 600px;
         }
 
         .registration-form {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
         }
 
         .form-group {
             position: relative;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 14px 6px 8px 6px;
+            padding: 18px 8px 12px 8px;
             background: transparent;
             border: none;
-            border-bottom: 1px solid rgba(170, 220, 255, 0.15);
+            border-bottom: 1px solid rgba(170, 220, 255, 0.2);
             color: rgba(220, 255, 240, 0.95);
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             transition: border-color 0.18s ease;
             -webkit-appearance: none;
             appearance: none;
             caret-color: rgba(174, 230, 255, 0.95);
             font-family: inherit;
-        }
+        }}
 
         .form-group select {
             background: transparent;
@@ -124,7 +142,7 @@
             position: absolute;
             left: 6px;
             top: 12px;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             color: rgba(170, 220, 255, 0.45);
             pointer-events: none;
             transition: transform 0.18s ease, font-size 0.18s ease, top 0.18s ease, color 0.18s ease;
@@ -142,24 +160,26 @@
 
         .registration-actions {
             display: flex;
-            gap: 12px;
-            margin-top: 18px;
+            gap: 16px;
+            margin-top: 32px;
+            width: 100%;
         }
 
         .register-submit {
             flex: 1;
-            padding: 10px 12px;
-            background: rgba(92, 179, 255, 0.12);
-            border: 1px solid rgba(92, 179, 255, 0.32);
+            padding: 14px 32px;
+            background: rgba(92, 179, 255, 0.15);
+            border: 1px solid rgba(92, 179, 255, 0.4);
             color: #5CB3FF;
             border-radius: 8px;
-            font-size: 0.88rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.18s ease;
             letter-spacing: 0.06em;
             text-transform: uppercase;
             font-family: inherit;
+        }
         }
 
         .register-submit:hover {
@@ -208,20 +228,21 @@
 
         /* Events Checklist Styles */
         .form-section-title {
-            font-size: 0.85rem;
+            font-size: 1rem;
             color: rgba(170, 220, 255, 0.6);
-            margin: 14px 0 10px 0;
-            letter-spacing: 0.1em;
+            margin: 24px 0 16px 0;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             font-weight: 600;
+            text-align: center;
         }
 
         .event-checklist {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 14px;
-            max-height: 280px;
+            gap: 10px;
+            margin-bottom: 16px;
+            max-height: 380px;
             overflow-y: auto;
         }
 
@@ -244,20 +265,20 @@
         }
 
         .event-item {
-            background: rgba(10, 14, 16, 0.25);
-            border: 1px solid rgba(92, 179, 255, 0.15);
-            border-radius: 6px;
-            padding: 10px 12px;
+            background: rgba(10, 14, 16, 0.2);
+            border: 1px solid rgba(92, 179, 255, 0.2);
+            border-radius: 8px;
+            padding: 14px 16px;
             transition: all 0.15s ease;
             display: flex;
             align-items: flex-start;
-            gap: 8px;
+            gap: 12px;
             position: relative;
         }
 
         .event-item:hover {
-            background: rgba(10, 14, 16, 0.35);
-            border-color: rgba(92, 179, 255, 0.25);
+            background: rgba(10, 14, 16, 0.3);
+            border-color: rgba(92, 179, 255, 0.35);
         }
 
         .event-checkbox {
@@ -277,19 +298,19 @@
         }
 
         .checkbox-label {
-            font-size: 0.85rem;
-            color: rgba(213, 255, 233, 0.9);
+            font-size: 0.95rem;
+            color: rgba(213, 255, 233, 0.95);
             font-weight: 500;
-            letter-spacing: 0.2px;
+            letter-spacing: 0.3px;
         }
 
         .event-dropdown-btn {
             background: none;
             border: none;
             color: #5CB3FF;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             cursor: pointer;
-            padding: 2px 6px;
+            padding: 4px 8px;
             transition: transform 0.15s ease;
             font-weight: 600;
             flex-shrink: 0;
@@ -324,18 +345,18 @@
 
         .event-timing {
             color: #5CB3FF;
-            font-size: 0.75rem;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.4px;
             font-weight: 600;
         }
 
         .event-description {
-            color: rgba(213, 255, 233, 0.75);
-            font-size: 0.8rem;
-            line-height: 1.4;
+            color: rgba(213, 255, 233, 0.85);
+            font-size: 0.95rem;
+            line-height: 1.5;
             margin: 0;
-            letter-spacing: 0.15px;
+            letter-spacing: 0.25px;
         }
 
         @media (max-width: 768px) {
@@ -360,7 +381,7 @@
     <div class="registration-wrapper">
         <div class="registration-container">
             <div class="registration-modal-content">
-                <h2>Register</h2>
+                <h2>Registration</h2>
                 <p class="registration-subtitle">Join Turinger '26</p>
 
                 <div id="formMessage" class="form-message"></div>
