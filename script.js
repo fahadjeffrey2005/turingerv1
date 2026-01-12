@@ -12,11 +12,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const root = document.documentElement;
     const blurOverlay = document.getElementById('conceptBlurOverlay');
     const unoSection = document.getElementById('concept-uno');
+    const registrationCTA = document.getElementById('registration-cta');
 
     if (!blurOverlay || !unoSection) return;
 
     const updateGlassEffect = () => {
         const scrollY = window.scrollY || window.pageYOffset;
+        
+        // Check if Register button is visible - if so, disable blur/dim effect
+        if (registrationCTA) {
+            const buttonRect = registrationCTA.getBoundingClientRect();
+            const isButtonVisible = buttonRect.top < window.innerHeight && buttonRect.bottom > 0;
+            if (isButtonVisible) {
+                root.style.setProperty('--background-blur', '0px');
+                root.style.setProperty('--background-dim', '0');
+                return;
+            }
+        }
         
         // Get section position
         const sectionTop = unoSection.offsetTop;

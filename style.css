@@ -879,7 +879,7 @@ body.theme-black .events-detail {
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
@@ -934,7 +934,6 @@ body.theme-black .events-detail {
 #registration-cta .sponsor-button:hover {
     background: #000000 !important;
     box-shadow: 0 12px 32px rgba(0, 128, 254, 0.25) !important;
-    transition: box-shadow 0.35s ease !important;
 }
 
 @media (max-width: 640px) {
