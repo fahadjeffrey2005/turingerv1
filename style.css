@@ -906,34 +906,40 @@ body.theme-black .events-detail {
     transform: translateX(4px);
 }
 
-/* Register Now Button - Specific Override */
-#registration-cta {
-    position: relative;
-    z-index: 10;
-    filter: none !important;
-    backdrop-filter: none !important;
-    mix-blend-mode: normal !important;
-}
-
-#registration-cta .sponsor-button {
-    background: #000000 !important;
-    color: #FFFFFF !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    transition: none !important;
-    mix-blend-mode: normal !important;
+/* Register Now Button - Fresh Implementation */
+.register-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 16px);
+    padding: clamp(14px, 2.5vw, 24px) clamp(28px, 5vw, 48px);
+    border-radius: 999px;
+    background: #000000;
+    border: 2px solid rgba(0, 128, 254, 0.35);
+    color: #FFFFFF;
+    font-size: clamp(13px, 1.1vw, 16px);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
     position: relative;
     z-index: 11;
 }
 
-#registration-cta .sponsor-button-text {
-    transition: none !important;
-    mix-blend-mode: normal !important;
+.register-cta-btn:hover {
+    background: #000000;
+    border-color: rgba(0, 128, 254, 0.6);
+    box-shadow: 0 12px 32px rgba(0, 128, 254, 0.25);
 }
 
-#registration-cta .sponsor-button:hover {
-    background: #000000 !important;
-    box-shadow: 0 12px 32px rgba(0, 128, 254, 0.25) !important;
+.register-cta-text {
+    font-family: "BBH Bartle", sans-serif;
+    font-weight: 400;
+}
+
+.register-cta-arrow {
+    font-size: 1.2em;
 }
 
 @media (max-width: 640px) {

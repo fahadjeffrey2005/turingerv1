@@ -122,6 +122,8 @@ validator.validateTier(tier);        // Only platinum|gold|silver|bronze
 ### Field Type Constraints
 - **Name**: 2-100 chars, letters only + spaces/hyphens/apostrophes
 - **Email**: RFC 5322 simplified format, max 254 chars
+  - **MAHE students**: Must use `@learner.manipal.edu` domain exclusively
+  - **Non-MAHE students**: Any valid email format accepted
 - **Phone**: 7-15 numeric digits (all punctuation removed)
 - **College**: 2-150 chars, alphanumeric + spaces/punctuation
 - **Message**: 0-5000 chars, all XSS patterns removed

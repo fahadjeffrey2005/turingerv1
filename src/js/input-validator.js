@@ -1,9 +1,3 @@
-/**
- * Input Validator Module
- * Comprehensive validation and sanitization for all user inputs
- * Protects against XSS, SQL Injection (NoSQL), CSRF, and other threats
- */
-
 class InputValidator {
     constructor() {
         // XSS prevention: patterns that indicate potential malicious content
@@ -39,9 +33,6 @@ class InputValidator {
         };
     }
 
-    /**
-     * Sanitize string input - removes potentially malicious content
-     */
     sanitizeString(input, type = 'text') {
         if (typeof input !== 'string') {
             return '';
@@ -49,28 +40,13 @@ class InputValidator {
 
         let sanitized = input.trim();
 
-        // Remove HTML tags
         sanitized = sanitized.replace(this.xssPatterns.htmlTags, '');
-
-        // Remove script tags
         sanitized = sanitized.replace(this.xssPatterns.scriptTags, '');
-
-        // Remove event handlers
         sanitized = sanitized.replace(this.xssPatterns.eventHandlers, '');
-
-        // Remove javascript: protocol
         sanitized = sanitized.replace(this.xssPatterns.jsProtocol, '');
-
-        // Remove data: URIs
         sanitized = sanitized.replace(this.xssPatterns.dataUri, '');
-
-        // Remove vbscript: protocol
         sanitized = sanitized.replace(this.xssPatterns.vbscriptProtocol, '');
-
-        // Remove suspicious HTML entities that could be XSS vectors
         sanitized = sanitized.replace(this.xssPatterns.suspiciousEntities, '');
-
-        // Remove NoSQL injection patterns
         sanitized = sanitized.replace(this.noSqlPatterns.operatorObjects, '');
 
         // Limit length based on field type
@@ -90,10 +66,7 @@ class InputValidator {
         return sanitized;
     }
 
-    /**
-     * Validate email address
-     */
-    validateEmail(email) {
+    validateEmail(email, options = {}) {
         const sanitized = this.sanitizeString(email, 'email');
         
         if (!sanitized || sanitized.length === 0) {
@@ -104,22 +77,21 @@ class InputValidator {
             return { valid: false, error: 'Invalid email format' };
         }
 
-        // Check for multiple @ symbols
         if ((sanitized.match(/@/g) || []).length > 1) {
             return { valid: false, error: 'Invalid email format' };
         }
-
-        // Check for dangerous patterns
         if (sanitized.includes('..') || sanitized.startsWith('.') || sanitized.endsWith('.')) {
             return { valid: false, error: 'Invalid email format' };
+        }
+        if (options.isMAHE === true) {
+            if (!sanitized.toLowerCase().endsWith('@learner.manipal.edu')) {
+                return { valid: false, error: 'MAHE students must use @learner.manipal.edu email address' };
+            }
         }
 
         return { valid: true, value: sanitized };
     }
 
-    /**
-     * Validate full name
-     */
     validateName(name) {
         const sanitized = this.sanitizeString(name, 'name');
 
@@ -134,8 +106,6 @@ class InputValidator {
         if (!this.nameRegex.test(sanitized)) {
             return { valid: false, error: 'Name contains invalid characters. Use letters, spaces, hyphens, or apostrophes only' };
         }
-
-        // Check for excessive spaces
         if (sanitized.replace(/\s+/g, ' ').split(' ').some(word => word.length === 0)) {
             return { valid: false, error: 'Invalid name format' };
         }
@@ -143,9 +113,6 @@ class InputValidator {
         return { valid: true, value: sanitized };
     }
 
-    /**
-     * Validate phone number
-     */
     validatePhone(phone) {
         const sanitized = this.sanitizeString(phone, 'phone')
             .replace(/\s/g, '')
@@ -162,9 +129,6 @@ class InputValidator {
         return { valid: true, value: sanitized };
     }
 
-    /**
-     * Validate college/institution name
-     */
     validateCollege(college) {
         const sanitized = this.sanitizeString(college, 'college');
 
@@ -183,9 +147,6 @@ class InputValidator {
         return { valid: true, value: sanitized };
     }
 
-    /**
-     * Validate textarea/message input
-     */
     validateMessage(message) {
         const sanitized = this.sanitizeString(message, 'textarea');
 
@@ -200,9 +161,6 @@ class InputValidator {
         return { valid: true, value: sanitized };
     }
 
-    /**
-     * Validate selected events (array of values)
-     */
     validateEvents(events) {
         if (!Array.isArray(events)) {
             return { valid: false, error: 'Events must be an array' };
@@ -230,9 +188,6 @@ class InputValidator {
         return { valid: true, value: filtered };
     }
 
-    /**
-     * Validate tier string (for sponsorship)
-     */
     validateTier(tier) {
         const sanitized = this.sanitizeString(String(tier), 'text');
         const validTiers = ['platinum', 'gold', 'silver', 'bronze'];
@@ -244,9 +199,6 @@ class InputValidator {
         return { valid: true, value: sanitized.toLowerCase() };
     }
 
-    /**
-     * Validate safe URL redirect
-     */
     validateRedirectUrl(url) {
         if (typeof url !== 'string') {
             return { valid: false, error: 'Invalid URL' };
@@ -266,9 +218,6 @@ class InputValidator {
         }
     }
 
-    /**
-     * Check for potential CSRF token (basic validation)
-     */
     validateCSRFToken(token) {
         if (typeof token !== 'string' || token.length === 0) {
             return { valid: false, error: 'CSRF token required' };
@@ -282,9 +231,6 @@ class InputValidator {
         return { valid: true, value: token };
     }
 
-    /**
-     * Rate limiting check (basic client-side)
-     */
     checkRateLimit(key, maxAttempts = 5, windowSeconds = 60) {
         const now = Date.now();
         const storageKey = `rateLimit_${key}`;
@@ -305,11 +251,9 @@ class InputValidator {
         return { allowed: true };
     }
 
-    /**
-     * Validate complete registration form
-     */
     validateRegistrationForm(formData) {
         const errors = [];
+        const isMAHE = formData.college === 'mahe';
 
         // Validate name
         const nameValidation = this.validateName(formData.fullName);
@@ -317,8 +261,8 @@ class InputValidator {
             errors.push(nameValidation.error);
         }
 
-        // Validate email
-        const emailValidation = this.validateEmail(formData.email);
+        // Validate email with MAHE-specific check
+        const emailValidation = this.validateEmail(formData.email, { isMAHE });
         if (!emailValidation.valid) {
             errors.push(emailValidation.error);
         }
@@ -359,9 +303,6 @@ class InputValidator {
         };
     }
 
-    /**
-     * Validate sponsorship enquiry form
-     */
     validateEnquiryForm(formData) {
         const errors = [];
 
@@ -400,10 +341,7 @@ class InputValidator {
     }
 }
 
-// Create singleton instance
 const validator = new InputValidator();
-
-// Export for use in modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = validator;
 }

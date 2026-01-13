@@ -47,6 +47,33 @@
             padding: 40px 20px;
         }
 
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            padding: 12px 24px;
+            background: rgba(92, 179, 255, 0.15);
+            border: 1px solid rgba(92, 179, 255, 0.4);
+            border-radius: 6px;
+            color: #5CB3FF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-to-home-btn:hover {
+            background: rgba(92, 179, 255, 0.25);
+            border-color: rgba(92, 179, 255, 0.6);
+            box-shadow: 0 4px 16px rgba(92, 179, 255, 0.2);
+        }
+
         .registration-modal-content {
             background: rgba(10, 14, 16, 0.08);
             backdrop-filter: blur(3px) saturate(110%);
@@ -308,6 +335,7 @@
 <body>
     <!-- Canvas for infinity background -->
     <canvas id="fluidCanvas"></canvas>
+    <a href="index.html" class="back-to-home-btn">← Back to Home</a>
 
     <div class="registration-wrapper">
         <div class="registration-modal-content">

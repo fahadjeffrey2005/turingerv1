@@ -139,6 +139,12 @@ function mount({ triggerSelector = '#registerBtn', parent = document.body, tier 
         alert('Please fill all required fields');
         return;
       }
+
+      // Basic MAHE email validation fallback
+      if (college === 'mahe' && !email.toLowerCase().includes('@learner.manipal.edu')) {
+        alert('MAHE students must use @learner.manipal.edu email address');
+        return;
+      }
     }
 
     registrationModal.classList.remove('active');

@@ -19,14 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateGlassEffect = () => {
         const scrollY = window.scrollY || window.pageYOffset;
         
-        // Check if Register button is visible - if so, disable blur/dim effect
+        // Check if Register button is visible - if so, hide blur overlay completely
         if (registrationCTA) {
             const buttonRect = registrationCTA.getBoundingClientRect();
             const isButtonVisible = buttonRect.top < window.innerHeight && buttonRect.bottom > 0;
             if (isButtonVisible) {
-                root.style.setProperty('--background-blur', '0px');
-                root.style.setProperty('--background-dim', '0');
+                blurOverlay.style.visibility = 'hidden';
+                blurOverlay.style.pointerEvents = 'none';
                 return;
+            } else {
+                blurOverlay.style.visibility = 'visible';
+                blurOverlay.style.pointerEvents = 'none';
             }
         }
         
@@ -36,9 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const fadeOutStart = sectionTop + sectionHeight - window.innerHeight;
         
         // Calculate effect progression
-        const scrollStart = 300;           // Start effect after 300px
-        const scrollEnd = 2000;            // Reach max at 2000px
-        const fadeOutEnd = fadeOutStart + 1700; // Fade out over 1700px
+        const scrollStart = 300;
+        const scrollEnd = 2000;
+        const fadeOutEnd = fadeOutStart + 1700;
         
         let progress = 0;
         
@@ -54,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         progress = Math.max(0, Math.min(1, progress));
         
-        // Smooth cubic easing
         const easeProgress = progress < 0.5 
             ? 4 * progress * progress * progress 
             : 1 - Math.pow(-2 * progress + 2, 3) / 2;
@@ -62,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const blurAmount = easeProgress * 8;
         const dimAmount = easeProgress * 0.50;
         
-        // Update CSS variables
         root.style.setProperty('--background-blur', `${blurAmount.toFixed(2)}px`);
         root.style.setProperty('--background-dim', dimAmount.toFixed(2));
     };
