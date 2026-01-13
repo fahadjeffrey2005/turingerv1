@@ -119,10 +119,32 @@ function mountEnquiry({ triggerSelector = '.tier-cta', parent = document.body } 
         const email = document.getElementById(`enquiryEmail-${tier}`).value;
         const message = document.getElementById(`enquiryMessage-${tier}`).value;
         
-        console.log(`${tier.toUpperCase()} enquiry submitted:`, { email, message });
+        // Validate using input validator if available
+        if (typeof validator !== 'undefined') {
+          const validation = validator.validateEnquiryForm({
+            email,
+            message,
+            tier
+          });
+
+          if (!validation.valid) {
+            alert(`Validation Error:\n${validation.errors.join('\n')}`);
+            return;
+          }
+
+          const sanitizedData = validation.sanitizedData;
+          console.log(`${tier.toUpperCase()} enquiry submitted:`, sanitizedData);
+        } else {
+          // Fallback basic validation
+          if (!email.trim()) {
+            alert('Email is required');
+            return;
+          }
+          console.log(`${tier.toUpperCase()} enquiry submitted:`, { email, message });
+        }
         
         closeEnquiry(tier);
-        alert(`Thank you for your interest in ${tier.charAt(0).toUpperCase() + tier.slice(1)} sponsorship!\n\nWe'll contact you at ${email} soon.`);
+        alert(`Thank you for your interest in ${tier.charAt(0).toUpperCase() + tier.slice(1)} sponsorship!\n\nWe'll contact you soon.`);
       });
     }
   });

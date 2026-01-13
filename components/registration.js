@@ -110,6 +110,37 @@ function mount({ triggerSelector = '#registerBtn', parent = document.body, tier 
 
   registrationForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // Get form values
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const college = document.getElementById('college').value;
+
+    // Validate using input validator if available
+    if (typeof validator !== 'undefined') {
+      const validation = validator.validateRegistrationForm({
+        fullName,
+        email,
+        phone,
+        college
+      });
+
+      if (!validation.valid) {
+        alert(`Validation Error:\n${validation.errors.join('\n')}`);
+        return;
+      }
+
+      // Use sanitized data
+      const sanitizedData = validation.sanitizedData;
+    } else {
+      // Fallback basic validation
+      if (!fullName.trim() || !email.trim() || !phone.trim() || !college.trim()) {
+        alert('Please fill all required fields');
+        return;
+      }
+    }
+
     registrationModal.classList.remove('active');
     
     if (window.registrationAnimation) {

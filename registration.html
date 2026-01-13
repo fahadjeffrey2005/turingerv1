@@ -395,6 +395,9 @@
     <!-- THREE.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
+    <!-- Input Validator Module -->
+    <script src="src/js/input-validator.js"></script>
+    
     <!-- Infinity Background System -->
     <script src="src/js/infinity-background.js"></script>
 
@@ -519,35 +522,49 @@
             const submitButton = document.querySelector('.submit-button');
 
             try {
-                const fullName = document.getElementById('fullName').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const phone = document.getElementById('phone').value.trim();
+                const fullName = document.getElementById('fullName').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
                 const college = document.getElementById('college').value;
-
-                if (!fullName || !email || !phone || !college) {
-                    showMessage('Please fill all required fields', 'error');
-                    return;
-                }
 
                 const selectedEvents = [];
                 document.querySelectorAll('input[name="events"]:checked').forEach(checkbox => {
                     selectedEvents.push(checkbox.value);
                 });
 
+                // Validate all inputs
+                if (typeof validator === 'undefined') {
+                    throw new Error('Validator not initialized');
+                }
+
+                const validation = validator.validateRegistrationForm({
+                    fullName,
+                    email,
+                    phone,
+                    college,
+                    events: selectedEvents
+                });
+
+                if (!validation.valid) {
+                    showMessage(`Validation Error: ${validation.errors.join(', ')}`, 'error');
+                    return;
+                }
+
+                const sanitizedData = validation.sanitizedData;
+
                 submitButton.disabled = true;
                 submitButton.textContent = 'Processing...';
 
                 if (college === 'non-mahe') {
                     const formData = {
-                        fullName, email, phone, college, 
-                        events: selectedEvents,
+                        ...sanitizedData,
                         timestamp: new Date().toISOString()
                     };
                     sessionStorage.setItem('registrationData', JSON.stringify(formData));
                     sessionStorage.setItem('registrationType', 'registration');
                     showMessage('Redirecting to payment...', 'success');
                     setTimeout(() => {
-                        window.location.href = 'payment.html';
+                        window.location.href = 'https://www.instagram.com';
                     }, 1500);
                 } else if (college === 'mahe') {
                     if (!window.firebaseReady || !window.db || !window.addDoc) {
@@ -555,8 +572,7 @@
                     }
 
                     const docRef = await window.addDoc(window.collection(window.db, "registrations"), {
-                        fullName, email, phone, college,
-                        events: selectedEvents,
+                        ...sanitizedData,
                         timestamp: new Date().toISOString()
                     });
 
