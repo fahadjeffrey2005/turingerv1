@@ -85,7 +85,12 @@ class InputValidator {
         }
         if (options.isMAHE === true) {
             if (!sanitized.toLowerCase().endsWith('@learner.manipal.edu')) {
-                return { valid: false, error: 'MAHE students must use @learner.manipal.edu email address' };
+                return { valid: false, error: 'Please use your learner email ID if you are an MIT student' };
+            }
+            // Validate MAHE email format: mitblr202X@learner.manipal.edu where X = 2,3,4,5
+            const maheEmailRegex = /^[a-z]+\.mitblr202[2-5]@learner\.manipal\.edu$/i;
+            if (!maheEmailRegex.test(sanitized.toLowerCase())) {
+                return { valid: false, error: 'Please use your learner email ID if you are an MIT student' };
             }
         }
 
@@ -300,6 +305,156 @@ class InputValidator {
                 college: collegeValidation.value,
                 events: formData.events ? this.validateEvents(formData.events).value : []
             }
+        };
+    }
+
+    validateTeamRegistrationForm(formData) {
+        const errors = [];
+        const isMAHE = formData.collegeType === 'mit';
+
+        // Validate leader details
+        const leaderNameValidation = this.validateName(formData.leaderName);
+        if (!leaderNameValidation.valid) {
+            errors.push(`Leader Name: ${leaderNameValidation.error}`);
+        }
+
+        const leaderEmailValidation = this.validateEmail(formData.leaderEmail, { isMAHE });
+        if (!leaderEmailValidation.valid) {
+            errors.push(`Leader Email: ${leaderEmailValidation.error}`);
+        }
+
+        const leaderPhoneValidation = this.validatePhone(formData.leaderPhone);
+        if (!leaderPhoneValidation.valid) {
+            errors.push(`Leader Phone: ${leaderPhoneValidation.error}`);
+        }
+
+        const leaderCollegeValidation = this.validateCollege(formData.leaderCollege);
+        if (!leaderCollegeValidation.valid) {
+            errors.push(`Leader College: ${leaderCollegeValidation.error}`);
+        }
+
+        if (!formData.leaderAcademicYear || formData.leaderAcademicYear === '') {
+            errors.push('Leader Academic Year: Please select a year');
+        }
+
+        if (!formData.leaderGender || formData.leaderGender === '') {
+            errors.push('Leader Gender: Please select gender');
+        }
+
+        // Validate team details
+        const teamNameValidation = this.validateName(formData.teamName);
+        if (!teamNameValidation.valid) {
+            errors.push(`Team Name: ${teamNameValidation.error}`);
+        }
+
+        const teamSize = parseInt(formData.teamSize);
+        if (!teamSize || teamSize < 2 || teamSize > 4) {
+            errors.push('Team Size: Must select 2-4 members');
+        }
+
+        // Validate team members (teamSize - 1 because leader is included in total)
+        for (let i = 1; i <= teamSize - 1; i++) {
+            const memberName = formData[`member${i}Name`];
+            const memberEmail = formData[`member${i}Email`];
+            const memberPhone = formData[`member${i}Phone`];
+            const memberGender = formData[`member${i}Gender`];
+            const memberYear = formData[`member${i}AcademicYear`];
+
+            if (!memberName || !memberEmail || !memberPhone || !memberGender || !memberYear) {
+                errors.push(`Member ${i}: All fields are required`);
+                continue;
+            }
+
+            const memberNameValidation = this.validateName(memberName);
+            if (!memberNameValidation.valid) {
+                errors.push(`Member ${i} Name: ${memberNameValidation.error}`);
+            }
+
+            const memberEmailValidation = this.validateEmail(memberEmail, { isMAHE });
+            if (!memberEmailValidation.valid) {
+                errors.push(`Member ${i} Email: ${memberEmailValidation.error}`);
+            }
+
+            const memberPhoneValidation = this.validatePhone(memberPhone);
+            if (!memberPhoneValidation.valid) {
+                errors.push(`Member ${i} Phone: ${memberPhoneValidation.error}`);
+            }
+
+            if (!memberGender) {
+                errors.push(`Member ${i} Gender: Please select gender`);
+            }
+
+            if (!memberYear) {
+                errors.push(`Member ${i} Academic Year: Please select year`);
+            }
+        }
+        // ===============================
+        // Team Gender Validation
+        // Rules:
+        // - Minimum 1 Female
+        // - Maximum 2 Males
+        // ===============================
+
+        let maleCount = 0;
+        let femaleCount = 0;
+
+        // Count leader gender
+        if (formData.leaderGender === 'Male') maleCount++;
+        if (formData.leaderGender === 'Female') femaleCount++;
+
+        // Count members gender
+        for (let i = 1; i <= teamSize - 1; i++) {
+            const gender = formData[`member${i}Gender`];
+            if (gender === 'Male') maleCount++;
+            if (gender === 'Female') femaleCount++;
+        }
+
+        // Apply rules
+        if (femaleCount < 1) {
+            errors.push('Team must have at least 1 female member');
+        }
+
+        if (maleCount > 2) {
+            errors.push('Team can have a maximum of 2 male members');
+        }
+
+
+        if (errors.length > 0) {
+            return { valid: false, errors };
+        }
+
+        // Build sanitized data
+        const sanitizedData = {
+            collegeType: formData.collegeType,
+            leaderName: leaderNameValidation.value,
+            leaderEmail: leaderEmailValidation.value,
+            leaderPhone: leaderPhoneValidation.value,
+            leaderCollege: leaderCollegeValidation.value,
+            leaderAcademicYear: formData.leaderAcademicYear,
+            leaderGender: formData.leaderGender,
+            teamName: teamNameValidation.value,
+            teamSize: teamSize,
+            members: []
+        };
+
+        // Add team members to sanitized data
+        for (let i = 1; i <= teamSize - 1; i++) {
+            const memberName = this.sanitizeString(formData[`member${i}Name`], 'name');
+            const memberEmail = this.sanitizeString(formData[`member${i}Email`], 'email');
+            const memberPhone = this.sanitizeString(formData[`member${i}Phone`], 'phone').replace(/\s/g, '').replace(/[\-\(\)]/g, '');
+
+            sanitizedData.members.push({
+                name: memberName,
+                email: memberEmail,
+                phone: memberPhone,
+                gender: formData[`member${i}Gender`],
+                academicYear: formData[`member${i}AcademicYear`]
+            });
+        }
+
+        return {
+            valid: true,
+            sanitizedData
         };
     }
 

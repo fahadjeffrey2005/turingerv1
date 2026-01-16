@@ -815,32 +815,150 @@ body.theme-black .events-detail {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .collaborators-content {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: clamp(16px, 3vw, 28px);
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: clamp(18px, 3.5vw, 36px);
+    }
+
+    .collaborators-heading {
+        margin-bottom: clamp(32px, 6vw, 60px);
     }
 
     .collaborator-card {
-        padding: clamp(16px, 3vw, 28px);
-        min-height: clamp(150px, 22vw, 240px);
+        padding: clamp(20px, 3.5vw, 36px);
+        min-height: clamp(160px, 24vw, 260px);
+    }
+
+    .collaborator-logo-full {
+        max-width: 240px;
+        max-height: 240px;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+    .collaborators-section {
+        padding: clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px);
+    }
+
+    .collaborators-label {
+        font-size: clamp(10px, 0.9vw, 12px);
+        margin-bottom: clamp(10px, 1.5vw, 16px);
+    }
+
+    .collaborators-heading {
+        font-size: clamp(28px, 4.5vw, 48px);
+        margin-bottom: clamp(28px, 6vw, 50px);
+    }
+
     .collaborators-content {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: clamp(14px, 2.5vw, 24px);
+    }
+
+    .collaborator-card {
+        padding: clamp(14px, 2.5vw, 22px);
+        min-height: clamp(140px, 20vw, 200px);
+    }
+
+    .collaborator-logo-full {
+        max-width: 200px;
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 640px) {
+    .collaborators-section {
+        padding: clamp(32px, 6vw, 60px) clamp(12px, 3vw, 30px);
+    }
+
+    .collaborators-label {
+        font-size: clamp(9px, 0.85vw, 11px);
+        margin-bottom: clamp(8px, 1.2vw, 12px);
+    }
+
+    .collaborators-heading {
+        font-size: clamp(24px, 4vw, 40px);
+        margin-bottom: clamp(24px, 5vw, 40px);
+    }
+
+    .collaborators-content {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
         gap: clamp(12px, 2vw, 20px);
     }
 
     .collaborator-card {
-        padding: clamp(12px, 2vw, 20px);
-        min-height: clamp(130px, 20vw, 200px);
+        padding: clamp(12px, 2vw, 18px);
+        min-height: clamp(120px, 18vw, 180px);
     }
 
     .collaborator-logo-full {
-        max-width: 180px;
-        max-height: 180px;
+        max-width: 160px;
+        max-height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collaborators-section {
+        padding: clamp(24px, 5vw, 40px) clamp(10px, 2vw, 20px);
+    }
+
+    .collaborators-label {
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        margin-bottom: clamp(6px, 1vw, 10px);
+    }
+
+    .collaborators-heading {
+        font-size: clamp(20px, 3.5vw, 32px);
+        margin-bottom: clamp(16px, 4vw, 28px);
+        letter-spacing: 0.06em;
+    }
+
+    .collaborators-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(10px, 1.5vw, 16px);
+    }
+
+    .collaborator-card {
+        padding: clamp(10px, 1.5vw, 16px);
+        min-height: clamp(100px, 16vw, 150px);
+        border-radius: 16px;
+    }
+
+    .collaborator-logo-full {
+        max-width: 130px;
+        max-height: 130px;
+    }
+
+    .collaborator-card:hover {
+        transform: translateY(-3px);
+    }
+}
+
+@media (max-width: 360px) {
+    .collaborators-section {
+        padding: clamp(16px, 4vw, 32px) clamp(8px, 1.5vw, 16px);
+    }
+
+    .collaborators-heading {
+        font-size: clamp(18px, 3vw, 28px);
+        margin-bottom: clamp(12px, 3vw, 20px);
+    }
+
+    .collaborators-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(8px, 1vw, 12px);
+    }
+
+    .collaborator-card {
+        padding: clamp(8px, 1vw, 12px);
+        min-height: clamp(90px, 14vw, 130px);
+    }
+
+    .collaborator-logo-full {
+        max-width: 110px;
+        max-height: 110px;
     }
 }
 

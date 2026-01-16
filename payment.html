@@ -174,24 +174,28 @@
 
         <div class="payment-info">
             <div class="info-row">
-                <span class="info-label">Name:</span>
-                <span class="info-value" id="nameDisplay">-</span>
+                <span class="info-label">Leader Name:</span>
+                <span class="info-value" id="leaderNameDisplay">-</span>
             </div>
             <div class="info-row">
-                <span class="info-label">Email:</span>
-                <span class="info-value" id="emailDisplay">-</span>
+                <span class="info-label">Leader Email:</span>
+                <span class="info-value" id="leaderEmailDisplay">-</span>
             </div>
             <div class="info-row">
-                <span class="info-label">Phone:</span>
-                <span class="info-value" id="phoneDisplay">-</span>
+                <span class="info-label">Team Name:</span>
+                <span class="info-value" id="teamNameDisplay">-</span>
             </div>
             <div class="info-row">
-                <span class="info-label">Type:</span>
+                <span class="info-label">Team Size:</span>
+                <span class="info-value" id="teamSizeDisplay">-</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">College Type:</span>
+                <span class="info-value" id="collegeTypeDisplay">-</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Registration Type:</span>
                 <span class="info-value" id="typeDisplay">-</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Events:</span>
-                <span class="info-value" id="eventsDisplay">-</span>
             </div>
         </div>
 
@@ -207,13 +211,13 @@
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyD9S6-j_5sNty-yLyYFRHyqscz1_dgOQLI",
-            authDomain: "turinger26.firebaseapp.com",
-            projectId: "turinger26",
-            storageBucket: "turinger26.firebasestorage.app",
-            messagingSenderId: "181306308808",
-            appId: "1:181306308808:web:73b641e852126a29674dfd",
-            measurementId: "G-31W30HE9HW"
+            apiKey: "AIzaSyBfGRvG8aeD9YYEsy9n7y1RmA7xKIxK1NE",
+            authDomain: "turinger-db734.firebaseapp.com",
+            projectId: "turinger-db734",
+            storageBucket: "turinger-db734.firebasestorage.app",
+            messagingSenderId: "449654016876",
+            appId: "1:449654016876:web:5b516018957d9489c94149",
+            measurementId: "G-ZH8CLKF024"
         };
 
         try {
@@ -232,6 +236,7 @@
     </script>
 
     <!-- Main Script -->
+    <script src="src/js/input-validator.js"></script>
     <script>
         let registrationData = null;
         let registrationType = null;
@@ -240,6 +245,7 @@
             // Get data from sessionStorage
             const data = sessionStorage.getItem('registrationData');
             const type = sessionStorage.getItem('registrationType');
+            const isNonMIT = sessionStorage.getItem('isNonMIT');
 
             if (!data || !type) {
                 showMessage('No registration data found. Redirecting...', 'error');
@@ -252,15 +258,24 @@
             registrationData = JSON.parse(data);
             registrationType = type;
 
-            // Display data
-            document.getElementById('nameDisplay').textContent = registrationData.fullName || '-';
-            document.getElementById('emailDisplay').textContent = registrationData.email || '-';
-            document.getElementById('phoneDisplay').textContent = registrationData.phone || '-';
+            // Display data based on registration type
+            if (registrationData.teamName) {
+                // Team registration (hackathon)
+                document.getElementById('leaderNameDisplay').textContent = registrationData.leaderName || '-';
+                document.getElementById('leaderEmailDisplay').textContent = registrationData.leaderEmail || '-';
+                document.getElementById('teamNameDisplay').textContent = registrationData.teamName || '-';
+                document.getElementById('teamSizeDisplay').textContent = registrationData.teamSize || '-';
+                document.getElementById('collegeTypeDisplay').textContent = registrationData.collegeType === 'mit' ? 'MIT' : 'Non-MIT';
+            } else {
+                // Regular registration
+                document.getElementById('leaderNameDisplay').textContent = registrationData.fullName || '-';
+                document.getElementById('leaderEmailDisplay').textContent = registrationData.email || '-';
+                document.getElementById('teamNameDisplay').textContent = '-';
+                document.getElementById('teamSizeDisplay').textContent = '-';
+                document.getElementById('collegeTypeDisplay').textContent = '-';
+            }
+            
             document.getElementById('typeDisplay').textContent = registrationType.charAt(0).toUpperCase() + registrationType.slice(1);
-            document.getElementById('eventsDisplay').textContent = 
-                (registrationData.events && registrationData.events.length > 0) 
-                    ? registrationData.events.join(', ') 
-                    : 'None';
         });
 
         function showMessage(text, type) {
@@ -287,23 +302,22 @@
                     ? 'symposium_registrations'
                     : 'registrations';
 
-                // Save to appropriate collection
-                const docRef = await window.addDoc(window.collection(window.db, collectionName), {
-                    fullName: registrationData.fullName,
-                    email: registrationData.email,
-                    phone: registrationData.phone,
-                    college: registrationData.college,
-                    events: registrationData.events || [],
-                    type: registrationType,
+                // Prepare document with full data
+                const docData = {
+                    ...registrationData,
                     paymentStatus: 'confirmed',
                     timestamp: new Date().toISOString()
-                });
+                };
+
+                // Save to appropriate collection
+                const docRef = await window.addDoc(window.collection(window.db, collectionName), docData);
 
                 showMessage('✓ Payment confirmed! Registration complete!', 'success');
 
                 // Clear sessionStorage
                 sessionStorage.removeItem('registrationData');
                 sessionStorage.removeItem('registrationType');
+                sessionStorage.removeItem('isNonMIT');
 
                 // Redirect after 3 seconds
                 setTimeout(() => {

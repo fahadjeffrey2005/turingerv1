@@ -249,6 +249,337 @@
             flex-wrap: wrap;
         }
 
+        /* Event Highlights - Fancy Separate Cards */
+        .event-highlights {
+            margin: 60px 0 50px 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            justify-items: center;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight-card {
+            position: relative;
+            width: 220px;
+            height: 200px;
+            background: rgba(6, 8, 12, 0.6);
+            border: 1px solid rgba(92, 179, 255, 0.7);
+            border-radius: 16px;
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 12px;
+            backdrop-filter: blur(8px) saturate(120%);
+            -webkit-backdrop-filter: blur(8px) saturate(120%);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: default;
+            overflow: hidden;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(92, 179, 255, 0.7);
+            background: linear-gradient(135deg, rgba(92, 179, 255, 0.18) 0%, rgba(92, 179, 255, 0.1) 100%);
+            box-shadow: 0 20px 40px rgba(92, 179, 255, 0.2), 0 0 30px rgba(92, 179, 255, 0.15);
+        }
+
+        .highlight-card:hover::before {
+            right: -100%;
+            top: -100%;
+        }
+
+        .card-badge {
+            font-size: 3.5rem;
+            line-height: 1;
+            position: relative;
+            z-index: 2;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-label {
+            font-size: 0.85rem;
+            color: rgba(92, 179, 255, 0.75);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .card-value {
+            font-size: 1.4rem;
+            color: #5CB3FF;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            background: linear-gradient(135deg, #5CB3FF 0%, #0080FE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-subtext {
+            font-size: 0.75rem;
+            color: rgba(200, 255, 235, 0.6);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .card-glow {
+            position: absolute;
+            bottom: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(92, 179, 255, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .event-highlights {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+                margin: 40px 0 35px 0;
+            }
+
+            .highlight-card {
+                width: 150px;
+                height: 150px;
+                padding: 20px 15px;
+                border-radius: 12px;
+            }
+
+            .card-badge {
+                font-size: 2.2rem;
+            }
+
+            .card-value {
+                font-size: 1.1rem;
+            }
+
+            .card-label {
+                font-size: 0.75rem;
+            }
+
+            .card-subtext {
+                font-size: 0.65rem;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .container h1 {
+                font-size: 2.5rem;
+                letter-spacing: 0.08em;
+                margin-bottom: 8px;
+            }
+
+            .dates {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+
+            .description {
+                font-size: 0.9rem;
+                margin-bottom: 30px;
+                line-height: 1.6;
+            }
+
+            .button-group {
+                margin-top: 30px;
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 10px 24px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .event-highlights {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                margin: 30px 0 25px 0;
+            }
+
+            .highlight-card {
+                width: 130px;
+                height: 130px;
+                padding: 15px 10px;
+                gap: 8px;
+                border-radius: 10px;
+            }
+
+            .card-badge {
+                font-size: 1.8rem;
+            }
+
+            .card-value {
+                font-size: 0.95rem;
+            }
+
+            .card-label {
+                font-size: 0.7rem;
+                letter-spacing: 0.05em;
+            }
+
+            .card-subtext {
+                font-size: 0.6rem;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            .container h1 {
+                font-size: 2rem;
+                letter-spacing: 0.06em;
+                margin-bottom: 6px;
+            }
+
+            .dates {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .description {
+                font-size: 0.85rem;
+                margin-bottom: 25px;
+                line-height: 1.5;
+            }
+
+            .button-group {
+                margin-top: 25px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+                width: 100%;
+            }
+
+            .back-link {
+                left: 12px;
+                top: 12px;
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .event-highlights {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin: 25px 0 20px 0;
+            }
+
+            .highlight-card {
+                width: 110px;
+                height: 110px;
+                padding: 12px 8px;
+                gap: 6px;
+                border-radius: 8px;
+                border: 1px solid rgba(92, 179, 255, 0.2);
+            }
+
+            .card-badge {
+                font-size: 1.5rem;
+            }
+
+            .card-value {
+                font-size: 0.85rem;
+                line-height: 1.2;
+            }
+
+            .card-label {
+                font-size: 0.65rem;
+                letter-spacing: 0.03em;
+            }
+
+            .card-subtext {
+                font-size: 0.55rem;
+            }
+
+            .container {
+                padding: 0 8px;
+                max-width: 100%;
+            }
+
+            .container h1 {
+                font-size: 1.6rem;
+                letter-spacing: 0.05em;
+                margin-bottom: 4px;
+            }
+
+            .dates {
+                font-size: 0.8rem;
+                margin-bottom: 10px;
+            }
+
+            .description {
+                font-size: 0.8rem;
+                margin-bottom: 20px;
+                line-height: 1.4;
+            }
+
+            .button-group {
+                margin-top: 20px;
+                gap: 6px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.75rem;
+                letter-spacing: 0.02em;
+            }
+
+            .back-link {
+                left: 8px;
+                top: 8px;
+                padding: 5px 8px;
+                font-size: 0.75rem;
+            }
+
+            .back-link svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
 
         .btn {
             padding: 12px 35px;
@@ -389,13 +720,45 @@
         .registration-modal-content {
             width: 42vw;
             max-width: 540px;
+            max-height: 85vh;
             background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
             border: 2px solid rgba(92,179,255,0.32);
             border-radius: 14px;
-            padding: 30px 40px;
+            padding: 0;
             backdrop-filter: blur(48px);
             -webkit-backdrop-filter: blur(48px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .registration-modal-header {
+            padding: 30px 40px 0 40px;
+            flex-shrink: 0;
+        }
+
+        .registration-modal-body {
+            padding: 20px 40px 30px 40px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .registration-modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .registration-modal-body::-webkit-scrollbar-track {
+            background: rgba(92, 179, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .registration-modal-body::-webkit-scrollbar-thumb {
+            background: rgba(92, 179, 255, 0.4);
+            border-radius: 3px;
+        }
+
+        .registration-modal-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(92, 179, 255, 0.6);
         }
 
         .registration-modal-content h2 {
@@ -493,6 +856,135 @@
         }
 
         .register-cancel:hover { color: rgba(170,220,255,0.7); text-decoration:underline; }
+
+        /* New Form Styles for Team Registration */
+        .form-section {
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(92, 179, 255, 0.1);
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            display: block;
+            font-size: 0.85rem;
+            color: rgba(92, 179, 255, 0.7);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 10px 6px;
+            background: #000000;
+            border: none;
+            border-bottom: 1px solid rgba(92, 179, 255, 0.2);
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-bottom-color: rgba(92, 179, 255, 0.6);
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .form-group select + label {
+            position: absolute;
+            left: 6px;
+            top: 12px;
+            font-size: 0.95rem;
+            color: rgba(170,220,255,0.45);
+            pointer-events: none;
+            transition: transform 0.18s ease, font-size 0.18s ease, top 0.18s ease, color 0.18s ease;
+            transform-origin: left top;
+        }
+
+        .form-group select:not([value=""]) + label,
+        .form-group select:focus + label {
+            transform: translateY(-46%) scale(0.86);
+            top: 6px;
+            color: rgba(174,230,255,0.95);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #5CB3FF;
+            cursor: pointer;
+        }
+
+        .radio-item label {
+            color: rgba(213, 255, 233, 0.9);
+            font-size: 0.95rem;
+            cursor: pointer;
+            position: static;
+        }
+
+        .form-message {
+            padding: 12px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            width: 100%;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .form-message.show {
+            display: block;
+        }
+
+        .form-message.success {
+            background: rgba(0, 200, 100, 0.2);
+            border: 1px solid rgba(0, 200, 100, 0.5);
+            color: #5fff9a;
+        }
+
+        .form-message.error {
+            background: rgba(255, 100, 100, 0.2);
+            border: 1px solid rgba(255, 100, 100, 0.5);
+            color: #ff9999;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         /* Registration Animation */
         .registration-overlay {
@@ -839,32 +1331,284 @@
     <!-- Registration Form Modal -->
     <div class="registration-modal" id="registrationModal">
       <div class="registration-modal-content">
-        <div class="registration-header">
-          <h2>Register</h2>
+        <div class="registration-modal-header">
+          <div class="registration-header">
+            <h2>Team Registration</h2>
+          </div>
+          <p class="registration-subtitle">24 Hours. One Vision. Unlimited Possibilities.</p>
+          <div id="formMessage" class="form-message"></div>
         </div>
-        <p class="registration-subtitle">24 Hours. One Vision. Unlimited Possibilities.</p>
-        <form id="registrationForm">
-          <div class="form-group">
-            <input type="text" id="fullName" name="fullName" placeholder="Name" required>
-            <label for="fullName">Full Name</label>
+
+        <div class="registration-modal-body">
+          <form id="registrationForm">
+          <!-- College Type Selection -->
+          <div class="form-section">
+            <label class="section-title">Registration Type *</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input type="radio" id="mitRadio" name="collegeType" value="mit" required>
+                <label for="mitRadio">MIT</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="nonMitRadio" name="collegeType" value="non-mit" required>
+                <label for="nonMitRadio">Non-MIT</label>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="you@email.com" required>
-            <label for="email">Email</label>
+
+          <!-- Leader Details Section -->
+          <div class="form-section">
+            <label class="section-title">Leader Details *</label>
+            
+            <div class="form-group">
+              <input type="text" id="leaderName" name="leaderName" placeholder="Name" required>
+              <label for="leaderName">Full Name</label>
+            </div>
+            
+            <div class="form-group">
+              <input type="email" id="leaderEmail" name="leaderEmail" placeholder="Email" required>
+              <label for="leaderEmail">Email Address</label>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <select id="leaderAcademicYear" name="leaderAcademicYear" required>
+                  <option value="">Select Year</option>
+                  <option value="1st">1st Year</option>
+                  <option value="2nd">2nd Year</option>
+                  <option value="3rd">3rd Year</option>
+                  <option value="4th">4th Year</option>
+                </select>
+                <label for="leaderAcademicYear">Academic Year</label>
+              </div>
+
+              <div class="form-group">
+                <input type="text" id="leaderCollege" name="leaderCollege" placeholder="College" required>
+                <label for="leaderCollege">College</label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <input type="tel" id="leaderPhone" name="leaderPhone" placeholder="Phone" maxlength="10" required>
+                <label for="leaderPhone">Phone Number</label>
+              </div>
+
+              <div class="form-group">
+                <select id="leaderGender" name="leaderGender" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <label for="leaderGender">Gender</label>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
-            <label for="phone">Phone</label>
+
+          <!-- Team Details Section -->
+          <div class="form-section">
+            <label class="section-title">Team Details *</label>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" id="teamName" name="teamName" placeholder="Team Name" required>
+                <label for="teamName">Team Name</label>
+              </div>
+
+              <div class="form-group">
+                <select id="teamSize" name="teamSize" required onchange="updateTeamMembers()">
+                  <option value="">Select Team Size</option>
+                  <option value="2">2 Total (Leader + 1)</option>
+                  <option value="3">3 Total (Leader + 2)</option>
+                  <option value="4">4 Total (Leader + 3)</option>
+                </select>
+                <label for="teamSize">Team Size</label>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <input type="text" id="college" name="college" placeholder="Your institution" required>
-            <label for="college">College</label>
+
+          <!-- Member 1 (Always visible) -->
+          <div class="form-section" id="member1Section">
+            <label class="section-title">Member 1 Details *</label>
+            
+            <div class="form-group">
+              <input type="text" id="member1Name" name="member1Name" placeholder="Name" required>
+              <label for="member1Name">Full Name</label>
+            </div>
+            
+            <div class="form-group">
+              <input type="email" id="member1Email" name="member1Email" placeholder="Email" required>
+              <label for="member1Email">Email Address</label>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <input type="tel" id="member1Phone" name="member1Phone" placeholder="Phone" maxlength="10" required>
+                <label for="member1Phone">Phone Number</label>
+              </div>
+
+              <div class="form-group">
+                <select id="member1Gender" name="member1Gender" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <label for="member1Gender">Gender</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <select id="member1AcademicYear" name="member1AcademicYear" required>
+                <option value="">Select Year</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+              <label for="member1AcademicYear">Academic Year</label>
+            </div>
           </div>
+
+          <!-- Member 2 (Show when teamSize >= 2) -->
+          <div class="form-section" id="member2Section" style="display: none;">
+            <label class="section-title">Member 2 Details *</label>
+            
+            <div class="form-group">
+              <input type="text" id="member2Name" name="member2Name" placeholder="Name">
+              <label for="member2Name">Full Name</label>
+            </div>
+            
+            <div class="form-group">
+              <input type="email" id="member2Email" name="member2Email" placeholder="Email">
+              <label for="member2Email">Email Address</label>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <input type="tel" id="member2Phone" name="member2Phone" placeholder="Phone" maxlength="10">
+                <label for="member2Phone">Phone Number</label>
+              </div>
+
+              <div class="form-group">
+                <select id="member2Gender" name="member2Gender">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <label for="member2Gender">Gender</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <select id="member2AcademicYear" name="member2AcademicYear">
+                <option value="">Select Year</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+              <label for="member2AcademicYear">Academic Year</label>
+            </div>
+          </div>
+
+          <!-- Member 3 (Show when teamSize = 3 or 4) -->
+          <div class="form-section" id="member3Section" style="display: none;">
+            <label class="section-title">Member 3 Details *</label>
+            
+            <div class="form-group">
+              <input type="text" id="member3Name" name="member3Name" placeholder="Name">
+              <label for="member3Name">Full Name</label>
+            </div>
+            
+            <div class="form-group">
+              <input type="email" id="member3Email" name="member3Email" placeholder="Email">
+              <label for="member3Email">Email Address</label>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <input type="tel" id="member3Phone" name="member3Phone" placeholder="Phone" maxlength="10">
+                <label for="member3Phone">Phone Number</label>
+              </div>
+
+              <div class="form-group">
+                <select id="member3Gender" name="member3Gender">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <label for="member3Gender">Gender</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <select id="member3AcademicYear" name="member3AcademicYear">
+                <option value="">Select Year</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+              <label for="member3AcademicYear">Academic Year</label>
+            </div>
+          </div>
+
+          <!-- Member 4 (Show when teamSize = 4) -->
+          <div class="form-section" id="member4Section" style="display: none;">
+            <label class="section-title">Member 4 Details *</label>
+            
+            <div class="form-group">
+              <input type="text" id="member4Name" name="member4Name" placeholder="Name">
+              <label for="member4Name">Full Name</label>
+            </div>
+            
+            <div class="form-group">
+              <input type="email" id="member4Email" name="member4Email" placeholder="Email">
+              <label for="member4Email">Email Address</label>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <input type="tel" id="member4Phone" name="member4Phone" placeholder="Phone" maxlength="10">
+                <label for="member4Phone">Phone Number</label>
+              </div>
+
+              <div class="form-group">
+                <select id="member4Gender" name="member4Gender">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <label for="member4Gender">Gender</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <select id="member4AcademicYear" name="member4AcademicYear">
+                <option value="">Select Year</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+              <label for="member4AcademicYear">Academic Year</label>
+            </div>
+          </div>
+
+          <!-- Honeypot for bot protection -->
+          <input type="text" id="website" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
           <div class="registration-actions">
             <button type="submit" class="register-submit">Register</button>
             <button type="button" class="register-cancel" id="cancelRegister">Cancel</button>
           </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -872,27 +1616,54 @@
     <div class="container">
         <div class="header-inline">
             <div class="title-block">
-                <h1>HACKATHON</h1>
-                <p class="dates">29-30 March 2025</p>
-            </div>
-            <div class="v-sep" aria-hidden="true"></div>
-            <div class="side-actions">
-                <div class="button-group">
-                    <button class="btn" id="registerBtn">Register Now</button>
-                    <button class="btn secondary" id="ruleBookBtn">Rulebook</button>
-                </div>
+                <h1>Lovelace Hackathon</h1>
+                <p class="dates">31<sup>st</sup> Jan 2026 - 01<sup>st</sup> Feb 2026</p>
             </div>
         </div>
 
         <p class="description">Code, innovate, and compete for 24 hours straight. Build something amazing with the brightest minds.</p>
 
-        <div class="event-details">
-            <div class="detail-item">
-                <span class="detail-label">₹1,00,000 Prize Pool</span>
+        <!-- Prize Pool, Team Size, and Registration Fee Boxes -->
+        <div class="event-highlights">
+            <div class="highlight-card">
+                <div class="card-content">
+                    <div class="card-label">Prize Pool</div>
+                    <div class="card-value">₹1,00,000</div>
+                </div>
+                <div class="card-glow"></div>
             </div>
-            <div class="detail-item">
-                <span class="detail-label">Teams of 2-4</span>
+
+            <div class="highlight-card">
+                <div class="card-content">
+                    <div class="card-label">Team Size</div>
+                    <div class="card-value">2-4 Members</div>
+                </div>
+                <div class="card-glow"></div>
             </div>
+
+            <div class="highlight-card">
+                <div class="card-content">
+                    <div class="card-label">Registration Fee</div>
+                    <div class="card-value">MIT - Free</div>
+                    <div class="card-value">Non-MIT - Paid</div>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+
+            <div class="highlight-card">
+                <div class="card-content">
+                    <div class="card-label">Special</div>
+                    <div class="card-value">All Girls Team</div>
+                    <div class="card-subtext">Encouraged</div>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+
+        <!-- Register and Rulebook Buttons -->
+        <div class="button-group">
+            <button class="btn" id="registerBtn">Register Now</button>
+            <button class="btn secondary" id="ruleBookBtn">Rulebook</button>
         </div>
     </div>
 
@@ -936,8 +1707,6 @@
             link.click();
             document.body.removeChild(link);
         });
-
-        // Registration modal is provided by components/registration.js
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -1046,8 +1815,82 @@
         window.addEventListener('load', () => {
             registrationAnimation = new RegistrationAnimation('animationCanvas', 'registrationOverlay');
         });
-        
-        // Simple registration modal handler - no dependencies
+    </script>
+
+    <!-- Input Validator Script -->
+    <script src="src/js/input-validator.js"></script>
+
+    <!-- Firebase and Form Submission Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBfGRvG8aeD9YYEsy9n7y1RmA7xKIxK1NE",
+            authDomain: "turinger-db734.firebaseapp.com",
+            projectId: "turinger-db734",
+            storageBucket: "turinger-db734.firebasestorage.app",
+            messagingSenderId: "449654016876",
+            appId: "1:449654016876:web:5b516018957d9489c94149",
+            measurementId: "G-ZH8CLKF024"
+        };
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            
+            window.firebaseReady = true;
+            window.db = db;
+            window.addDoc = addDoc;
+            window.collection = collection;
+        } catch (error) {
+            console.error('Firebase initialization error:', error);
+            window.firebaseReady = false;
+        }
+    </script>
+
+    <script>
+        // Dynamic team member fields visibility
+        function updateTeamMembers() {
+            const teamSize = parseInt(document.getElementById('teamSize').value);
+            const numMembers = teamSize - 1; // Subtract 1 for the leader
+            const memberSections = ['member1Section', 'member2Section', 'member3Section', 'member4Section'];
+            
+            memberSections.forEach((sectionId, index) => {
+                const section = document.getElementById(sectionId);
+                const memberIndex = index + 1;
+                
+                if (section) {
+                    if (memberIndex <= numMembers && numMembers > 0) {
+                        section.style.display = 'block';
+                        // Set required attribute for fields
+                        document.querySelectorAll(`[id*="member${memberIndex}"]`).forEach(field => {
+                            if (field.type !== 'hidden') {
+                                field.required = true;
+                            }
+                        });
+                    } else {
+                        section.style.display = 'none';
+                        // Remove required attribute
+                        document.querySelectorAll(`[id*="member${memberIndex}"]`).forEach(field => {
+                            field.required = false;
+                            field.value = '';
+                        });
+                    }
+                }
+            });
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('formMessage');
+            if (messageDiv) {
+                messageDiv.textContent = text;
+                messageDiv.className = `form-message show ${type}`;
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Simple registration modal handler with new team registration form
         document.addEventListener('DOMContentLoaded', () => {
             const registerBtn = document.getElementById('registerBtn');
             const registrationModal = document.getElementById('registrationModal');
@@ -1066,6 +1909,7 @@
                     e.preventDefault();
                     registrationModal.classList.remove('active');
                     registrationForm.reset();
+                    document.getElementById('formMessage').classList.remove('show');
                 });
                 
                 // Close modal on outside click
@@ -1073,39 +1917,170 @@
                     if (e.target === registrationModal) {
                         registrationModal.classList.remove('active');
                         registrationForm.reset();
+                        document.getElementById('formMessage').classList.remove('show');
                     }
                 });
                 
                 // Handle form submission
-                registrationForm.addEventListener('submit', (e) => {
+                registrationForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     
-                    const fullName = document.getElementById('fullName').value.trim();
-                    const email = document.getElementById('email').value.trim();
-                    const phone = document.getElementById('phone').value.trim();
-                    const college = document.getElementById('college').value.trim();
-                    
-                    if (!fullName || !email || !phone || !college) {
-                        alert('Please fill all fields');
+                    // Check honeypot
+                    const honeypot = document.getElementById('website').value;
+                    if (honeypot) {
+                        console.warn('Honeypot filled - potential bot');
                         return;
                     }
-                    
-                    const registrationData = {
-                        fullName, email, phone, college,
-                        events: ['hackathon'],
-                        timestamp: new Date().toISOString()
-                    };
-                    
-                    sessionStorage.setItem('registrationData', JSON.stringify(registrationData));
-                    sessionStorage.setItem('registrationType', 'hackathon');
-                    
-                    registrationModal.classList.remove('active');
-                    
-                    setTimeout(() => {
-                        window.location.href = 'payment.html';
-                    }, 500);
+
+                    const submitButton = registrationForm.querySelector('.register-submit');
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Processing...';
+
+                    try {
+                        // Collect form data
+                        const collegeType = document.querySelector('input[name="collegeType"]:checked').value;
+                        const leaderName = document.getElementById('leaderName').value;
+                        const leaderEmail = document.getElementById('leaderEmail').value;
+                        const leaderAcademicYear = document.getElementById('leaderAcademicYear').value;
+                        const leaderCollege = document.getElementById('leaderCollege').value;
+                        const leaderPhone = document.getElementById('leaderPhone').value;
+                        const leaderGender = document.getElementById('leaderGender').value;
+                        const teamName = document.getElementById('teamName').value;
+                        const teamSize = document.getElementById('teamSize').value;
+
+                        // Collect member data
+                        const formData = {
+                            collegeType,
+                            leaderName,
+                            leaderEmail,
+                            leaderAcademicYear,
+                            leaderCollege,
+                            leaderPhone,
+                            leaderGender,
+                            teamName,
+                            teamSize
+                        };
+
+                        // Add member data (teamSize - 1 because leader is included in total)
+                        for (let i = 1; i <= teamSize - 1; i++) {
+                            formData[`member${i}Name`] = document.getElementById(`member${i}Name`).value;
+                            formData[`member${i}Email`] = document.getElementById(`member${i}Email`).value;
+                            formData[`member${i}Phone`] = document.getElementById(`member${i}Phone`).value;
+                            formData[`member${i}Gender`] = document.getElementById(`member${i}Gender`).value;
+                            formData[`member${i}AcademicYear`] = document.getElementById(`member${i}AcademicYear`).value;
+                        }
+
+                        // Validate all inputs
+                        if (typeof validator === 'undefined') {
+                            throw new Error('Validator not initialized. Please refresh the page.');
+                        }
+
+                        const validation = validator.validateTeamRegistrationForm(formData);
+
+                        if (!validation.valid) {
+                            showMessage(`Validation Error: ${validation.errors.join(', ')}`, 'error');
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Register';
+                            return;
+                        }
+
+                        const sanitizedData = validation.sanitizedData;
+
+                        // Handle MIT (free) registration - direct Firestore storage
+                        if (collegeType === 'mit') {
+                            if (!window.firebaseReady || !window.db || !window.addDoc) {
+                                throw new Error('Firebase not initialized. Please refresh and try again.');
+                            }
+
+                            try {
+                                // Set a timeout for the Firestore write operation
+                                const writePromise = window.addDoc(window.collection(window.db, "hackathon_registrations"), {
+                                    ...sanitizedData,
+                                    timestamp: new Date().toISOString(),
+                                    event: 'hackathon'
+                                });
+
+                                const timeoutPromise = new Promise((_, reject) =>
+                                    setTimeout(() => reject(new Error('Firestore write timeout. Please check your internet connection and try again.')), 15000)
+                                );
+
+                                await Promise.race([writePromise, timeoutPromise]);
+
+                                showMessage('✓ Registration successful! See you at Turinger!', 'success');
+                                registrationForm.reset();
+                                updateTeamMembers();
+
+                                setTimeout(() => {
+                                    if (registrationAnimation) {
+                                        registrationAnimation.animate(2000).then(() => {
+                                            registrationModal.classList.remove('active');
+                                            submitButton.disabled = false;
+                                            submitButton.textContent = 'Register';
+                                            document.getElementById('formMessage').classList.remove('show');
+                                        });
+                                    } else {
+                                        registrationModal.classList.remove('active');
+                                        submitButton.disabled = false;
+                                        submitButton.textContent = 'Register';
+                                        document.getElementById('formMessage').classList.remove('show');
+                                    }
+                                }, 800);
+                            } catch (firebaseError) {
+                                throw new Error(`Database error: ${firebaseError.message}`);
+                            }
+                        } 
+                        // Handle Non-MIT (paid) registration - redirect to payment portal
+                        else if (collegeType === 'non-mit') {
+                            // Non-MIT registration not open yet
+                            showMessage('Non-MIT registration is not open yet. Please check back later!', 'error');
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Register';
+                            return;
+
+                            /* ========== COMMENTED OUT - Non-MIT Payment Flow (Coming Soon) ==========
+                            // Store data in session for payment page
+                            sessionStorage.setItem('registrationData', JSON.stringify(sanitizedData));
+                            sessionStorage.setItem('registrationType', 'hackathon');
+                            sessionStorage.setItem('isNonMIT', 'true');
+                            
+                            showMessage('Redirecting to payment portal', 'success');
+                            
+                            setTimeout(() => {
+                                // Replace with your actual university payment portal URL
+                                const paymentPortalURL = 'https://www.instagram.com/';
+                                // Pass necessary data as URL parameters for the portal to handle
+                                const params = new URLSearchParams({
+                                    amount: '5000', // Update with actual registration fee
+                                    eventId: 'turinger26-hackathon',
+                                    name: sanitizedData.leaderName,
+                                    email: sanitizedData.leaderEmail,
+                                    returnUrl: window.location.origin + '/payment-success.html'
+                                });
+                                // Open payment portal in new tab
+                                window.open(`${paymentPortalURL}?${params.toString()}`, '_blank');
+                                
+                                // Reset form and close modal
+                                registrationForm.reset();
+                                updateTeamMembers();
+                                registrationModal.classList.remove('active');
+                                submitButton.disabled = false;
+                                submitButton.textContent = 'Register';
+                                document.getElementById('formMessage').classList.remove('show');
+                            }, 1500);
+                            ========== END COMMENTED OUT ==========*/
+                        
+                        }
+                    } catch (error) {
+                        console.error('Registration error:', error);
+                        showMessage(`Error: ${error.message}`, 'error');
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Register';
+                    }
                 });
             }
+
+            // Initialize team member fields visibility on page load
+            updateTeamMembers();
         });
     </script>
 </body>

@@ -2,8 +2,14 @@ rules_version='2'
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Registrations collection - Public write for new registrations, public read for admin
+    // Registrations collections - Public write for new registrations
     match /registrations/{document=**} {
+      allow create: if request.auth != null || true;
+      allow read, list: if request.auth != null || true;
+      allow update, delete: if false;
+    }
+    
+    match /hackathon_registrations/{document=**} {
       allow create: if request.auth != null || true;
       allow read, list: if request.auth != null || true;
       allow update, delete: if false;
