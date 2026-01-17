@@ -82,37 +82,19 @@ document.addEventListener('DOMContentLoaded', function() {
         instagram: {
             label: 'INSTAGRAM',
             links: {
-                'ACM': 'https://instagram.com/acm',
-                'ACM W': 'https://instagram.com/acm_w',
-                'ACM SIG-SOFT': 'https://instagram.com/acm_sigsft',
-                'ACM SIG-AI': 'https://instagram.com/acm_sigai'
-            }
-        },
-        x: {
-            label: 'X',
-            links: {
-                'ACM': 'https://x.com/acm',
-                'ACM W': 'https://x.com/acm_w',
-                'ACM SIG-SOFT': 'https://x.com/acm_sigsft',
-                'ACM SIG-AI': 'https://x.com/acm_sigai'
-            }
-        },
-        youtube: {
-            label: 'YOUTUBE',
-            links: {
-                'ACM': 'https://youtube.com/@acm',
-                'ACM W': 'https://youtube.com/@acm_w',
-                'ACM SIG-SOFT': 'https://youtube.com/@acm_sigsft',
-                'ACM SIG-AI': 'https://youtube.com/@acm_sigai'
+                'ACM': 'https://www.instagram.com/acm_mitb/',
+                'ACM W': 'https://www.instagram.com/acmw_mitb/',
+                'ACM SIG-SOFT': 'https://www.instagram.com/sig.soft_mitb/',
+                'ACM SIG-AI': 'https://www.instagram.com/sig.ai_mitb/'
             }
         },
         linkedin: {
             label: 'LINKEDIN',
             links: {
-                'ACM': 'https://linkedin.com/company/acm',
-                'ACM W': 'https://linkedin.com/company/acm_w',
-                'ACM SIG-SOFT': 'https://linkedin.com/company/acm_sigsft',
-                'ACM SIG-AI': 'https://linkedin.com/company/acm_sigai'
+                'ACM': 'https://www.linkedin.com/company/mitb-acm-student-chapter/',
+                'ACM W': 'https://www.linkedin.com/company/mitb-acm-w-student-chapter/',
+                'ACM SIG-SOFT': 'https://www.linkedin.com/company/mitb-acm-sig-soft/',
+                'ACM SIG-AI': 'https://www.linkedin.com/company/mitb-acm-sigai/'
             }
         }
     };
@@ -236,7 +218,7 @@ document.querySelectorAll('.events-pill').forEach(pill => {
         const btnContainer = document.getElementById('eventButtonContainer');
         
         if (hasPage) {
-            btnContainer.innerHTML = `<button class="events-link" type="button" onclick="window.location.href='/${eventId}.html'">Learn More →</button>`;
+            btnContainer.innerHTML = `<button class="events-link" type="button" onclick="window.location.href='${eventId}.html'">Register Now →</button>`;
         } else {
             btnContainer.innerHTML = '';
         }

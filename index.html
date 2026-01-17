@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
-    <title>Turinger '26 · Portal Prelude</title>
-    <link rel="stylesheet" href="style.css?v=54">
-    <link rel="stylesheet" href="concepts/uno.css?v=54">
-    <link rel="stylesheet" href="dots/dots.css?v=54">
+    <title>Turinger '26</title>
+    <link rel="stylesheet" href="style.css?v=57">
+    <link rel="icon" type="image/x-icon" href="./logos/favicon.png">
+    <link rel="stylesheet" href="concepts/uno.css?v=57">
+    <link rel="stylesheet" href="dots/dots.css?v=57">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Zen+Dots&display=swap" rel="stylesheet">
@@ -371,39 +372,7 @@
             <div class="events-hub" aria-live="polite">
                 <p class="events-hub-label">Event vector</p>
                 <h2 class="events-heading">Events</h2>
-                <div class="events-layout">
-                    <div class="events-detail" id="eventDetailCard" aria-live="polite">
-                        <span class="events-detail-title" id="eventTitle">Blind Coding Challenge</span>
-                        <p class="events-detail-body" id="eventDescription">Code without seeing your screen. Pure logic and innovation.</p>
-                        <div id="eventButtonContainer"></div>
-                    </div>
-                    <div class="events-globe-slot" aria-hidden="true"></div>
-                    <div class="events-stack" role="list">
-                        <button class="events-pill" type="button" role="listitem" data-event="blind-coding" data-title="Blind Coding Contest" data-description="Think you can code without seeing the output? This challenge pushes participants to rely purely on logic and focus. With no output visibility, clarity of thought becomes the ultimate weapon." data-has-page="false">
-                            <span class="events-pill-label">Blind Coding Challenge</span>
-                        </button>
-                        <button class="events-pill" type="button" role="listitem" data-event="squid-game" data-title="Squid Game: Tech Edition" data-description="Squid Game: Tech Edition is an elimination-based challenge that combines speed, focus, and logical thinking under pressure. Progresses through multiple rounds including Red Green Light – Code Freeze, rapid-fire technical quizzes, and final logic testing." data-has-page="false">
-                            <span class="events-pill-label">Squid Game</span>
-                        </button>
-                        <button class="events-pill" type="button" role="listitem" data-event="hackathon" data-title="Lovelace Hackathon" data-description="Lovelace is a women-led hackathon that celebrates innovation, inclusion, and leadership in technology. It provides a collaborative platform for participants to ideate, build, and present impactful solutions while encouraging diversity and empowering women in STEM." data-has-page="true">
-                            <span class="events-pill-label">Lovelace Hackathon</span>
-                        </button>
-                        <button class="events-pill" type="button" role="listitem" data-event="murder-mystery" data-title="Case File: Last Commit" data-description="A cybersecurity murder mystery where participants investigate a suspicious death through digital evidence. Analyze system logs, access trails, and inconsistencies to uncover the truth. Combines cybersecurity, CTF-style puzzles, and investigative reasoning." data-has-page="false">
-                            <span class="events-pill-label">Murder Mystery CTF</span>
-                        </button>
-                        <button class="events-pill" type="button" role="listitem" data-event="symposium" data-title="Symposium" data-description="Insightful talks and panel discussions on emerging tech." data-has-page="true">
-                            <span class="events-pill-label">Symposium</span>
-                        </button>
-                        <button class="events-pill" type="button" role="listitem" data-event="ml-marathon" data-title="ML Marathon" data-description="A fast-paced 3-hour machine learning sprint where participants build working ML models to solve real-world data problems. Individual participation with problem statement released at the start." data-has-page="false">
-                            <span class="events-pill-label">ML Marathon</span>
-                        </button>
-                        <button class="events-pill" type="button" role="listitem" data-event="esp-talk" data-title="ESP Talk" data-description="ESP Talk is an interactive expert session featuring industry professionals who share insights on emerging technologies, career paths, and real-world experiences. The event focuses on inspiration, mentorship, and meaningful discussions beyond textbooks." data-has-page="false">
-                            <span class="events-pill-label">ESP Talk</span>
-                        </button>
-                        <button class="events-pill" type="button" role="listitem" data-event="fabric-workshop" data-title="Microsoft Fabric Workshop" data-description="A hands-on workshop exploring modern data analytics using Microsoft Fabric. Participants learn how data is collected, transformed, and visualized through real-world examples, making it ideal for students interested in analytics and data platforms." data-has-page="false">
-                            <span class="events-pill-label">Microsoft Fabric Workshop</span>
-                        </button>
-                    </div>
+                <div class="events-grid" id="eventsGridContainer" role="list">
                 </div>
             </div>
         </section>
@@ -936,6 +905,47 @@
 
             updateScrollIndicator();
         });
+
+        // Events Flip Cards
+        const eventsData = [
+            { id: 'blind-coding', title: 'Blind Coding Challenge', description: 'Think you can code without seeing the output? This challenge pushes participants to rely purely on logic and focus. With no output visibility, clarity of thought becomes the ultimate weapon.', hasPage: false, link: null },
+            { id: 'squid-game', title: 'Squid Game: Tech Edition', description: 'Squid Game: Tech Edition is an elimination-based challenge that combines speed, focus, and logical thinking under pressure. Progresses through multiple rounds including Red Green Light – Code Freeze, rapid-fire technical quizzes, and final logic testing.', hasPage: false, link: null },
+            { id: 'hackathon', title: 'Lovelace Hackathon', description: 'Lovelace is a women-led hackathon that celebrates innovation, inclusion, and leadership in technology. It provides a collaborative platform for participants to ideate, build, and present impactful solutions while encouraging diversity and empowering women in STEM.', hasPage: true, link: 'hackathon.html' },
+            { id: 'murder-mystery', title: 'Case File: Last Commit', description: 'A cybersecurity murder mystery where participants investigate a suspicious death through digital evidence. Analyze system logs, access trails, and inconsistencies to uncover the truth. Combines cybersecurity, CTF-style puzzles, and investigative reasoning.', hasPage: false, link: null },
+            { id: 'symposium', title: 'Symposium', description: 'Insightful talks and panel discussions on emerging tech. Expert speakers share insights on the latest technological advancements and career opportunities.', hasPage: true, link: 'symposium.html' },
+            { id: 'ml-marathon', title: 'ML Marathon', description: 'A fast-paced 3-hour machine learning sprint where participants build working ML models to solve real-world data problems. Individual participation with problem statement released at the start.', hasPage: false, link: null },
+            { id: 'esp-talk', title: 'ESP Talk', description: 'ESP Talk is an interactive expert session featuring industry professionals who share insights on emerging technologies, career paths, and real-world experiences. The event focuses on inspiration, mentorship, and meaningful discussions beyond textbooks.', hasPage: false, link: null },
+            { id: 'fabric-workshop', title: 'Microsoft Fabric Workshop', description: 'A hands-on workshop exploring modern data analytics using Microsoft Fabric. Participants learn how data is collected, transformed, and visualized through real-world examples, making it ideal for students interested in analytics and data platforms.', hasPage: false, link: null }
+        ];
+
+        function createFlipCard(event) {
+            return `
+                <div class="flip-card" data-event="${event.id}">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>${event.title}</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="flip-card-back-content">
+                                <h3>${event.title}</h3>
+                                <p class="flip-card-description">${event.description}</p>
+                                ${event.hasPage ? `<a href="${event.link}" class="flip-card-link">Learn More →</a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFlipCardsGrid() {
+            const container = document.getElementById('eventsGridContainer');
+            if (!container) return;
+            eventsData.forEach(event => {
+                container.innerHTML += createFlipCard(event);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderFlipCardsGrid);
     </script>
 </body>
 </html>
