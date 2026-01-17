@@ -142,7 +142,7 @@
         /* Header section */
         .sponsorship-header {
             text-align: center;
-            margin-bottom: 110px;
+            margin-bottom: 40px;
             max-width: 1000px;
         }
 
@@ -192,12 +192,180 @@
 
         /* Tiers grid */
         .sponsorship-tiers {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
+            display: none;
+        }
+
+        /* PDF Viewer Styles */
+        .pdf-viewer-container {
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            max-width: 1600px;
-            margin-bottom: 120px;
+            max-width: 900px;
+            gap: 16px;
+            margin: 0 auto 60px;
+        }
+
+        .pdf-viewer {
+            position: relative;
+            width: 100%;
+            height: 950px;
+            background: rgba(0, 20, 60, 0.2);
+            border: 1px solid rgba(0, 128, 254, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .pdf-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .pdf-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            padding: 16px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            flex-wrap: wrap;
+        }
+
+        .page-navigation {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(0, 128, 254, 0.3);
+            background: transparent;
+            color: rgba(0, 212, 255, 0.7);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: transparent;
+            border-color: rgba(0, 128, 254, 0.5);
+            color: rgba(0, 212, 255, 0.9);
+            transform: none;
+            box-shadow: none;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(220, 255, 244, 0.7);
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .page-input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-input {
+            width: 50px;
+            padding: 6px 10px;
+            border: 1px solid rgba(0, 128, 254, 0.2);
+            background: transparent;
+            color: rgba(0, 212, 255, 0.8);
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .page-input:focus {
+            outline: none;
+            border-color: rgba(0, 128, 254, 0.4);
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: transparent;
+            color: rgba(0, 212, 255, 0.7);
+            border: 1px solid rgba(0, 128, 254, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        .download-button:hover {
+            transform: none;
+            border-color: rgba(0, 128, 254, 0.5);
+            color: rgba(0, 212, 255, 0.9);
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+
+            .pdf-controls {
+                flex-direction: row;
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .page-navigation {
+                width: auto;
+                justify-content: center;
+            }
+
+            .page-info {
+                font-size: 12px;
+            }
+
+            .download-button {
+                width: auto;
+                justify-content: center;
+                padding: 8px 14px;
+                font-size: 11px;
+            }
+
+            .sponsorship-footer {
+                flex-direction: column;
+                gap: 30px;
+                align-items: flex-start;
+            }
+
+            .sponsorship-contact-card {
+                width: 100%;
+            }
         }
 
         /* Tier card */
@@ -489,14 +657,92 @@
 
         /* Footer section */
         .sponsorship-footer {
-            text-align: center;
-            max-width: 900px;
-            border-top: 2px solid rgba(0, 128, 254, 0.25);
-            padding-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            max-width: 1100px;
+            border-top: none;
+            padding-top: 0;
             padding-bottom: 60px;
-            margin-top: 120px;
+            margin-top: 80px;
             margin-left: auto;
             margin-right: auto;
+            width: 100%;
+        }
+
+        .sponsorship-footer-text {
+            flex: 0 0 auto;
+            text-align: left;
+        }
+
+        .sponsorship-footer-text h2 {
+            font-size: 1rem;
+            margin: 0 0 12px 0;
+            color: rgba(220, 255, 244, 0.8);
+            font-family: 'BBH Bartle', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .sponsorship-contact-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 24px;
+            border-radius: 12px;
+            background: rgba(0, 128, 254, 0.05);
+            border: 1.5px solid rgba(0, 128, 254, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .sponsorship-contact-image {
+            display: none;
+        }
+
+        .sponsorship-contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .sponsorship-contact-name {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #ffffff;
+            font-family: "BBH Bartle", sans-serif;
+            margin: 0;
+        }
+
+        .sponsorship-contact-role {
+            font-size: 0.85rem;
+            color: rgba(0, 128, 254, 0.8);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .sponsorship-contact-org {
+            font-size: 0.8rem;
+            color: rgba(0, 128, 254, 0.6);
+            margin: 0 0 8px 0;
+        }
+
+        .sponsorship-contact-info {
+            font-size: 0.85rem;
+            margin: 4px 0;
+            color: rgba(213, 255, 233, 0.8);
+        }
+
+        .sponsorship-contact-info span:first-child {
+            font-weight: 600;
+            color: rgba(0, 128, 254, 0.7);
         }
 
         .footer-text {
@@ -924,177 +1170,71 @@
     <main>
         <!-- Header -->
         <section class="sponsorship-header">
-            <h1 class="header-title">Collaborate with Us</h1>
-            <p class="header-subtitle">
-                Partner with Turinger '26 and gain visibility with India's most innovative tech community. 
-                Choose the perfect tier that aligns with your brand's vision.
-            </p>
+            <h1 class="header-title">Sponsorship & Partnerships</h1>
         </section>
 
         <!-- Sponsorship Tiers -->
-        <div class="sponsorship-tiers">
-            <!-- Platinum Tier (Featured) -->
-            <div class="tier-card platinum">
-                <span class="tier-badge platinum">Prestige Tier</span>
-                <h2 class="tier-name">Platinum</h2>
-                <p class="tier-price">₹15,00,000</p>
-                <p class="tier-duration">Full Event Sponsorship</p>
-                
-                <div class="tier-benefits">
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Primary logo on all marketing materials</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Event naming rights</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Keynote speaker slot (60 minutes)</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Dedicated booth with premium location</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>50 complimentary passes</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Full digital presence (Website, App)</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Post-event analytics report</span>
-                    </div>
-                </div>
+        <div class="sponsorship-tiers"></div>
 
-                <button class="tier-cta">Get Started</button>
+        <!-- PDF Viewer -->
+        <div class="pdf-viewer-container">
+            <div class="pdf-viewer">
+                <iframe 
+                    id="pdfFrame" 
+                    class="pdf-frame"
+                    src="files/ACM%20New%20Sponsorship%20(1).pdf#page=1"
+                    type="application/pdf"
+                    allow="fullscreen">
+                </iframe>
             </div>
 
-            <!-- Gold Tier -->
-            <div class="tier-card gold">
-                <span class="tier-badge gold">Premium Tier</span>
-                <h2 class="tier-name">Gold</h2>
-                <p class="tier-price">₹8,00,000</p>
-                <p class="tier-duration">Major Category Sponsorship</p>
-                
-                <div class="tier-benefits">
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Prominent logo placement</span>
+            <div class="pdf-controls">
+                <div class="page-navigation">
+                    <button id="prevPage" class="nav-button" title="Previous page">‹</button>
+                    
+                    <div class="page-info">
+                        <span>Page</span>
+                        <div class="page-input-group">
+                            <input 
+                                type="number" 
+                                id="pageInput" 
+                                class="page-input" 
+                                value="1" 
+                                min="1"
+                                max="1"
+                            >
+                            <span>of <span id="totalPages">1</span></span>
+                        </div>
                     </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Category naming rights</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Speaking slot (30 minutes)</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Premium booth location</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>30 complimentary passes</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Social media features</span>
-                    </div>
+
+                    <button id="nextPage" class="nav-button" title="Next page">›</button>
                 </div>
 
-                <button class="tier-cta">Get Started</button>
-            </div>
-
-            <!-- Silver Tier -->
-            <div class="tier-card silver">
-                <span class="tier-badge silver">Standard Tier</span>
-                <h2 class="tier-name">Silver</h2>
-                <p class="tier-price">₹4,00,000</p>
-                <p class="tier-duration">Event Sponsorship</p>
-                
-                <div class="tier-benefits">
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Logo on event materials</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Workshop or panel slot</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Standard booth space</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>15 complimentary passes</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Listing on website</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Newsletter feature</span>
-                    </div>
-                </div>
-
-                <button class="tier-cta">Get Started</button>
-            </div>
-
-            <!-- Bronze Tier -->
-            <div class="tier-card bronze">
-                <span class="tier-badge bronze">Supporter Tier</span>
-                <h2 class="tier-name">Bronze</h2>
-                <p class="tier-price">₹2,00,000</p>
-                <p class="tier-duration">Community Sponsorship</p>
-                
-                <div class="tier-benefits">
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Logo on website & materials</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Small booth space</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>8 complimentary passes</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Sponsor listing</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Social media mention</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-check">✓</span>
-                        <span>Community exposure</span>
-                    </div>
-                </div>
-
-                <button class="tier-cta">Get Started</button>
+                <a id="downloadBtn" class="download-button" download>
+                    ⬇ Download PDF
+                </a>
             </div>
         </div>
 
         <!-- Footer -->
         <section class="sponsorship-footer">
-            <p class="footer-text">
-                Interested in custom sponsorship packages? Have questions about our offerings?
-                We'd love to discuss how your brand can be part of this incredible event.
-            </p>
-            <a href="mailto:sponsors@turinger.com" class="contact-email">
-                 sponsors@turinger.com
-            </a>
+            <div class="sponsorship-footer-text">
+                <h2>For More Details, Contact</h2>
+            </div>
+
+            <div class="sponsorship-contact-card">
+                <div class="sponsorship-contact-content">
+                    <h3 class="sponsorship-contact-name">S P Bharath</h3>
+                    <p class="sponsorship-contact-role">Sponsorship Coordinator</p>
+                    <p class="sponsorship-contact-org">MITB ACM Student Chapter</p>
+                    <p class="sponsorship-contact-info">
+                        <span>Phone:</span> +91 78931 84692
+                    </p>
+                    <p class="sponsorship-contact-info">
+                        <span>Email:</span> sakarey.mitblr2023@learner.manipal.edu
+                    </p>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -1108,8 +1248,12 @@
     <link rel="stylesheet" href="components/registration.css">
     <script src="components/sponsorship-enquiry.js"></script>
     
-    <!-- Initialize Infinity Background and Enquiry -->
+    <!-- PDF Viewer Script -->
     <script>
+        let currentPage = 1;
+        let totalPages = 1;
+        const pdfUrl = 'files/ACM%20New%20Sponsorship%20(1).pdf';
+
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize infinity background
             const background = new InfinityBackground({
@@ -1119,22 +1263,101 @@
                 backgroundColor: 0x000000,
                 lineColor: 0x0080FE,
                 lineOpacity: 0.4,
-                particleColor: { r: 1.0, g: 1.0, b: 1.0 }, // White
+                particleColor: { r: 1.0, g: 1.0, b: 1.0 },
                 particleSize: 0.5,
-                hoverColor: { r: 0, g: 0.502, b: 1 }, // Blue on hover
+                hoverColor: { r: 0, g: 0.502, b: 1 },
                 hoverDistance: 30,
                 hoverLift: 15,
                 cameraPosZ: 60,
                 cameraPosY: 15
             });
             background.init();
-            
-            // Mount enquiry modal for all Get Started buttons
-            mountEnquiry({ 
-                triggerSelector: '.tier-cta',
-                parent: document.body 
+
+            // PDF Viewer Controls
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            const pageInput = document.getElementById('pageInput');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const pdfFrame = document.getElementById('pdfFrame');
+
+            // Set download link
+            downloadBtn.href = pdfUrl;
+            downloadBtn.download = 'ACM_Sponsorship_Packages.pdf';
+
+            // Try to detect total pages using PDF.js if available
+            detectTotalPages();
+
+            // Navigation buttons
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePDF();
+                }
             });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updatePDF();
+                }
+            });
+
+            // Page input
+            pageInput.addEventListener('change', (e) => {
+                let page = parseInt(e.target.value);
+                if (isNaN(page) || page < 1) page = 1;
+                if (page > totalPages) page = totalPages;
+                currentPage = page;
+                updatePDF();
+            });
+
+            // Update buttons
+            updateButtons();
         });
+
+        function updatePDF() {
+            const pdfFrame = document.getElementById('pdfFrame');
+            const pageInput = document.getElementById('pageInput');
+            
+            pdfFrame.src = `${pdfUrl}#page=${currentPage}`;
+            pageInput.value = currentPage;
+            
+            updateButtons();
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            
+            prevBtn.disabled = currentPage <= 1;
+            nextBtn.disabled = currentPage >= totalPages;
+        }
+
+        function detectTotalPages() {
+            // For PDF embedded in iframe, we estimate pages based on typical PDF size
+            // This is a fallback - browsers don't reliably expose page count
+            // We'll use a reasonable estimate based on the document
+            
+            // Load PDF.js if available for accurate page detection
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+            script.onload = () => {
+                if (typeof pdfjsLib !== 'undefined') {
+                    pdfjsLib.getDocument(pdfUrl).promise.then((pdf) => {
+                        totalPages = pdf.numPages;
+                        document.getElementById('totalPages').textContent = totalPages;
+                        document.getElementById('pageInput').max = totalPages;
+                        updateButtons();
+                    });
+                } else {
+                    // Fallback: estimate pages
+                    totalPages = 4; // Common sponsorship PDF page count
+                    document.getElementById('totalPages').textContent = totalPages;
+                    document.getElementById('pageInput').max = totalPages;
+                }
+            };
+            document.head.appendChild(script);
+        }
     </script>
 </body>
 </html>
