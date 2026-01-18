@@ -32,13 +32,14 @@
     position: sticky;
     z-index: 10;
     overflow: visible;
-    padding: 0;
+    padding: 0 0;
     background: transparent;
     top: 0;
     left: 0;
     right: 0;
     transform: translateY(70px);
     bottom: 0;
+    box-sizing: border-box;
 }
 
 /* Top-level concept menu bar (the red-box region) */
@@ -98,6 +99,7 @@
     padding: clamp(24px, 3.5vw, 36px);
     width: 100%;
     max-width: 900px;
+    margin: 0 auto;
     border-radius: 0;
     background: transparent;
     border: none;
@@ -105,6 +107,9 @@
     text-align: center;
     flex-grow: 1;
     flex-wrap: wrap;
+    box-sizing: border-box;
+    left: auto;
+    right: auto;
 }
 
 .concept-stack {
@@ -145,7 +150,7 @@ body.theme-black .concept-overlay {
 }
 
 .console-badge {
-    display: inline-flex;
+    display: none;
     align-items: center;
     gap: 0.26em;
     padding: 0.2rem 0.6rem;
@@ -172,7 +177,8 @@ body.theme-black .concept-overlay {
     font-weight: 400;
     font-style: normal;
     margin: 6px 0 8px 0;
-    white-space: nowrap;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .console-subtitle {
@@ -181,6 +187,8 @@ body.theme-black .concept-overlay {
     text-transform: uppercase;
     color: rgba(200, 255, 240, 0.65);
     margin: 8px 0 10px 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .console-learn {
@@ -195,6 +203,8 @@ body.theme-black .concept-overlay {
     line-height: 1.8;
     color: rgba(220, 255, 244, 0.82);
     margin: 8px 0 0 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .concept-learn-more {
