@@ -60,7 +60,7 @@
             }
         }
 
-        .fc1 { left: 8%; animation: rain 7s linear infinite; animation-delay: 0s; font-size: 1.3rem; }
+        .fc1 { left: 8%; animation: rain 7s linear infinite; animation-delay: -3s; font-size: 1.3rem; }
         .fc2 { left: 65%; animation: rain 7.8s linear infinite; animation-delay: 0.235s; font-size: 1.4rem; }
         .fc3 { left: 18%; animation: rain 6.3s linear infinite; animation-delay: 0.47s; font-size: 1.3rem; }
         .fc4 { left: 78%; animation: rain 8.2s linear infinite; animation-delay: 0.705s; font-size: 1.5rem; }
@@ -129,23 +129,21 @@
             gap: 10px;
             padding: 8px 12px;
             color: rgba(190,230,255,0.95);
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(100,150,255,0.02);
+            border: 1px solid rgba(92,179,255,0.1);
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
             backdrop-filter: blur(6px) saturate(110%);
             -webkit-backdrop-filter: blur(6px) saturate(110%);
-            transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
             z-index: 2200;
         }
 
         .back-link svg { width: 14px; height: 14px; stroke: currentColor; opacity: 0.95; }
 
         .back-link:hover {
-            transform: translateY(-2px);
-            background: rgba(255,255,255,0.035);
+            background: rgba(100,150,255,0.05);
             color: #aee6ff;
             box-shadow: 0 6px 20px rgba(92,179,255,0.06);
         }
@@ -721,7 +719,7 @@
             width: 42vw;
             max-width: 540px;
             max-height: 85vh;
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            background: rgba(6, 8, 12, 0.8);
             border: 2px solid rgba(92,179,255,0.32);
             border-radius: 14px;
             padding: 0;
@@ -1700,12 +1698,7 @@
         });
 
         downloadBtn.addEventListener('click', () => {
-            const link = document.createElement('a');
-            link.href = 'files/fahad%20jeffrey.pdf';
-            link.download = 'Hackathon_Rulebook.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            // Rulebook PDF download disabled - field empty for now
         });
     </script>
 

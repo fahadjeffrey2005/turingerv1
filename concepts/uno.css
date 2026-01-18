@@ -163,6 +163,7 @@ body.theme-black .concept-overlay {
 }
 
 .console-index {
+    display: none;
     font-variant-numeric: tabular-nums;
     font-size: clamp(0.75rem, 1.6vw, 1rem);
     color: rgba(200, 255, 235, 0.45);
