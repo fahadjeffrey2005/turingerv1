@@ -765,24 +765,44 @@
 
                 const contactSection = document.getElementById('contact');
                 const socialSection = document.getElementById('social');
+                const finisherSection = document.getElementById('finisher');
+                
+                // Track visibility of all dark sections
+                const visibilityState = {
+                    blackSection: false,
+                    contactSection: false,
+                    socialSection: false,
+                    finisherSection: false
+                };
+                
+                let themeTimeout = null;
+                
+                const updateTheme = () => {
+                    // Apply black theme if ANY dark section is visible
+                    const anyDarkSectionVisible = visibilityState.blackSection || visibilityState.contactSection || visibilityState.socialSection || visibilityState.finisherSection;
+                    applyBlackTheme(anyDarkSectionVisible);
+                };
+                
                 const blackObserver = new IntersectionObserver((entries) => {
                     entries.forEach((entry) => {
                         if (entry.target === blackSection) {
-                            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-                            const rect = blackSection.getBoundingClientRect();
-                            const topPassedMidpoint = rect.top <= viewportHeight * 0.5;
-                            applyBlackTheme(entry.isIntersecting && topPassedMidpoint);
+                            visibilityState.blackSection = entry.isIntersecting;
                         }
-                        // Keep black theme active while contact section is visible
-                        if (entry.target === contactSection && entry.isIntersecting) {
-                            applyBlackTheme(true);
+                        if (entry.target === contactSection) {
+                            visibilityState.contactSection = entry.isIntersecting;
                         }
-                        // Keep black theme active while social section is visible
-                        if (entry.target === socialSection && entry.isIntersecting) {
-                            applyBlackTheme(true);
+                        if (entry.target === socialSection) {
+                            visibilityState.socialSection = entry.isIntersecting;
+                        }
+                        if (entry.target === finisherSection) {
+                            visibilityState.finisherSection = entry.isIntersecting;
                         }
                     });
-                }, { threshold: [0.25, 0.45, 0.75] });
+                    
+                    // Debounce theme updates to prevent flicker between sections
+                    clearTimeout(themeTimeout);
+                    themeTimeout = setTimeout(updateTheme, 50);
+                }, { threshold: [0.1, 0.5, 0.9] });
 
                 blackObserver.observe(blackSection);
                 if (contactSection) {
@@ -791,6 +811,12 @@
                 if (socialSection) {
                     blackObserver.observe(socialSection);
                 }
+                if (finisherSection) {
+                    blackObserver.observe(finisherSection);
+                }
+                
+                // Apply light theme on initial page load
+                applyBlackTheme(false);
             }
 
             const eventPills = Array.from(document.querySelectorAll('.events-pill'));
