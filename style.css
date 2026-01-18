@@ -639,6 +639,7 @@ body.theme-black .events-hub {
     align-items: center;
     justify-content: center;
     gap: clamp(20px, 3vw, 32px);
+    margin-top: 45px;
 }
 
 .social-icon-link {
@@ -715,7 +716,6 @@ body.theme-black .events-hub {
     width: 100%;
     height: 100%;
     align-content: center;
-    margin-top: 45px;
 }
 
 .social-logo-item {
