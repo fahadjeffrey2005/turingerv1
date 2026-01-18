@@ -1230,7 +1230,6 @@ body.theme-black .events-detail {
 
 #registration-cta {
     background: transparent !important;
-    transition: none !important;
 }
 
 @media (max-width: 640px) {
