@@ -1461,7 +1461,7 @@ body.theme-black .events-detail {
 /* Contact Section - Inside black-section for continuous background */
 .contact-section {
     width: 100%;
-    padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 80px);
+    padding: clamp(120px, 12vw, 160px) clamp(20px, 5vw, 80px);
     display: flex;
     flex-direction: column;
     align-items: center;

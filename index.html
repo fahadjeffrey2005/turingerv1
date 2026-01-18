@@ -90,6 +90,33 @@
             transform: translateY(-4px);
         }
 
+        /* Symposium Button Styles */
+        .symposium-btn {
+            display: inline-block;
+            padding: 24px 72px;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.08), rgba(75, 0, 130, 0.06));
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            color: #d8c8f4;
+            font-family: "BBH Bartle", sans-serif;
+            font-weight: 400;
+            font-size: 1.35rem;
+            letter-spacing: 0.15em;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(138, 43, 226, 0.08), inset 0 0 15px rgba(138, 43, 226, 0.03);
+        }
+
+        .symposium-btn:hover {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(75, 0, 130, 0.12));
+            border-color: rgba(138, 43, 226, 0.5);
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.12), inset 0 0 20px rgba(138, 43, 226, 0.05);
+            transform: translateY(-2px);
+        }
+
         .timeline-dot {
             position: absolute;
             left: 50%;
@@ -372,6 +399,11 @@
             <div class="events-hub" aria-live="polite">
                 <h2 class="events-heading">Events</h2>
                 <div class="events-grid" id="eventsGridContainer" role="list">
+                </div>
+                
+                <!-- Symposium Button -->
+                <div style="display: flex; justify-content: center; margin-top: 30px;">
+                    <a href="symposium.html" class="symposium-btn">SYMPOSIUM →</a>
                 </div>
             </div>
         </section>
