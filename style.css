@@ -1149,6 +1149,8 @@ body.theme-black .collaborators-heading {
     align-items: center;
     justify-content: center;
     min-height: auto;
+    pointer-events: auto;
+    z-index: 100;
 }
 
 .sponsor-button-hub {
@@ -1157,6 +1159,9 @@ body.theme-black .collaborators-heading {
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: auto;
+    z-index: 50;
+    position: relative;
 }
 
 .sponsor-button {
@@ -1178,6 +1183,9 @@ body.theme-black .collaborators-heading {
     transition: box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    z-index: 60;
+    pointer-events: auto;
 }
 
 .sponsor-button:hover {
