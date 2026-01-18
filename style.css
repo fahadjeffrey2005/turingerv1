@@ -1820,3 +1820,330 @@ body.theme-black .events-detail {
         font-size: 0.75rem;
     }
 }
+/* ============================================================
+   UNONO - SCHEDULE SCROLL SECTION
+   ============================================================ */
+
+.schedule-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem) !important;
+    letter-spacing: 0.25em !important;
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    margin: 0 0 25px 0 !important;
+    line-height: 1.1 !important;
+    font-family: "BBH Bartle", sans-serif !important;
+}
+
+/* UNONO Container - Main scroll section */
+.unono-container {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    background: transparent;
+}
+
+/* Fixed line within unono - stays centered */
+.unono-line {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 80%;
+    background: linear-gradient(to bottom, 
+        rgba(0, 128, 254, 0) 0%,
+        rgba(0, 128, 254, 0.8) 25%,
+        rgba(0, 128, 254, 1) 50%,
+        rgba(0, 128, 254, 0.8) 75%,
+        rgba(0, 128, 254, 0) 100%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Scrollable viewport - contains cards only */
+.unono-viewport {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 0 100px 0;
+}
+
+/* Card base styling - same as previous */
+.unono-card {
+    position: relative;
+    width: 45%;
+    padding: 20px 28px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid #0080FE;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(0, 128, 254, 0.08);
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* Alternate left and right positioning */
+.unono-card:nth-child(odd) {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.unono-card:nth-child(even) {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* Connecting dot to center line */
+.unono-card::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #0080FE;
+    border: 3px solid #000000;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+/* Left cards: dot on right */
+.unono-card:nth-child(odd)::before {
+    right: -50px;
+}
+
+/* Right cards: dot on left */
+.unono-card:nth-child(even)::before {
+    left: -50px;
+}
+
+/* Fade line from card to dot */
+.unono-card::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+}
+
+/* Left cards: line extends right */
+.unono-card:nth-child(odd)::after {
+    right: -50px;
+    width: 50px;
+    background: linear-gradient(to right, 
+        #0080FE 0%,
+        rgba(0, 128, 254, 0.3) 80%,
+        rgba(0, 128, 254, 0) 100%);
+}
+
+/* Right cards: line extends left */
+.unono-card:nth-child(even)::after {
+    left: -50px;
+    width: 50px;
+    background: linear-gradient(to left, 
+        #0080FE 0%,
+        rgba(0, 128, 254, 0.3) 80%,
+        rgba(0, 128, 254, 0) 100%);
+}
+
+.unono-card:hover {
+    background: rgba(0, 128, 254, 0.15);
+    border-color: #0080FE;
+    box-shadow: 0 12px 32px rgba(0, 128, 254, 0.12);
+}
+
+/* Day Divider - Horizontal line with label */
+.day-divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 80px 0 40px 0;
+    position: relative;
+}
+
+.day-divider-line {
+    height: 2px;
+    width: 60%;
+    background: linear-gradient(to right,
+        rgba(0, 128, 254, 0) 0%,
+        rgba(0, 128, 254, 0.8) 100%);
+    margin-left: auto;
+}
+
+.day-divider-label {
+    font-family: "BBH Bartle", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #0080FE;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0 4px;
+}
+
+/* Day 2 divider - line on left */
+.day-divider.day-2 {
+    margin: 100px 0 40px 0;
+    flex-direction: row-reverse;
+}
+
+.day-divider.day-2 .day-divider-line {
+    background: linear-gradient(to left,
+        rgba(0, 128, 254, 0) 0%,
+        rgba(0, 128, 254, 0.8) 100%);
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* Day 3 divider - line on right */
+.day-divider.day-3 {
+    margin: 100px 0 40px 0;
+}
+
+/* Event Cards */
+.event-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid #0080FE;
+    box-shadow: 0 8px 24px rgba(0, 128, 254, 0.08);
+    min-height: 85px;
+}
+
+.event-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.05em;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.event-time {
+    font-size: 0.85rem;
+    color: #0080FE;
+    margin: 4px 0 0 0;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.event-desc {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 4px 0 0 0;
+    line-height: 1.3;
+    font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .schedule-title {
+        font-size: clamp(1.8rem, 5vw, 2.5rem) !important;
+        margin: 0 0 18px 0 !important;
+    }
+
+    .unono-container {
+        height: 75vh;
+        max-width: 100%;
+    }
+
+    .unono-card {
+        width: 80%;
+        padding: 20px 28px;
+        min-height: 70px;
+    }
+
+    .day-divider {
+        margin: 70px 0 35px 0;
+    }
+
+    .day-divider.day-2 {
+        margin: 85px 0 35px 0;
+    }
+
+    .day-divider.day-3 {
+        margin: 85px 0 35px 0;
+    }
+
+    .day-divider-label {
+        font-size: 1rem;
+    }
+
+    .day-label-content {
+        font-size: 1.5rem;
+    }
+
+    .event-title {
+        font-size: 0.95rem;
+    }
+
+    .event-time {
+        font-size: 0.75rem;
+    }
+
+    .event-desc {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule-title {
+        font-size: clamp(1.5rem, 5vw, 2.2rem) !important;
+        margin: 0 0 14px 0 !important;
+    }
+
+    .unono-container {
+        height: 70vh;
+    }
+
+    .unono-card {
+        width: 90%;
+        padding: 18px 24px;
+        min-height: 65px;
+    }
+
+    .day-divider {
+        margin: 60px 0 30px 0;
+    }
+
+    .day-divider.day-2 {
+        margin: 75px 0 30px 0;
+    }
+
+    .day-divider.day-3 {
+        margin: 75px 0 30px 0;
+    }
+
+    .day-divider-label {
+        font-size: 0.9rem;
+    }
+
+    .event-title {
+        font-size: 0.85rem;
+    }
+
+    .event-time {
+        font-size: 0.7rem;
+    }
+
+    .event-desc {
+        font-size: 0.65rem;
+    }
+}

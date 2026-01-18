@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
     <title>Turinger '26</title>
-    <link rel="stylesheet" href="style.css?v=57">
+    <link rel="stylesheet" href="style.css?v=71">
     <link rel="icon" type="image/x-icon" href="./logos/favicon.png">
-    <link rel="stylesheet" href="concepts/uno.css?v=57">
-    <link rel="stylesheet" href="dots/dots.css?v=57">
+    <link rel="stylesheet" href="concepts/uno.css?v=71">
+    <link rel="stylesheet" href="dots/dots.css?v=71">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Zen+Dots&display=swap" rel="stylesheet">
@@ -166,6 +166,18 @@
             position: relative;
             z-index: 1;
         }
+
+        .timeline-reference-line {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 80vh;
+            background: linear-gradient(to bottom, rgba(0, 128, 254, 0), rgba(0, 128, 254, 0.5), rgba(0, 128, 254, 0));
+            z-index: 3;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="scroll-shell concepts-body concept-uno">
@@ -246,151 +258,107 @@
         </section>
 
         <section class="black-section" id="black-v" aria-label="Vector immersion sequence">
-            <!-- LINEUP Schedule - Inside Dark Region -->
-            <div class="lineup-schedule-section">
-                <h3 class="schedule-title" style="font-size: 2.5rem;">SCHEDULE</h3>
+            <!-- UNONO SCHEDULE SECTION -->
+            <div class="lineup-schedule-section" id="scheduleSection">
+                <h3 class="schedule-title">SCHEDULE</h3>
                 
-                <!-- Minimalistic Color Bar Day Selector -->
-                <div style="margin-bottom: 40px; max-width: 750px; margin-left: auto; margin-right: auto;">
-                    <!-- Color Bar Progress -->
-                    <div style="position: relative; height: 2px; background: rgba(0, 128, 254, 0.08); border-radius: 1px; margin-bottom: 24px; overflow: hidden;">
-                        <div id="colorBarFill" style="position: absolute; top: 0; left: 0; height: 100%; width: 33.33%; background: linear-gradient(90deg, #0080FE, #A855F7); transition: width 0.8s ease; border-radius: 1px;"></div>
-                    </div>
-
-                    <!-- Day Labels -->
-                    <div style="display: flex; justify-content: center; gap: 200px; align-items: flex-start; padding: 0;">
-                        <div style="text-align: center;">
-                            <button id="dayBtn1" onclick="selectIndexDay(1)" style="background: none; border: none; color: #00D4FF; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.8px; position: relative;">
-                                Day 1
-                                <div style="position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 100%; height: 1.5px; background: #00D4FF; transition: width 0.3s ease;"></div>
-                            </button>
+                <!-- UNONO: Standalone scroll section with its own line -->
+                <div class="unono-container" id="unonoContainer">
+                    <!-- Fixed line within unono only -->
+                    <div class="unono-line"></div>
+                    
+                    <!-- Scrollable cards within unono -->
+                    <div class="unono-viewport" id="unonoViewport">
+                        <!-- Day 1 Divider -->
+                        <div class="day-divider day-1">
+                            <div class="day-divider-line"></div>
+                            <div class="day-divider-label">DAY 1</div>
                         </div>
-                        <div style="text-align: center;">
-                            <button id="dayBtn2" onclick="selectIndexDay(2)" style="background: none; border: none; color: rgba(213, 255, 233, 0.5); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.8px; position: relative;">
-                                Day 2
-                                <div style="position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 0%; height: 1.5px; background: #00D4FF; transition: width 0.3s ease;"></div>
-                            </button>
+                        
+                        <!-- Day 1 Events -->
+                        <div class="unono-card event-card">
+                            <div class="event-title">Inauguration</div>
+                            <div class="event-desc">Official opening ceremony marks hackathon festival kickoff.</div>
                         </div>
-                        <div style="text-align: center;">
-                            <button id="dayBtn3" onclick="selectIndexDay(3)" style="background: none; border: none; color: rgba(213, 255, 233, 0.5); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.8px; position: relative;">
-                                Day 3
-                                <div style="position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 0%; height: 1.5px; background: #00D4FF; transition: width 0.3s ease;"></div>
-                            </button>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">Panel Discussion</div>
+                            <div class="event-time">9:30 AM – 11:00 PM</div>
+                            <div class="event-desc">Industry experts discuss emerging trends and career.</div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="schedule-activities">
-                    <!-- Day 1 -->
-                    <div class="day-content active" data-variation="original" data-day="1">
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Inauguration</div>
-                                    <div class="timeline-desc">Official opening ceremony marks hackathon festival kickoff.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Panel Discussion</div>
-                                    <div class="timeline-time">9:30 AM – 11:00 PM</div>
-                                    <div class="timeline-desc">Industry experts discuss emerging trends and career.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">ESP Talk</div>
-                                    <div class="timeline-time">11:00 AM – 12:00 PM</div>
-                                    <div class="timeline-desc">Interactive session featuring industry professional insights sharing.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Blind Coding Challenge</div>
-                                    <div class="timeline-time">2:00 PM – 5:00 PM</div>
-                                    <div class="timeline-desc">Code challenge without output using pure logic.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Squid Game: Tech Edition</div>
-                                    <div class="timeline-time">2:00 PM – 5:00 PM</div>
-                                    <div class="timeline-desc">Speed and focus challenge with technical rounds.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">ESP Talk</div>
+                            <div class="event-time">11:00 AM – 12:00 PM</div>
+                            <div class="event-desc">Interactive session featuring industry professional insights sharing.</div>
                         </div>
-                    </div>
-
-                    <!-- Day 2 -->
-                    <div class="day-content" data-variation="original" data-day="2" style="display: none;">
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Case File: Last Commit</div>
-                                    <div class="timeline-time">10:00 AM – 1:00 PM</div>
-                                    <div class="timeline-desc">Cybersecurity mystery through analyzing digital evidence clues.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Lovelace Hackathon</div>
-                                    <div class="timeline-time">11:00 AM onwards</div>
-                                    <div class="timeline-desc">Women-led hackathon celebrating innovation and inclusion globally.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Token Trivia Quiz</div>
-                                    <div class="timeline-time">2:00 PM – 5:00 PM</div>
-                                    <div class="timeline-desc">Technical quiz blending logic and industry trivia.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Microsoft Fabric Workshop</div>
-                                    <div class="timeline-time">9:00 AM – 4:00 PM</div>
-                                    <div class="timeline-desc">Data analytics workshop exploring collection and visualization.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">Blind Coding Challenge</div>
+                            <div class="event-time">2:00 PM – 5:00 PM</div>
+                            <div class="event-desc">Code challenge without output using pure logic.</div>
                         </div>
-                    </div>
-
-                    <!-- Day 3 -->
-                    <div class="day-content" data-variation="original" data-day="3" style="display: none;">
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Symposium – Research Wing</div>
-                                    <div class="timeline-time">10:00 AM – 12:00 PM</div>
-                                    <div class="timeline-desc">Research-focused symposium on technical advancements and innovation.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">ML Marathon</div>
-                                    <div class="timeline-time">10:00 AM – 12:00 PM</div>
-                                    <div class="timeline-desc">Three-hour sprint building machine learning models fast.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Valedictory</div>
-                                    <div class="timeline-time">Ends by 12:00 PM</div>
-                                    <div class="timeline-desc">Closing ceremony celebrating participant achievements and success.</div>
-                                </div>
-                                <div class="timeline-dot"></div>
-                            </div>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">Squid Game: Tech Edition</div>
+                            <div class="event-time">2:00 PM – 5:00 PM</div>
+                            <div class="event-desc">Speed and focus challenge with technical rounds.</div>
+                        </div>
+                        
+                        <!-- Day 2 Divider -->
+                        <div class="day-divider day-2">
+                            <div class="day-divider-line"></div>
+                            <div class="day-divider-label">DAY 2</div>
+                        </div>
+                        
+                        <!-- Day 2 Events -->
+                        <div class="unono-card event-card">
+                            <div class="event-title">Case File: Last Commit</div>
+                            <div class="event-time">10:00 AM – 1:00 PM</div>
+                            <div class="event-desc">Cybersecurity mystery through analyzing digital evidence clues.</div>
+                        </div>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">Lovelace Hackathon</div>
+                            <div class="event-time">11:00 AM onwards</div>
+                            <div class="event-desc">Women-led hackathon celebrating innovation and inclusion globally.</div>
+                        </div>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">Token Trivia Quiz</div>
+                            <div class="event-time">2:00 PM – 5:00 PM</div>
+                            <div class="event-desc">Technical quiz blending logic and industry trivia.</div>
+                        </div>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">Microsoft Fabric Workshop</div>
+                            <div class="event-time">9:00 AM – 4:00 PM</div>
+                            <div class="event-desc">Data analytics workshop exploring collection and visualization.</div>
+                        </div>
+                        
+                        <!-- Day 3 Divider -->
+                        <div class="day-divider day-3">
+                            <div class="day-divider-line"></div>
+                            <div class="day-divider-label">DAY 3</div>
+                        </div>
+                        
+                        <!-- Day 3 Events -->
+                        <div class="unono-card event-card">
+                            <div class="event-title">Symposium – Research Wing</div>
+                            <div class="event-time">10:00 AM – 12:00 PM</div>
+                            <div class="event-desc">Research-focused symposium on technical advancements and innovation.</div>
+                        </div>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">ML Marathon</div>
+                            <div class="event-time">10:00 AM – 12:00 PM</div>
+                            <div class="event-desc">Three-hour sprint building machine learning models fast.</div>
+                        </div>
+                        
+                        <div class="unono-card event-card">
+                            <div class="event-title">Valedictory</div>
+                            <div class="event-time">Ends by 12:00 PM</div>
+                            <div class="event-desc">Closing ceremony celebrating participant achievements and success.</div>
                         </div>
                     </div>
                 </div>
@@ -717,7 +685,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
     <script src="dots/dots.js" defer></script>
-    <script src="script.js?v=108" defer></script>
+    <script src="script.js?v=109" defer></script>
     <script src="concepts/uno.js?v=107" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -987,7 +955,85 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', renderFlipCardsGrid);
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFlipCardsGrid();
+        });
+
+        // ========== UNONO SCROLL CONTROLLER ==========
+        (function() {
+            'use strict';
+
+            const unonoContainer = document.getElementById('unonoContainer');
+            const unonoViewport = document.getElementById('unonoViewport');
+            
+            if (!unonoContainer || !unonoViewport) return;
+
+            let scrollOffset = 0;
+            let maxScroll = 0;
+            let isOverUnono = false;
+
+            // Calculate scroll bounds
+            function initializeUnono() {
+                const allElements = unonoViewport.querySelectorAll('.unono-card, .day-divider');
+                const viewportHeight = unonoContainer.clientHeight;
+                let totalHeight = 0;
+
+                allElements.forEach(el => {
+                    totalHeight += el.offsetHeight + 24; // Include gap
+                });
+
+                // Add buffer for padding + extra space for visibility
+                maxScroll = Math.max(0, totalHeight + 500 - viewportHeight);
+            }
+
+            // Apply scroll transform to viewport
+            function applyScroll() {
+                unonoViewport.style.transform = `translateY(-${scrollOffset}px)`;
+            }
+
+            // Handle mouse wheel
+            function handleWheel(e) {
+                initializeUnono();
+                
+                if (!isOverUnono) return; // Not over unono, let page scroll
+                
+                e.preventDefault(); // Block default scroll
+                
+                const scrollAmount = Math.abs(e.deltaY) * 0.5;
+
+                if (e.deltaY > 0) {
+                    // Scroll down
+                    scrollOffset = Math.min(scrollOffset + scrollAmount, maxScroll);
+                } else {
+                    // Scroll up
+                    scrollOffset = Math.max(scrollOffset - scrollAmount, 0);
+                }
+
+                applyScroll();
+            }
+
+            // Track mouse over unono
+            function handleMouseMove(e) {
+                const rect = unonoContainer.getBoundingClientRect();
+                isOverUnono = (
+                    e.clientX >= rect.left &&
+                    e.clientX <= rect.right &&
+                    e.clientY >= rect.top &&
+                    e.clientY <= rect.bottom
+                );
+            }
+
+            // Attach listeners
+            window.addEventListener('wheel', handleWheel, { passive: false });
+            document.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+            // Re-init on resize
+            window.addEventListener('resize', () => {
+                initializeUnono();
+            });
+        })();
+        // ========== END UNONO CONTROLLER ==========
+
     </script>
 </body>
 </html>
