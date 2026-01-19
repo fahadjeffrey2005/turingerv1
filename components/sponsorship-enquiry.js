@@ -131,16 +131,11 @@ function mountEnquiry({ triggerSelector = '.tier-cta', parent = document.body } 
             alert(`Validation Error:\n${validation.errors.join('\n')}`);
             return;
           }
-
-          const sanitizedData = validation.sanitizedData;
-          console.log(`${tier.toUpperCase()} enquiry submitted:`, sanitizedData);
         } else {
-          // Fallback basic validation
           if (!email.trim()) {
             alert('Email is required');
             return;
           }
-          console.log(`${tier.toUpperCase()} enquiry submitted:`, { email, message });
         }
         
         closeEnquiry(tier);

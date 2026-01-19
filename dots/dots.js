@@ -106,66 +106,9 @@ let themeTransition = null;
 let dynamicCameraZ = null;
 
 // ============================================================
-// DEBUGGING - Remove this section in production
-// ============================================================
-function logDeviceDebugInfo() {
-    const isMobile = isMobileDevice();
-    const isLowEnd = isLowEndDevice();
-    const particleCountDebug = isMobile ? (isLowEnd ? 1500 : 3000) : 8500;
-    
-    const debugInfo = {
-        userAgent: navigator.userAgent.substring(0, 80),
-        isMobileDevice: isMobile,
-        isLowEndDevice: isLowEnd,
-        particleCount: particleCountDebug,
-        windowWidth: window.innerWidth,
-        windowHeight: window.innerHeight,
-        mediaQuery768: window.matchMedia('(max-width: 768px)').matches,
-        hardwareConcurrency: navigator.hardwareConcurrency || 'unknown',
-        deviceMemory: navigator.deviceMemory || 'unknown'
-    };
-    
-    console.log('%c🔍 DOTS DEBUG INFO', 'color: #0080FE; font-weight: bold; font-size: 14px;', debugInfo);
-    
-    // Debug panel hidden by default - enable by typing in console: window.showDotsDebug = true; location.reload();
-    if (window.showDotsDebug && isMobile) {
-        const debugPanel = document.createElement('div');
-        debugPanel.id = 'dots-debug-panel';
-        debugPanel.style.cssText = `
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0, 0, 0, 0.9);
-            color: #0080FE;
-            padding: 12px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 11px;
-            z-index: 9999;
-            max-width: 280px;
-            line-height: 1.4;
-        `;
-        debugPanel.innerHTML = `
-            <strong>DOTS DEBUG</strong><br>
-            Mobile: ${isMobile ? '✓' : '✗'}<br>
-            Low-End: ${isLowEnd ? '✓' : '✗'}<br>
-            Particles: ${particleCountDebug.toLocaleString()}<br>
-            Size: ${window.innerWidth}x${window.innerHeight}<br>
-            UA: ${navigator.userAgent.substring(0, 40)}..
-        `;
-        document.body.appendChild(debugPanel);
-    }
-    
-    return debugInfo;
-}
-
-// ============================================================
 // INITIALIZATION
 // ============================================================
 function initDots() {
-    // Log device info
-    logDeviceDebugInfo();
-    
     // Create Scene
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0xffffff, 0.0004);
@@ -745,5 +688,4 @@ window.initDots = function() {
     window.dotsScene = scene;
     window.dotsCamera = camera;
     window.dotsRenderer = renderer;
-    console.log('[dots] Exposed: scene, camera, renderer, particles, particleMaterial');
 };

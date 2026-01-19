@@ -106,14 +106,8 @@ const createScheduleTabs = (card) => {
     const day2Data = card.dataset.scheduleDay2;
     const day3Data = card.dataset.scheduleDay3;
     
-    console.log('🎯 CREATING SCHEDULE TABS:', card.dataset.title);
-    console.log('   Day1:', day1Data ? day1Data.substring(0, 50) + '...' : 'NONE');
-    console.log('   Day2:', day2Data ? day2Data.substring(0, 50) + '...' : 'NONE');
-    console.log('   Day3:', day3Data ? day3Data.substring(0, 50) + '...' : 'NONE');
-    
     if (!day1Data && !day2Data && !day3Data) {
-        console.log('❌ No schedule data found, returning null');
-        return null; // No schedule data
+        return null;
     }
     
     // Create tabs container
@@ -255,7 +249,6 @@ const renderDetailCard = (card, options = {}) => {
         const oldScheduleContainer = contentWrapper.querySelector('.schedule-container');
         if (oldScheduleContainer) {
             oldScheduleContainer.remove();
-            console.log('🗑️  Old schedule container removed');
         }
 
         // Re-add schedule tabs for the new card if it has schedule data
@@ -265,7 +258,6 @@ const renderDetailCard = (card, options = {}) => {
             scheduleContainer.className = 'schedule-container';
             scheduleContainer.appendChild(newScheduleTabs);
             contentWrapper.appendChild(scheduleContainer);
-            console.log('✅ Updated schedule container for new card');
         }
 
         const selectedDemos = selectedDemosSource
@@ -395,9 +387,6 @@ const renderDetailCard = (card, options = {}) => {
         scheduleContainer.className = 'schedule-container';
         scheduleContainer.appendChild(scheduleTabs);
         contentWrapper.appendChild(scheduleContainer);
-        console.log('✅ Schedule container appended to detail card');
-    } else {
-        console.log('⚠️  No schedule tabs created for this card');
     }
 
     const demos = demosSource
