@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
     <title>Turinger '26</title>
-    <link rel="stylesheet" href="style.css?v=74">
+    <link rel="stylesheet" href="style.css?v=75">
     <link rel="icon" type="image/x-icon" href="./logos/favicon.png">
-    <link rel="stylesheet" href="concepts/uno.css?v=71">
-    <link rel="stylesheet" href="dots/dots.css?v=71">
+    <link rel="stylesheet" href="concepts/uno.css?v=72">
+    <link rel="stylesheet" href="dots/dots.css?v=72">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Zen+Dots&display=swap" rel="stylesheet">
@@ -189,6 +189,28 @@
 
     <!-- Concept Blur Overlay -->
     <div id="conceptBlurOverlay" class="concept-blur-overlay"></div>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul>
+            <li><a href="/#concept-uno" class="nav-link">Turinger</a></li>
+            <li><a href="/hackathon.html" class="nav-link">Hackathon</a></li>
+            <li><a href="/symposium.html" class="nav-link">Symposium</a></li>
+            <li><a href="/registration.html" class="nav-link">Register</a></li>
+            <li><a href="/sponsorship.html" class="nav-link">Sponsorship</a></li>
+            <li><a href="javascript:void(0)" id="themeToggle" class="nav-link">Toggle Dark Mode</a></li>
+        </ul>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
     <!-- Landing title overlay -->
     <div id="centerTitle" class="bbh-bartle-regular">TURINGER '26</div>
@@ -1090,6 +1112,65 @@
             });
         })();
         // ========== END UNONO CONTROLLER ==========
+
+        // ========== MOBILE MENU ==========
+        (function() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('mobileNavOverlay');
+            const navLinks = document.querySelectorAll('.mobile-nav a');
+            const themeToggle = document.getElementById('themeToggle');
+
+            function toggleMenu() {
+                menuBtn.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+            }
+
+            function closeMenu() {
+                menuBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', closeMenu);
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.id !== 'themeToggle') {
+                        closeMenu();
+                    }
+                });
+            });
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.body.classList.toggle('theme-black');
+                    if (typeof window.setSceneTheme === 'function') {
+                        const isDark = document.body.classList.contains('theme-black');
+                        window.setSceneTheme(isDark ? 'dark' : 'light');
+                    }
+                    themeToggle.textContent = document.body.classList.contains('theme-black') ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+                });
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeMenu();
+                }
+            });
+        })();
+        // ========== END MOBILE MENU ==========
 
     </script>
 </body>
